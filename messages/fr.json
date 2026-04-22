@@ -1,0 +1,43 @@
+{
+    "nav": {
+        "home": "Accueil",
+        "circuits": "Circuits",
+        "destinations": "Destinations",
+        "contact": "Contact",
+        "login": "Connexion",
+        "register": "Inscription",
+        "my_account": "mon compte"
+    },
+    "home": {
+        "hero_title": "L'Algérie Intemporelle",
+        "hero_sub": "Des voyages d'exception façonnés pour les âmes aventurières",
+        "cta": "Découvrir nos circuits"
+    },
+    "circuits": {
+        "title": "Nos Circuits",
+        "days": "jours",
+        "price": "Prix",
+        "book": "Réserver",
+        "available_seats": "Places disponibles"
+    },
+    "reservation": {
+        "title": "Réserver ce circuit",
+        "name": "Nom complet",
+        "phone": "Téléphone",
+        "email": "Email",
+        "wilaya": "Wilaya",
+        "people": "Nombre de personnes",
+        "notes": "Notes",
+        "submit": "Envoyer la demande",
+        "success": "Votre demande a été envoyée ! Nous vous contacterons sous 24h.",
+        "pending": "En attente",
+        "confirmed": "Confirmé",
+        "cancelled": "Annulé"
+    },
+    "account": {
+        "welcome": "Bonjour",
+        "my_reservations": "Mes Réservations",
+        "my_profile": "Mon Profil",
+        "no_reservations": "Vous n'avez pas encore de réservation."
+    }
+}

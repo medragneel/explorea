@@ -1,0 +1,43 @@
+{
+    "nav": {
+        "home": "Home",
+        "circuits": "Tours",
+        "destinations": "Destinations",
+        "contact": "Contact",
+        "login": "Login",
+        "register": "Sign Up",
+        "my_account": "My Account"
+    },
+    "home": {
+        "hero_title": "Timeless Algeria",
+        "hero_sub": "Exceptional journeys crafted for adventurous souls",
+        "cta": "Explore our tours"
+    },
+    "circuits": {
+        "title": "Our Tours",
+        "days": "days",
+        "price": "Price",
+        "book": "Book Now",
+        "available_seats": "Available seats"
+    },
+    "reservation": {
+        "title": "Book this tour",
+        "name": "Full name",
+        "phone": "Phone",
+        "email": "Email",
+        "wilaya": "Wilaya",
+        "people": "Number of people",
+        "notes": "Notes",
+        "submit": "Send request",
+        "success": "Your request has been sent! We will contact you within 24h.",
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled"
+    },
+    "account": {
+        "welcome": "Hello",
+        "my_reservations": "My Reservations",
+        "my_profile": "My Profile",
+        "no_reservations": "You have no reservations yet."
+    }
+}
