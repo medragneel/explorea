@@ -1,109 +1,392 @@
-// components/Navbar.tsx
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
-import { useTranslations, useLocale } from 'next-intl'
+import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useUser, UserButton } from '@clerk/nextjs'
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Separator } from '@/components/ui/separator'
-import { Menu } from 'lucide-react'
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu'
+import {
+    Menu,
+    MapPin,
+    Compass,
+    Tent,
+    Camera,
+    Phone,
+    ChevronRight,
+    X,
+} from 'lucide-react'
+// ✅ Use next-intl Link and useRouter — NOT next/link or next/navigation
+import { Link, useRouter, usePathname } from '@/lib/navigation'
 import LanguageSwitcher from './LanguageSwitcher'
 
-export default function Navbar() {
-    const t = useTranslations('nav')
-    const { isSignedIn } = useUser()
-    const locale = useLocale()
-    const [open, setOpen] = useState(false)
+const DESTINATIONS = [
+    { name: 'Grand Erg Oriental', region: 'Ouargla', icon: Compass, days: '8 jours', slug: 'grand-erg-oriental' },
+    { name: "Tassili n'Ajjer", region: 'Djanet · UNESCO', icon: Camera, days: '10 jours', slug: 'tassili-najjer' },
+    { name: "Route des Ksour", region: "Ghardaïa · M'Zab", icon: MapPin, days: '6 jours', slug: 'route-des-ksour' },
+    { name: 'Casbah & Côte', region: 'Alger · Béjaïa', icon: Tent, days: '5 jours', slug: 'casbah-cote' },
+]
 
-    const links = [
-        { href: `/${locale}`, label: t('home') },
-        { href: `/${locale}/circuits`, label: t('circuits') },
-        { href: `/${locale}/destinations`, label: t('destinations') },
-        { href: `/${locale}/contact`, label: t('contact') },
-    ]
+export default function Navbar() {
+    const { isSignedIn } = useUser()
+    const [scrolled, setScrolled] = useState(false)
+    const [mobileOpen, setMobileOpen] = useState(false)
+    const { scrollY } = useScroll()
+    const t = useTranslations('nav')
+
+    useMotionValueEvent(scrollY, 'change', (latest) => {
+        setScrolled(latest > 40)
+    })
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-16 items-center justify-between">
-
-                {/* Logo */}
-                <Link href={`/${locale}`} className="font-bold text-xl tracking-widest">
-                    SAHA<span className="text-amber-500">R</span>A
-                </Link>
-
-                {/* Desktop nav */}
-                <nav className="hidden md:flex items-center gap-6">
-                    {links.map(link => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+        <>
+            <motion.header
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+                    ? 'bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)]'
+                    : 'bg-white border-b border-[#B8962E]/15'
+                    }`}
+            >
+                {/* ── TOP MICRO-BAR ─────────────────────────────────────── */}
+                <AnimatePresence>
+                    {!scrolled && (
+                        <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden bg-[#1B2D5B]"
                         >
-                            {link.label}
-                        </Link>
-                    ))}
-                </nav>
-
-                {/* Right side */}
-                <div className="flex items-center gap-3">
-                    <LanguageSwitcher />
-
-                    {isSignedIn ? (
-                        <div className="flex items-center gap-3">
-                            <Button variant="ghost" size="sm" asChild>
-                                <Link href={`/${locale}/mon-compte`}>{t('my_account')}</Link>
-                            </Button>
-                            <UserButton afterSignOutUrl={`/${locale}`} />
-                        </div>
-                    ) : (
-                        <div className="hidden md:flex items-center gap-2">
-                            <Button variant="ghost" size="sm" asChild>
-                                <Link href={`/${locale}/connexion`}>{t('login')}</Link>
-                            </Button>
-                            <Button size="sm" asChild>
-                                <Link href={`/${locale}/inscription`}>{t('register')}</Link>
-                            </Button>
-                        </div>
-                    )}
-
-                    {/* Mobile menu */}
-                    <Sheet open={open} onOpenChange={setOpen}>
-                        <SheetTrigger asChild className="md:hidden">
-                            <Button variant="ghost" size="icon">
-                                <Menu className="h-5 w-5" />
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="right">
-                            <div className="flex flex-col gap-4 mt-8">
-                                {links.map(link => (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        className="text-lg font-medium"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        {link.label}
-                                    </Link>
-                                ))}
-                                <Separator />
-                                {!isSignedIn && (
-                                    <div className="flex flex-col gap-2">
-                                        <Button variant="outline" asChild>
-                                            <Link href={`/${locale}/connexion`}>{t('login')}</Link>
-                                        </Button>
-                                        <Button asChild>
-                                            <Link href={`/${locale}/inscription`}>{t('register')}</Link>
-                                        </Button>
-                                    </div>
-                                )}
+                            <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center justify-between">
+                                <div className="flex items-center gap-1.5 text-white">
+                                    <Phone className="h-3 w-3" />
+                                    <span className="text-[10px] font-mono tracking-widest">+213 21 XX XX XX</span>
+                                </div>
+                                <span className="text-[10px] font-mono tracking-[0.3em] text-white/50 uppercase">
+                                    Explorez sans limites
+                                </span>
+                                <div className="text-[10px] font-mono tracking-widest text-white">
+                                    info@explorea.dz
+                                </div>
                             </div>
-                        </SheetContent>
-                    </Sheet>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* ── MAIN NAVBAR ───────────────────────────────────────── */}
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="flex items-center justify-between h-16 md:h-20 relative">
+
+                        {/* LEFT NAV */}
+                        <div className="hidden md:flex items-center gap-1 flex-1">
+                            <NavigationMenu>
+                                <NavigationMenuList className="gap-0">
+
+                                    {/* Accueil */}
+                                    <NavigationMenuItem>
+                                        {/* ✅ next-intl Link — no /${locale} prefix needed */}
+                                        <Link href="/" legacyBehavior passHref>
+                                            <NavigationMenuLink className="group inline-flex h-9 items-center px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative">
+                                                {t("home")}
+                                                <span className="absolute bottom-1 left-4 right-4 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                                            </NavigationMenuLink>
+                                        </Link>
+                                    </NavigationMenuItem>
+
+                                    {/* Destinations dropdown */}
+                                    <NavigationMenuItem>
+                                        <NavigationMenuTrigger className="h-9 px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#B8962E] transition-colors duration-300">
+                                            {t("destinations")}
+                                        </NavigationMenuTrigger>
+                                        <NavigationMenuContent>
+                                            <div className="w-[520px] bg-white border border-[#1B2D5B]/10 shadow-2xl p-0 overflow-hidden">
+                                                <div className="px-6 py-4 border-b border-[#1B2D5B]/10 bg-[#1B2D5B]/[0.03]">
+                                                    <p className="text-[10px] font-mono tracking-[0.35em] text-[#B8962E] uppercase">
+                                                        Nos destinations phares
+                                                    </p>
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-px bg-[#1B2D5B]/[0.04] p-px">
+                                                    {DESTINATIONS.map((dest) => (
+                                                        <Link
+                                                            key={dest.slug}
+                                                            href={`/destinations/${dest.slug}`}
+                                                            className="group flex items-start gap-3 p-5 bg-white hover:bg-[#1B2D5B]/[0.03] transition-colors duration-200"
+                                                        >
+                                                            <div className="mt-0.5 w-7 h-7 rounded-full bg-[#B8962E]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#B8962E]/20 transition-colors duration-200">
+                                                                <dest.icon className="h-3.5 w-3.5 text-[#B8962E]" />
+                                                            </div>
+                                                            <div>
+                                                                <div className="text-[#1B2D5B] text-sm font-light">
+                                                                    {dest.name}
+                                                                </div>
+                                                                <div className="text-[#1B2D5B]/40 text-[10px] font-mono tracking-wide mt-0.5">
+                                                                    {dest.region}
+                                                                </div>
+                                                                <div className="text-[#B8962E]/70 text-[9px] font-mono tracking-wider mt-1 uppercase">
+                                                                    {dest.days}
+                                                                </div>
+                                                            </div>
+                                                            <ChevronRight className="ml-auto h-3 w-3 text-[#1B2D5B]/15 group-hover:text-[#B8962E]/60 group-hover:translate-x-0.5 transition-all duration-200 mt-1" />
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                                <div className="px-6 py-3 bg-[#1B2D5B]/[0.03] border-t border-[#1B2D5B]/10">
+                                                    <Link
+                                                        href="/destinations"
+                                                        className="flex items-center gap-2 text-[#B8962E] text-[10px] font-mono tracking-widest uppercase hover:text-[#1B2D5B] transition-colors duration-200 group"
+                                                    >
+                                                        Voir toutes les destinations
+                                                        <ChevronRight className="h-3 w-3 group-hover:translate-x-1 transition-transform duration-200" />
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </NavigationMenuContent>
+                                    </NavigationMenuItem>
+
+                                    {/* Circuits */}
+                                    <NavigationMenuItem>
+                                        <Link href="/circuits" legacyBehavior passHref>
+                                            <NavigationMenuLink className="group inline-flex h-9 items-center px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative">
+                                                {t("circuits")}
+                                                <span className="absolute bottom-1 left-4 right-4 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                                            </NavigationMenuLink>
+                                        </Link>
+                                    </NavigationMenuItem>
+
+                                </NavigationMenuList>
+                            </NavigationMenu>
+                        </div>
+
+                        {/* CENTER LOGO */}
+                        <div className="absolute left-1/2 -translate-x-1/2">
+                            <Link href="/" className="block group">
+                                <motion.div
+                                    whileHover={{ scale: 1.03 }}
+                                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                                >
+                                    <Image
+                                        src="/explorea_logo_dark.png"
+                                        alt="Explorea — Explorez sans limites"
+                                        width={70}
+                                        height={35}
+                                        className="object-contain"
+                                        priority
+                                    />
+                                </motion.div>
+                            </Link>
+                        </div>
+
+                        {/* RIGHT SIDE */}
+                        <div className="hidden md:flex items-center gap-3 flex-1 justify-end">
+                            <Link
+                                href="/contact"
+                                className="group text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative px-4 py-2"
+                            >
+                                {t("contact")}
+                                <span className="absolute bottom-0 left-4 right-4 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                            </Link>
+
+                            <LanguageSwitcher />
+
+                            {isSignedIn ? (
+                                <div className="flex items-center gap-3">
+                                    <Link
+                                        href="/mon-compte"
+                                        className="text-xs font-mono tracking-widest text-[#1B2D5B]/50 hover:text-[#B8962E] uppercase transition-colors duration-300"
+                                    >
+                                        {t("my_account")}
+                                    </Link>
+                                    <UserButton afterSignOutUrl="/" />
+                                </div>
+                            ) : (
+                                <div className="flex items-center gap-2">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        asChild
+                                        className="text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/5 rounded-none text-xs tracking-widest font-light h-9 px-4"
+                                    >
+                                        <Link href="/connexion">Connexion</Link>
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        asChild
+                                        className="rounded-none bg-[#B8962E] hover:bg-[#D4AF5A] text-white text-xs tracking-widest font-light h-9 px-5 transition-all duration-300 shadow-[0_0_20px_rgba(184,150,46,0.2)] hover:shadow-[0_0_30px_rgba(184,150,46,0.35)]"
+                                    >
+                                        <Link href="/inscription">Réserver</Link>
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* MOBILE RIGHT */}
+                        <div className="flex md:hidden items-center gap-2 ml-auto">
+                            <LanguageSwitcher />
+                            <button
+                                onClick={() => setMobileOpen(true)}
+                                className="p-2 text-[#1B2D5B]/60 hover:text-[#1B2D5B] transition-colors"
+                            >
+                                <Menu className="h-5 w-5" />
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
 
-            </div>
-        </header>
+                {/* Gold bottom line on scroll */}
+                <AnimatePresence>
+                    {scrolled && (
+                        <motion.div
+                            initial={{ scaleX: 0, opacity: 0 }}
+                            animate={{ scaleX: 1, opacity: 1 }}
+                            exit={{ scaleX: 0, opacity: 0 }}
+                            className="h-px bg-gradient-to-r from-transparent via-[#B8962E]/40 to-transparent origin-center"
+                        />
+                    )}
+                </AnimatePresence>
+            </motion.header>
+
+            {/* ── MOBILE DRAWER ─────────────────────────────────────────── */}
+            <AnimatePresence>
+                {mobileOpen && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setMobileOpen(false)}
+                            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+                        />
+
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 35 }}
+                            className="fixed top-0 right-0 bottom-0 z-50 w-80 bg-white border-l border-[#1B2D5B]/10 flex flex-col overflow-y-auto"
+                        >
+                            {/* Header */}
+                            <div className="flex items-center justify-between px-6 py-5 border-b border-[#1B2D5B]/10">
+                                <Image
+                                    src="/explorea_logo_dark.png"
+                                    alt="Explorea"
+                                    width={90}
+                                    height={60}
+                                    className="object-contain"
+                                />
+                                <button
+                                    onClick={() => setMobileOpen(false)}
+                                    className="p-2 text-[#1B2D5B]/40 hover:text-[#1B2D5B] transition-colors"
+                                >
+                                    <X className="h-4 w-4" />
+                                </button>
+                            </div>
+
+                            {/* Nav links */}
+                            <nav className="flex-1 px-4 py-6">
+                                <div className="space-y-1">
+                                    {[
+                                        { href: '/', label: 'Accueil' },
+                                        { href: '/destinations', label: 'Destinations' },
+                                        { href: '/circuits', label: 'Circuits' },
+                                        { href: '/contact', label: 'Contact' },
+                                    ].map((link, i) => (
+                                        <motion.div
+                                            key={link.href}
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: i * 0.07 }}
+                                        >
+                                            <Link
+                                                href={link.href}
+                                                onClick={() => setMobileOpen(false)}
+                                                className="flex items-center justify-between px-4 py-3.5 text-sm font-light tracking-[0.1em] uppercase text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/[0.04] transition-all duration-200 group rounded-sm"
+                                            >
+                                                {link.label}
+                                                <ChevronRight className="h-3 w-3 text-[#1B2D5B]/20 group-hover:text-[#B8962E] group-hover:translate-x-0.5 transition-all duration-200" />
+                                            </Link>
+                                        </motion.div>
+                                    ))}
+                                </div>
+
+                                <div className="my-6 h-px bg-[#1B2D5B]/10" />
+
+                                <div className="px-4 mb-4">
+                                    <p className="text-[9px] font-mono tracking-[0.4em] uppercase text-[#B8962E] mb-3">
+                                        Destinations phares
+                                    </p>
+                                    <div className="space-y-2">
+                                        {DESTINATIONS.map((dest, i) => (
+                                            <motion.div
+                                                key={dest.slug}
+                                                initial={{ opacity: 0, x: 20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 0.3 + i * 0.06 }}
+                                            >
+                                                <Link
+                                                    href={`/destinations/${dest.slug}`}
+                                                    onClick={() => setMobileOpen(false)}
+                                                    className="flex items-center gap-3 py-2 text-[#1B2D5B]/40 hover:text-[#1B2D5B] transition-colors duration-200 group"
+                                                >
+                                                    <dest.icon className="h-3.5 w-3.5 text-[#B8962E]/50 group-hover:text-[#B8962E]" />
+                                                    <span className="text-xs font-light">{dest.name}</span>
+                                                </Link>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </nav>
+
+                            {/* Footer */}
+                            <div className="px-6 py-6 border-t border-[#1B2D5B]/10 space-y-3">
+                                {isSignedIn ? (
+                                    <div className="flex items-center gap-3">
+                                        <UserButton afterSignOutUrl="/" />
+                                        <span className="text-xs text-[#1B2D5B]/40 font-mono">Mon compte</span>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <Button
+                                            variant="outline"
+                                            className="w-full rounded-none border-[#1B2D5B]/20 text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/5 text-xs tracking-widest h-10"
+                                            asChild
+                                        >
+                                            <Link href="/connexion" onClick={() => setMobileOpen(false)}>
+                                                Connexion
+                                            </Link>
+                                        </Button>
+                                        <Button
+                                            className="w-full rounded-none bg-[#B8962E] hover:bg-[#D4AF5A] text-white text-xs tracking-widest h-10 transition-all duration-300"
+                                            asChild
+                                        >
+                                            <Link href="/inscription" onClick={() => setMobileOpen(false)}>
+                                                Réserver maintenant
+                                            </Link>
+                                        </Button>
+                                    </>
+                                )}
+
+                                <div className="pt-2 flex items-center justify-between">
+                                    <p className="text-[10px] font-mono text-[#1B2D5B]/30 tracking-widest">
+                                        +213 21 XX XX XX
+                                    </p>
+                                    <LanguageSwitcher />
+                                </div>
+                            </div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
+        </>
     )
 }

@@ -33,7 +33,7 @@ export default async function LocaleLayout({
     children: React.ReactNode
     params: { locale: string }
 }) {
-    const { locale } = params
+    const { locale } = await params
     console.log(locale)
     const messages = await getMessages({ locale })
     console.log(messages)

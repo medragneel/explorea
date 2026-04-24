@@ -1,8 +1,8 @@
 'use client'
 
 import { useLocale } from 'next-intl'
-import { usePathname, useRouter } from 'next/navigation'
-import { useTransition } from 'react'
+import { usePathname, useRouter } from '@/lib/navigation' // ✅ next-intl router
+import { useTransition, useEffect, useState } from 'react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,8 +10,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
-import { Globe, Loader2 } from 'lucide-react'
-import { locales } from '@/i18n/config'
+import { Globe, Loader2, Check } from 'lucide-react'
 
 const languages = [
     { code: 'fr', label: 'Français', flag: '🇫🇷' },
@@ -24,57 +23,58 @@ export default function LanguageSwitcher() {
     const router = useRouter()
     const pathname = usePathname()
     const [isPending, startTransition] = useTransition()
+    const [mounted, setMounted] = useState(false)
 
-    const currentLang = languages.find(l => l.code === locale)
+    useEffect(() => { setMounted(true) }, [])
 
     function switchLocale(newLocale: string) {
         if (newLocale === locale) return
-
-        // Remove any existing locale prefix from the path
-        let newPath = pathname
-
-        // Strip current locale prefix if it exists
-        for (const loc of locales) {
-            if (newPath.startsWith(`/${loc}`)) {
-                newPath = newPath.slice(`/${loc}`.length) || '/'
-                break
-            }
-        }
-
-        // Add new locale prefix (skip for default locale if using as-needed)
-        const finalPath = newLocale === 'fr'
-            ? newPath                        // fr is default, no prefix needed
-            : `/${newLocale}${newPath}`
-
         startTransition(() => {
-            router.push(finalPath)
-            router.refresh()
+            // ✅ next-intl router handles locale prefix automatically
+            router.replace(pathname, { locale: newLocale })
         })
     }
 
+    if (!mounted) {
+        return (
+            <Button variant="ghost" size="sm" disabled className="gap-2 text-[#1B2D5B]/40">
+                <Globe className="h-4 w-4" />
+            </Button>
+        )
+    }
+
+    const currentLang = languages.find(l => l.code === locale)
+
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>  {/* ✅ asChild fixes the button nesting */}
-                <Button variant="ghost" size="sm" className="gap-2" disabled={isPending}>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    disabled={isPending}
+                    className="gap-2 text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/5"
+                >
                     {isPending
                         ? <Loader2 className="h-4 w-4 animate-spin" />
                         : <Globe className="h-4 w-4" />
                     }
-                    <span>{currentLang?.flag} {currentLang?.label}</span>
+                    <span className="text-xs">{currentLang?.flag} {currentLang?.label}</span>
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="min-w-[160px]">
                 {languages.map((lang) => (
                     <DropdownMenuItem
                         key={lang.code}
                         onClick={() => switchLocale(lang.code)}
-                        className={locale === lang.code ? 'bg-accent font-medium' : 'cursor-pointer'}
+                        className="flex items-center justify-between cursor-pointer"
                     >
-                        <span className="mr-2 text-base">{lang.flag}</span>
-                        {lang.label}
+                        <div className="flex items-center gap-2">
+                            <span className="text-base">{lang.flag}</span>
+                            <span className="text-sm">{lang.label}</span>
+                        </div>
                         {locale === lang.code && (
-                            <span className="ml-auto text-xs text-muted-foreground">✓</span>
+                            <Check className="h-3.5 w-3.5 text-[#B8962E]" />
                         )}
                     </DropdownMenuItem>
                 ))}
