@@ -6,7 +6,13 @@
         "contact": "Contact",
         "login": "Connexion",
         "register": "Inscription",
-        "my_account": "mon compte"
+        "account": "mon compte",
+        "tagline": "Explorez sans limites",
+        "phone": "+213 21 XX XX XX",
+        "email": "info@explorea.dz",
+        "all_destinations": "Voir toutes les destinations",
+        "top_destinations": "Nos destinations phares",
+        "book_now": "Réserver maintenant"
     },
     "home": {
         "hero_title": "L'Algérie Intemporelle",
@@ -15,10 +21,21 @@
     },
     "circuits": {
         "title": "Nos Circuits",
+        "subtitle": "Découvrez l'Algérie authentique à travers nos circuits soigneusement sélectionnés.",
         "days": "jours",
         "price": "Prix",
+        "from": "À partir de",
         "book": "Réserver",
-        "available_seats": "Places disponibles"
+        "available_seats": "Places disponibles",
+        "filter_all": "Tous",
+        "filter_sahara": "Sahara",
+        "filter_nord": "Nord",
+        "filter_culturel": "Culturel",
+        "sort_price_asc": "Prix croissant",
+        "sort_price_desc": "Prix décroissant",
+        "sort_duration": "Durée",
+        "no_results": "Aucun circuit trouvé",
+        "search_placeholder": "Rechercher..."
     },
     "reservation": {
         "title": "Réserver ce circuit",

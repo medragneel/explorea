@@ -1,4 +1,3 @@
-// components/ReservationForm.tsx
 'use client'
 
 import { useState } from 'react'
@@ -20,8 +19,8 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { useToast } from '@/hooks/use-toast'
-import { Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
+import { Loader2, CheckCircle2 } from 'lucide-react'
 
 const wilayas = [
     'Adrar', 'Chlef', 'Laghouat', 'Oum El Bouaghi',
@@ -39,7 +38,7 @@ const wilayas = [
     'Relizane', 'Timimoun', 'Bordj Badji Mokhtar',
     'Ouled Djellal', 'Béni Abbès', 'In Salah',
     'In Guezzam', 'Touggourt', 'Djanet',
-    'El M\'Ghair', 'El Meniaa'
+    "El M'Ghair", 'El Meniaa'
 ]
 
 export default function ReservationForm({
@@ -50,8 +49,8 @@ export default function ReservationForm({
     circuitNom: string
 }) {
     const t = useTranslations('reservation')
-    const { toast } = useToast()
     const [loading, setLoading] = useState(false)
+    const [submitted, setSubmitted] = useState(false)
 
     const [form, setForm] = useState({
         nom: '',
@@ -64,6 +63,14 @@ export default function ReservationForm({
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
+        // ✅ guard against missing departId
+        if (!departId) {
+            toast.error('Aucune date de départ disponible', {
+                description: 'Veuillez contacter notre équipe directement.',
+            })
+            return
+        }
+
         setLoading(true)
 
         try {
@@ -73,9 +80,12 @@ export default function ReservationForm({
                 body: JSON.stringify({ ...form, departId }),
             })
 
-            if (res.ok) {
-                toast({
-                    title: '✅ ' + t('success'),
+            const data = await res.json()
+
+            if (res.ok && data.success) {
+                // ✅ success
+                setSubmitted(true)
+                toast.success(t('success'), {
                     description: circuitNom,
                 })
                 setForm({
@@ -83,17 +93,43 @@ export default function ReservationForm({
                     wilaya: '', nombrePersonnes: '1', notes: ''
                 })
             } else {
-                throw new Error()
+                // ❌ server returned error with message
+                console.error('API error:', data.error)
+                toast.error('Erreur', {
+                    description: data.error || 'Veuillez réessayer.',
+                })
             }
-        } catch {
-            toast({
-                title: 'Erreur',
-                description: 'Veuillez réessayer.',
-                variant: 'destructive',
+        } catch (err) {
+            // ❌ network or parse error
+            console.error('Network error:', err)
+            toast.error('Erreur de connexion', {
+                description: 'Vérifiez votre connexion et réessayez.',
             })
         } finally {
             setLoading(false)
         }
+    }
+
+    // ── Success state ──────────────────────────────────────────────
+    if (submitted) {
+        return (
+            <Card>
+                <CardContent className="flex flex-col items-center text-center py-12 gap-4">
+                    <CheckCircle2 className="h-12 w-12 text-emerald-500" />
+                    <div>
+                        <h3 className="text-lg font-medium text-[#1B2D5B] mb-2">
+                            Demande envoyée !
+                        </h3>
+                        <p className="text-sm text-[#1B2D5B]/50 max-w-xs mx-auto">
+                            Notre équipe vous contactera sous 24h pour confirmer votre réservation de <strong>{circuitNom}</strong>.
+                        </p>
+                    </div>
+                    <p className="text-xs font-mono text-amber-600 bg-amber-50 border border-amber-200 px-4 py-2">
+                        💵 Paiement en espèces à la confirmation
+                    </p>
+                </CardContent>
+            </Card>
+        )
     }
 
     return (
@@ -120,6 +156,7 @@ export default function ReservationForm({
                                 id="telephone"
                                 required
                                 type="tel"
+                                placeholder="0661 234 567"
                                 value={form.telephone}
                                 onChange={e => setForm({ ...form, telephone: e.target.value })}
                             />
@@ -131,6 +168,7 @@ export default function ReservationForm({
                         <Input
                             id="email"
                             type="email"
+                            placeholder="optionnel"
                             value={form.email}
                             onChange={e => setForm({ ...form, email: e.target.value })}
                         />
@@ -140,9 +178,9 @@ export default function ReservationForm({
                         <div className="space-y-2">
                             <Label>{t('wilaya')} *</Label>
                             <Select
-                                required
                                 value={form.wilaya}
                                 onValueChange={v => setForm({ ...form, wilaya: v })}
+                                required
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Choisir..." />
@@ -178,8 +216,19 @@ export default function ReservationForm({
                             onChange={e => setForm({ ...form, notes: e.target.value })}
                         />
                     </div>
+                    // just above the submit button
+                    {!departId && (
+                        <div className="text-xs text-amber-600 bg-amber-50 border border-amber-200 px-3 py-2 rounded">
+                            ⚠️ Aucune date de départ disponible pour ce circuit. Contactez-nous au +213 21 XX XX XX.
+                        </div>
+                    )}
 
-                    <Button type="submit" className="w-full" disabled={loading}>
+
+                    <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={loading || !form.wilaya}
+                    >
                         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         {t('submit')}
                     </Button>

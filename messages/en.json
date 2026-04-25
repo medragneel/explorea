@@ -6,7 +6,13 @@
         "contact": "Contact",
         "login": "Login",
         "register": "Sign Up",
-        "my_account": "My Account"
+        "account": "My Account",
+        "tagline": "Explore without limits",
+        "phone": "+213 21 XX XX XX",
+        "email": "info@explorea.dz",
+        "all_destinations": "View all destinations",
+        "top_destinations": "Featured destinations",
+        "book_now": "Book Now"
     },
     "home": {
         "hero_title": "Timeless Algeria",

@@ -2,15 +2,13 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { useUser, UserButton } from '@clerk/nextjs'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
-import { Button } from '@/components/ui/button'
 import {
     NavigationMenu,
     NavigationMenuContent,
     NavigationMenuItem,
-    NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
@@ -24,27 +22,28 @@ import {
     ChevronRight,
     X,
 } from 'lucide-react'
-// ✅ Use next-intl Link and useRouter — NOT next/link or next/navigation
-import { Link, useRouter, usePathname } from '@/lib/navigation'
+import { Link } from '@/lib/navigation'
 import LanguageSwitcher from './LanguageSwitcher'
 
-const DESTINATIONS = [
-    { name: 'Grand Erg Oriental', region: 'Ouargla', icon: Compass, days: '8 jours', slug: 'grand-erg-oriental' },
-    { name: "Tassili n'Ajjer", region: 'Djanet · UNESCO', icon: Camera, days: '10 jours', slug: 'tassili-najjer' },
-    { name: "Route des Ksour", region: "Ghardaïa · M'Zab", icon: MapPin, days: '6 jours', slug: 'route-des-ksour' },
-    { name: 'Casbah & Côte', region: 'Alger · Béjaïa', icon: Tent, days: '5 jours', slug: 'casbah-cote' },
-]
-
 export default function Navbar() {
+    const t = useTranslations('nav')
+    const locale = useLocale()
     const { isSignedIn } = useUser()
     const [scrolled, setScrolled] = useState(false)
     const [mobileOpen, setMobileOpen] = useState(false)
     const { scrollY } = useScroll()
-    const t = useTranslations('nav')
 
     useMotionValueEvent(scrollY, 'change', (latest) => {
         setScrolled(latest > 40)
     })
+
+    // ✅ Destinations use translated names but fixed slugs
+    const DESTINATIONS = [
+        { name: 'Grand Erg Oriental', region: 'Ouargla', icon: Compass, days: '8 jours', slug: 'grand-erg-oriental' },
+        { name: "Tassili n'Ajjer", region: 'Djanet · UNESCO', icon: Camera, days: '10 jours', slug: 'tassili-najjer' },
+        { name: "Route des Ksour", region: "Ghardaïa · M'Zab", icon: MapPin, days: '6 jours', slug: 'route-des-ksour' },
+        { name: 'Casbah & Côte', region: 'Alger · Béjaïa', icon: Tent, days: '5 jours', slug: 'casbah-cote' },
+    ]
 
     return (
         <>
@@ -53,8 +52,8 @@ export default function Navbar() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                    ? 'bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)]'
-                    : 'bg-white border-b border-[#B8962E]/15'
+                        ? 'bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)]'
+                        : 'bg-white border-b border-[#B8962E]/15'
                     }`}
             >
                 {/* ── TOP MICRO-BAR ─────────────────────────────────────── */}
@@ -70,13 +69,14 @@ export default function Navbar() {
                             <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center justify-between">
                                 <div className="flex items-center gap-1.5 text-white">
                                     <Phone className="h-3 w-3" />
-                                    <span className="text-[10px] font-mono tracking-widest">+213 21 XX XX XX</span>
+                                    {/* ✅ translated */}
+                                    <span className="text-[10px] font-mono tracking-widest">{t('phone')}</span>
                                 </div>
                                 <span className="text-[10px] font-mono tracking-[0.3em] text-white/50 uppercase">
-                                    Explorez sans limites
+                                    {t('tagline')}
                                 </span>
                                 <div className="text-[10px] font-mono tracking-widest text-white">
-                                    info@explorea.dz
+                                    {t('email')}
                                 </div>
                             </div>
                         </motion.div>
@@ -94,25 +94,25 @@ export default function Navbar() {
 
                                     {/* Accueil */}
                                     <NavigationMenuItem>
-                                        {/* ✅ next-intl Link — no /${locale} prefix needed */}
-                                        <Link href="/" legacyBehavior passHref>
-                                            <NavigationMenuLink className="group inline-flex h-9 items-center px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative">
-                                                {t("home")}
-                                                <span className="absolute bottom-1 left-4 right-4 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                                            </NavigationMenuLink>
+                                        <Link
+                                            href="/"
+                                            className="group inline-flex h-9 items-center px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative"
+                                        >
+                                            {t('home')}
+                                            <span className="absolute bottom-1 left-4 right-4 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                                         </Link>
                                     </NavigationMenuItem>
 
                                     {/* Destinations dropdown */}
                                     <NavigationMenuItem>
                                         <NavigationMenuTrigger className="h-9 px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-[#B8962E] transition-colors duration-300">
-                                            {t("destinations")}
+                                            {t('destinations')}
                                         </NavigationMenuTrigger>
                                         <NavigationMenuContent>
                                             <div className="w-[520px] bg-white border border-[#1B2D5B]/10 shadow-2xl p-0 overflow-hidden">
                                                 <div className="px-6 py-4 border-b border-[#1B2D5B]/10 bg-[#1B2D5B]/[0.03]">
                                                     <p className="text-[10px] font-mono tracking-[0.35em] text-[#B8962E] uppercase">
-                                                        Nos destinations phares
+                                                        {t('top_destinations')}
                                                     </p>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-px bg-[#1B2D5B]/[0.04] p-px">
@@ -145,7 +145,7 @@ export default function Navbar() {
                                                         href="/destinations"
                                                         className="flex items-center gap-2 text-[#B8962E] text-[10px] font-mono tracking-widest uppercase hover:text-[#1B2D5B] transition-colors duration-200 group"
                                                     >
-                                                        Voir toutes les destinations
+                                                        {t('all_destinations')}
                                                         <ChevronRight className="h-3 w-3 group-hover:translate-x-1 transition-transform duration-200" />
                                                     </Link>
                                                 </div>
@@ -155,11 +155,12 @@ export default function Navbar() {
 
                                     {/* Circuits */}
                                     <NavigationMenuItem>
-                                        <Link href="/circuits" legacyBehavior passHref>
-                                            <NavigationMenuLink className="group inline-flex h-9 items-center px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative">
-                                                {t("circuits")}
-                                                <span className="absolute bottom-1 left-4 right-4 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                                            </NavigationMenuLink>
+                                        <Link
+                                            href="/circuits"
+                                            className="group inline-flex h-9 items-center px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative"
+                                        >
+                                            {t('circuits')}
+                                            <span className="absolute bottom-1 left-4 right-4 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                                         </Link>
                                     </NavigationMenuItem>
 
@@ -192,7 +193,7 @@ export default function Navbar() {
                                 href="/contact"
                                 className="group text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative px-4 py-2"
                             >
-                                {t("contact")}
+                                {t('contact')}
                                 <span className="absolute bottom-0 left-4 right-4 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                             </Link>
 
@@ -204,27 +205,24 @@ export default function Navbar() {
                                         href="/mon-compte"
                                         className="text-xs font-mono tracking-widest text-[#1B2D5B]/50 hover:text-[#B8962E] uppercase transition-colors duration-300"
                                     >
-                                        {t("my_account")}
+                                        {t('account')}
                                     </Link>
                                     <UserButton afterSignOutUrl="/" />
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-2">
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        asChild
-                                        className="text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/5 rounded-none text-xs tracking-widest font-light h-9 px-4"
+                                    <Link
+                                        href="/connexion"
+                                        className="inline-flex items-center h-9 px-4 text-xs tracking-widest font-light rounded-none text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/5 transition-colors duration-200"
                                     >
-                                        <Link href="/connexion">Connexion</Link>
-                                    </Button>
-                                    <Button
-                                        size="sm"
-                                        asChild
-                                        className="rounded-none bg-[#B8962E] hover:bg-[#D4AF5A] text-white text-xs tracking-widest font-light h-9 px-5 transition-all duration-300 shadow-[0_0_20px_rgba(184,150,46,0.2)] hover:shadow-[0_0_30px_rgba(184,150,46,0.35)]"
+                                        {t('login')}
+                                    </Link>
+                                    <Link
+                                        href="/inscription"
+                                        className="inline-flex items-center h-9 px-5 text-xs tracking-widest font-light rounded-none bg-[#B8962E] hover:bg-[#D4AF5A] text-white transition-all duration-300 shadow-[0_0_20px_rgba(184,150,46,0.2)] hover:shadow-[0_0_30px_rgba(184,150,46,0.35)]"
                                     >
-                                        <Link href="/inscription">Réserver</Link>
-                                    </Button>
+                                        {t('register')}
+                                    </Link>
                                 </div>
                             )}
                         </div>
@@ -296,10 +294,10 @@ export default function Navbar() {
                             <nav className="flex-1 px-4 py-6">
                                 <div className="space-y-1">
                                     {[
-                                        { href: '/', label: 'Accueil' },
-                                        { href: '/destinations', label: 'Destinations' },
-                                        { href: '/circuits', label: 'Circuits' },
-                                        { href: '/contact', label: 'Contact' },
+                                        { href: '/', label: t('home') },
+                                        { href: '/destinations', label: t('destinations') },
+                                        { href: '/circuits', label: t('circuits') },
+                                        { href: '/contact', label: t('contact') },
                                     ].map((link, i) => (
                                         <motion.div
                                             key={link.href}
@@ -323,7 +321,7 @@ export default function Navbar() {
 
                                 <div className="px-4 mb-4">
                                     <p className="text-[9px] font-mono tracking-[0.4em] uppercase text-[#B8962E] mb-3">
-                                        Destinations phares
+                                        {t('top_destinations')}
                                     </p>
                                     <div className="space-y-2">
                                         {DESTINATIONS.map((dest, i) => (
@@ -352,33 +350,32 @@ export default function Navbar() {
                                 {isSignedIn ? (
                                     <div className="flex items-center gap-3">
                                         <UserButton afterSignOutUrl="/" />
-                                        <span className="text-xs text-[#1B2D5B]/40 font-mono">Mon compte</span>
+                                        <span className="text-xs text-[#1B2D5B]/40 font-mono">
+                                            {t('account')}
+                                        </span>
                                     </div>
                                 ) : (
                                     <>
-                                        <Button
-                                            variant="outline"
-                                            className="w-full rounded-none border-[#1B2D5B]/20 text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/5 text-xs tracking-widest h-10"
-                                            asChild
+                                        <Link
+                                            href="/connexion"
+                                            onClick={() => setMobileOpen(false)}
+                                            className="flex items-center justify-center w-full h-10 rounded-none border border-[#1B2D5B]/20 text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/5 text-xs tracking-widest transition-colors duration-200"
                                         >
-                                            <Link href="/connexion" onClick={() => setMobileOpen(false)}>
-                                                Connexion
-                                            </Link>
-                                        </Button>
-                                        <Button
-                                            className="w-full rounded-none bg-[#B8962E] hover:bg-[#D4AF5A] text-white text-xs tracking-widest h-10 transition-all duration-300"
-                                            asChild
+                                            {t('login')}
+                                        </Link>
+                                        <Link
+                                            href="/inscription"
+                                            onClick={() => setMobileOpen(false)}
+                                            className="flex items-center justify-center w-full h-10 rounded-none bg-[#B8962E] hover:bg-[#D4AF5A] text-white text-xs tracking-widest transition-all duration-300"
                                         >
-                                            <Link href="/inscription" onClick={() => setMobileOpen(false)}>
-                                                Réserver maintenant
-                                            </Link>
-                                        </Button>
+                                            {t('book_now')}
+                                        </Link>
                                     </>
                                 )}
 
                                 <div className="pt-2 flex items-center justify-between">
                                     <p className="text-[10px] font-mono text-[#1B2D5B]/30 tracking-widest">
-                                        +213 21 XX XX XX
+                                        {t('phone')}
                                     </p>
                                     <LanguageSwitcher />
                                 </div>

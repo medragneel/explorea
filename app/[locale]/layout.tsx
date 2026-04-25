@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
 import { locales } from '@/i18n/config'
 import Navbar from "@/components/Navbar"
+import { Toaster } from '@/components/ui/sonner'
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -47,8 +48,8 @@ export default async function LocaleLayout({
             >
                 <body className="min-h-full flex flex-col">
                     <NextIntlClientProvider locale={locale} messages={messages}>
-                        <Navbar />
                         {children}
+                        <Toaster />
                     </NextIntlClientProvider>
                 </body>
             </html>

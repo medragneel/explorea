@@ -6,7 +6,13 @@
         "contact": "اتصل بنا",
         "login": "تسجيل الدخول",
         "register": "إنشاء حساب",
-        "my_account": "حسابي"
+        "account": "حسابي",
+        "tagline": "استكشف بلا حدود",
+        "phone": "+213 21 XX XX XX",
+        "email": "info@explorea.dz",
+        "all_destinations": "عرض كل الوجهات",
+        "top_destinations": "أبرز وجهاتنا",
+        "book_now": "احجز الآن"
     },
     "home": {
         "hero_title": "الجزائر الخالدة",

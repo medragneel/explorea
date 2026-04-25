@@ -53,7 +53,10 @@ export default async function AdminReservationsPage() {
                                 </Badge>
                             </TableCell>
                             <TableCell>
-                                <StatusButton id={r.reservations.id} />
+                                <StatusButton
+                                    id={r.reservations.id}
+                                    currentStatut={r.reservations.statut as any}
+                                />
                             </TableCell>
                         </TableRow>
                     ))}
