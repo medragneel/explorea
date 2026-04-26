@@ -52,8 +52,8 @@ export default function Navbar() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                        ? 'bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)]'
-                        : 'bg-white border-b border-[#B8962E]/15'
+                    ? 'bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)]'
+                    : 'bg-white border-b border-[#B8962E]/15'
                     }`}
             >
                 {/* ── TOP MICRO-BAR ─────────────────────────────────────── */}
@@ -180,7 +180,7 @@ export default function Navbar() {
                                         alt="Explorea — Explorez sans limites"
                                         width={70}
                                         height={35}
-                                        className="object-contain"
+                                        className="object-contain h-auto"
                                         priority
                                     />
                                 </motion.div>

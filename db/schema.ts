@@ -8,6 +8,9 @@ import {
     uuid,
 } from 'drizzle-orm/pg-core'
 
+import { relations } from 'drizzle-orm' // ✅ add this import
+
+
 // ─── CIRCUITS ────────────────────────────────
 export const circuits = pgTable('circuits', {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -50,6 +53,28 @@ export const reservations = pgTable('reservations', {
     notes: text('notes'),
     createdAt: timestamp('created_at').defaultNow(),
 })
+export const circuitsRelations = relations(circuits, ({ many }) => ({
+    departs: many(departs),
+}))
+
+export const departsRelations = relations(departs, ({ one, many }) => ({
+    circuit: one(circuits, {
+        fields: [departs.circuitId],
+        references: [circuits.id],
+    }),
+    reservations: many(reservations),
+}))
+
+export const reservationsRelations = relations(reservations, ({ one }) => ({
+    depart: one(departs, {
+        fields: [reservations.departId],
+        references: [departs.id],
+    }),
+}))
+
+export const clientsRelations = relations(clients, ({ many }) => ({
+    reservations: many(reservations),
+}))
 
 // ─── Types inférés automatiquement ───────────
 export type Circuit = typeof circuits.$inferSelect

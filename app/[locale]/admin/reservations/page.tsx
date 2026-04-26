@@ -31,31 +31,30 @@ export default async function AdminReservationsPage() {
                 </TableHeader>
                 <TableBody>
                     {reservations.map((r) => (
-                        <TableRow key={r.reservations.id}>
-                            <TableCell className="font-medium">
-                                {r.clients.nom}
-                            </TableCell>
-                            <TableCell>{r.clients.telephone}</TableCell>
-                            <TableCell>{r.circuits.nom}</TableCell>
+                        <TableRow key={r.reservation.id}>
+                            <TableCell>{r.reservation.clerkUserId}</TableCell>  {/* no client join */}
+                            <TableCell>{r.circuit?.nom ?? '—'}</TableCell>
                             <TableCell>
-                                {new Date(r.departs.date).toLocaleDateString('fr-DZ')}
+                                {r.depart?.date
+                                    ? new Date(r.depart.date).toLocaleDateString('fr-DZ')
+                                    : '—'}
                             </TableCell>
-                            <TableCell>{r.reservations.nombrePersonnes}</TableCell>
+                            <TableCell>{r.reservation.nombrePersonnes}</TableCell>
                             <TableCell>
                                 <Badge variant={
-                                    r.reservations.statut === 'confirme' ? 'default' :
-                                        r.reservations.statut === 'annule' ? 'destructive' :
+                                    r.reservation.statut === 'confirme' ? 'default' :
+                                        r.reservation.statut === 'annule' ? 'destructive' :
                                             'secondary'
                                 }>
-                                    {r.reservations.statut === 'en_attente' && '⏳ En attente'}
-                                    {r.reservations.statut === 'confirme' && '✅ Confirmé'}
-                                    {r.reservations.statut === 'annule' && '❌ Annulé'}
+                                    {r.reservation.statut === 'en_attente' && '⏳ En attente'}
+                                    {r.reservation.statut === 'confirme' && '✅ Confirmé'}
+                                    {r.reservation.statut === 'annule' && '❌ Annulé'}
                                 </Badge>
                             </TableCell>
                             <TableCell>
                                 <StatusButton
-                                    id={r.reservations.id}
-                                    currentStatut={r.reservations.statut as any}
+                                    id={r.reservation.id}
+                                    currentStatut={r.reservation.statut as any}
                                 />
                             </TableCell>
                         </TableRow>

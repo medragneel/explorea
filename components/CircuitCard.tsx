@@ -59,11 +59,12 @@ export default function CircuitCard({ circuit }: { circuit: Circuit }) {
                         {circuit.prix.toLocaleString()} DZD
                     </p>
                 </div>
-                <Button size="sm" asChild>
-                    <Link href={`/${locale}/circuits/${circuit.id}`}>
-                        {t('book')}
-                    </Link>
-                </Button>
+                <Link
+                    href={`/circuits/${circuit.id}`}
+                    className="inline-flex items-center h-8 px-4 text-[10px] tracking-widest font-light bg-[#1B2D5B] hover:bg-[#B8962E] text-white transition-all duration-300"
+                >
+                    {t("book_now")}
+                </Link>
             </CardFooter>
         </Card>
     )

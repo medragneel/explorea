@@ -1,5 +1,5 @@
 import { db } from '@/db'
-import { clients, reservations, departs } from '@/db/schema'
+import { clients, reservations, departs, circuits } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
 export async function createReservation(data: {
@@ -37,17 +37,18 @@ export async function createReservation(data: {
     return { client, reservation }
 }
 
-// Toutes les réservations pour l'admin
+
 export async function getAllReservations() {
-    return await db.query.reservations.findMany({
-        with: {
-            client: true,
-            depart: {
-                with: { circuit: true }
-            }
-        },
-        orderBy: (res, { desc }) => [desc(res.createdAt)]
-    })
+    return await db
+        .select({
+            reservation: reservations,
+            depart: departs,
+            circuit: circuits,
+        })
+        .from(reservations)
+        .leftJoin(departs, eq(reservations.departId, departs.id))
+        .leftJoin(circuits, eq(departs.circuitId, circuits.id))
+        .orderBy(reservations.createdAt)
 }
 
 // Changer le statut d'une réservation

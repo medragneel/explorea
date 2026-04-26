@@ -48,8 +48,11 @@ export default async function LocaleLayout({
             >
                 <body className="min-h-full flex flex-col">
                     <NextIntlClientProvider locale={locale} messages={messages}>
-                        {children}
-                        <Toaster />
+                        <Navbar />
+                        <main className="flex-1 pt-24 md:pt-28">
+                            {children}
+                            <Toaster />
+                        </main>
                     </NextIntlClientProvider>
                 </body>
             </html>

@@ -216,7 +216,6 @@ export default function ReservationForm({
                             onChange={e => setForm({ ...form, notes: e.target.value })}
                         />
                     </div>
-                    // just above the submit button
                     {!departId && (
                         <div className="text-xs text-amber-600 bg-amber-50 border border-amber-200 px-3 py-2 rounded">
                             ⚠️ Aucune date de départ disponible pour ce circuit. Contactez-nous au +213 21 XX XX XX.
