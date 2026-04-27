@@ -11,7 +11,6 @@ export async function createReservation(data: {
     nombrePersonnes: number
     notes?: string
 }) {
-    // 1. Créer le client
     const [client] = await db
         .insert(clients)
         .values({
@@ -22,11 +21,10 @@ export async function createReservation(data: {
         })
         .returning()
 
-    // 2. Créer la réservation
     const [reservation] = await db
         .insert(reservations)
         .values({
-            clientId: client.id,
+            clerkUserId: client.id,
             departId: data.departId,
             nombrePersonnes: data.nombrePersonnes,
             notes: data.notes,
@@ -36,7 +34,6 @@ export async function createReservation(data: {
 
     return { client, reservation }
 }
-
 
 export async function getAllReservations() {
     return await db
@@ -51,7 +48,6 @@ export async function getAllReservations() {
         .orderBy(reservations.createdAt)
 }
 
-// Changer le statut d'une réservation
 export async function updateStatut(id: string, statut: string) {
     return await db
         .update(reservations)
