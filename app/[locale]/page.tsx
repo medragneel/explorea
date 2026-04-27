@@ -52,7 +52,7 @@ const CIRCUITS = [
     },
     {
         id: 2,
-        title: 'Tassili n\'Ajjer',
+        title: "Tassili n'Ajjer",
         region: 'Djanet · UNESCO',
         days: 10,
         price: '110 000',
@@ -74,8 +74,8 @@ const CIRCUITS = [
     },
     {
         id: 4,
-        title: 'Route des Ksour',
-        region: 'Ghardaïa · M\'Zab',
+        title: "Route des Ksour",
+        region: "Ghardaïa · M'Zab",
         days: 6,
         price: '62 000',
         tag: 'Culturel',
@@ -86,7 +86,7 @@ const CIRCUITS = [
 ]
 
 const EXPERIENCES = [
-    { icon: Compass, title: 'Méharées', desc: 'Traversées à dos de dromadaire sur d\'anciens itinéraires caravaniers.' },
+    { icon: Compass, title: 'Méharées', desc: "Traversées à dos de dromadaire sur d'anciens itinéraires caravaniers." },
     { icon: Tent, title: 'Bivouacs', desc: 'Nuits sous les étoiles avec campements de luxe en plein désert.' },
     { icon: Camera, title: 'Photographie', desc: 'Circuits dédiés aux photographes dans les plus beaux paysages.' },
     { icon: Globe, title: 'Sur mesure', desc: 'Chaque voyage pensé et façonné selon vos désirs.' },
@@ -96,21 +96,21 @@ const TESTIMONIALS = [
     {
         name: 'Sophie Laurent',
         origin: 'Paris, France',
-        text: 'Une expérience qui a changé ma vision du monde. Le Sahara algérien est d\'une beauté à couper le souffle.',
+        text: "Une expérience qui a changé ma vision du monde. Le Sahara algérien est d'une beauté à couper le souffle.",
         rating: 5,
         circuit: 'Grand Erg Oriental',
     },
     {
         name: 'Ahmed Benali',
         origin: 'Montréal, Canada',
-        text: 'Retourner aux racines à travers le Tassili... Indescriptible. L\'équipe est exceptionnelle.',
+        text: "Retourner aux racines à travers le Tassili... Indescriptible. L'équipe est exceptionnelle.",
         rating: 5,
-        circuit: 'Tassili n\'Ajjer',
+        circuit: "Tassili n'Ajjer",
     },
     {
         name: 'Marco Ferretti',
         origin: 'Milan, Italie',
-        text: 'Ghardaïa m\'a envoûté. Architecture, culture, hospitalité — tout est parfait.',
+        text: "Ghardaïa m'a envoûté. Architecture, culture, hospitalité — tout est parfait.",
         rating: 5,
         circuit: 'Route des Ksour',
     },
@@ -118,12 +118,14 @@ const TESTIMONIALS = [
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
+const EASE = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
+
 const fadeUp = {
     hidden: { opacity: 0, y: 60 },
     visible: (i = 0) => ({
         opacity: 1,
         y: 0,
-        transition: { duration: 0.8, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] },
+        transition: { duration: 0.8, delay: i * 0.12, ease: EASE },
     }),
 }
 
@@ -180,14 +182,12 @@ export default function HomePage() {
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
 
-    // Hero parallax layers
     const videoY = useTransform(smoothProgress, [0, 1], ['0%', '30%'])
     const videoScale = useTransform(smoothProgress, [0, 1], [1, 1.12])
     const textY = useTransform(smoothProgress, [0, 1], ['0%', '60%'])
     const overlayOpacity = useTransform(smoothProgress, [0, 0.5], [0.55, 0.85])
     const heroOpacity = useTransform(smoothProgress, [0, 0.8], [1, 0])
 
-    // Toggle video play
     function togglePlay() {
         if (!videoRef.current) return
         if (playing) { videoRef.current.pause(); setPlaying(false) }
@@ -200,7 +200,6 @@ export default function HomePage() {
         setMuted(!muted)
     }
 
-    // Track video progress
     useEffect(() => {
         const v = videoRef.current
         if (!v) return
@@ -223,11 +222,7 @@ export default function HomePage() {
             {/* ── HERO ─────────────────────────────────────────────────────────── */}
             <section ref={heroRef} className="relative h-screen overflow-hidden">
 
-                {/* Video layer */}
-                <motion.div
-                    className="absolute inset-0 z-0"
-                    style={{ y: videoY, scale: videoScale }}
-                >
+                <motion.div className="absolute inset-0 z-0" style={{ y: videoY, scale: videoScale }}>
                     <video
                         ref={videoRef}
                         className="w-full h-full object-cover"
@@ -239,13 +234,11 @@ export default function HomePage() {
                     />
                 </motion.div>
 
-                {/* Gradient overlay */}
                 <motion.div
                     className="absolute inset-0 z-10 bg-gradient-to-t from-[#080604] via-[#080604]/40 to-[#080604]/20"
                     style={{ opacity: overlayOpacity }}
                 />
 
-                {/* Grain texture overlay */}
                 <div
                     className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none"
                     style={{
@@ -255,17 +248,11 @@ export default function HomePage() {
                     }}
                 />
 
-                {/* Hero content */}
                 <motion.div
                     className="absolute inset-0 z-20 flex flex-col justify-end pb-32 px-8 md:px-16 lg:px-24"
                     style={{ y: textY, opacity: heroOpacity }}
                 >
-                    <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={stagger}
-                    >
-                        {/* Eyebrow */}
+                    <motion.div initial="hidden" animate="visible" variants={stagger}>
                         <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
                             <div className="h-px w-12 bg-amber-400" />
                             <span className="text-amber-400 text-xs tracking-[0.4em] uppercase font-mono">
@@ -273,7 +260,6 @@ export default function HomePage() {
                             </span>
                         </motion.div>
 
-                        {/* Title */}
                         <motion.h1
                             variants={fadeUp}
                             custom={1}
@@ -285,7 +271,6 @@ export default function HomePage() {
                             <em className="text-amber-300 not-italic">Intemporelle</em>
                         </motion.h1>
 
-                        {/* Subtitle */}
                         <motion.p
                             variants={fadeUp}
                             custom={2}
@@ -294,7 +279,6 @@ export default function HomePage() {
                             Du Sahara mystique aux côtes méditerranéennes — des voyages d'exception façonnés pour les âmes aventurières.
                         </motion.p>
 
-                        {/* CTAs */}
                         <motion.div variants={fadeUp} custom={3} className="flex flex-wrap gap-4 items-center">
                             <Button
                                 size="lg"
@@ -314,65 +298,46 @@ export default function HomePage() {
                     </motion.div>
                 </motion.div>
 
-                {/* Video controls */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 2, duration: 0.6 }}
                     className="absolute bottom-8 left-8 md:left-16 lg:left-24 z-30 flex flex-col gap-3"
                 >
-                    {/* Progress bar */}
-                    <div
-                        className="w-48 h-px bg-white/20 cursor-pointer relative group"
-                        onClick={seekVideo}
-                    >
+                    <div className="w-48 h-px bg-white/20 cursor-pointer relative group" onClick={seekVideo}>
                         <motion.div
                             className="absolute left-0 top-0 h-full bg-amber-400 origin-left"
                             style={{ width: `${videoProgress}%` }}
                         />
-                        <div className="absolute inset-y-0 -top-2 -bottom-2 w-full opacity-0 group-hover:opacity-100" />
                     </div>
-
-                    {/* Controls row */}
                     <div className="flex items-center gap-3">
                         <button
                             onClick={togglePlay}
                             className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-xs tracking-widest"
                         >
-                            {playing
-                                ? <Pause className="h-3 w-3" />
-                                : <Play className="h-3 w-3" />
-                            }
+                            {playing ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
                             <span className="font-mono">{playing ? 'PAUSE' : 'PLAY'}</span>
                         </button>
                         <div className="w-px h-3 bg-white/20" />
-                        <button
-                            onClick={toggleMute}
-                            className="text-white/60 hover:text-white transition-colors"
-                        >
-                            {muted
-                                ? <VolumeX className="h-3 w-3" />
-                                : <Volume2 className="h-3 w-3" />
-                            }
+                        <button onClick={toggleMute} className="text-white/60 hover:text-white transition-colors">
+                            {muted ? <VolumeX className="h-3 w-3" /> : <Volume2 className="h-3 w-3" />}
                         </button>
                     </div>
                 </motion.div>
 
-                {/* Scroll indicator */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 2.5 }}
                     className="absolute bottom-8 right-8 md:right-16 z-30 flex flex-col items-center gap-2"
                 >
-                    <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                    >
+                    <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
                         <ChevronDown className="h-5 w-5 text-white/40" />
                     </motion.div>
-                    <span className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-mono writing-mode-vertical"
-                        style={{ writingMode: 'vertical-rl' }}>
+                    <span
+                        className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-mono"
+                        style={{ writingMode: 'vertical-rl' }}
+                    >
                         Scroll
                     </span>
                 </motion.div>
@@ -383,22 +348,12 @@ export default function HomePage() {
                 <div className="border-y border-white/[0.06] bg-[#0D0A07]">
                     <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/[0.06]">
                         {STATS.map((stat, i) => (
-                            <motion.div
-                                key={stat.label}
-                                variants={fadeUp}
-                                custom={i}
-                                className="flex flex-col items-center gap-1 px-6 py-4"
-                            >
+                            <motion.div key={stat.label} variants={fadeUp} custom={i} className="flex flex-col items-center gap-1 px-6 py-4">
                                 <stat.icon className="h-4 w-4 text-amber-500/60 mb-2" />
-                                <span
-                                    className="text-4xl md:text-5xl font-light text-amber-300"
-                                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                                >
+                                <span className="text-4xl md:text-5xl font-light text-amber-300" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                                     {stat.value}
                                 </span>
-                                <span className="text-[10px] tracking-[0.25em] uppercase text-white/30 font-mono">
-                                    {stat.label}
-                                </span>
+                                <span className="text-[10px] tracking-[0.25em] uppercase text-white/30 font-mono">{stat.label}</span>
                             </motion.div>
                         ))}
                     </div>
@@ -417,23 +372,18 @@ export default function HomePage() {
                                 className="text-4xl md:text-5xl font-light leading-tight"
                                 style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                             >
-                                Les trésors
-                                <br />
+                                Les trésors<br />
                                 <em className="text-amber-300">d'Algérie</em>
                             </motion.h2>
                         </div>
                         <motion.div variants={fadeUp} custom={2}>
-                            <Button
-                                variant="ghost"
-                                className="text-white/50 hover:text-white border border-white/10 hover:border-white/30 rounded-none tracking-widest text-xs h-10 px-6 transition-all duration-300"
-                            >
+                            <Button variant="ghost" className="text-white/50 hover:text-white border border-white/10 hover:border-white/30 rounded-none tracking-widest text-xs h-10 px-6 transition-all duration-300">
                                 Voir tout <ArrowRight className="ml-2 h-3 w-3" />
                             </Button>
                         </motion.div>
                     </div>
                 </AnimatedSection>
 
-                {/* Circuit grid */}
                 <AnimatedSection className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {CIRCUITS.map((circuit, i) => (
                         <motion.div
@@ -445,16 +395,11 @@ export default function HomePage() {
                             className="group relative overflow-hidden cursor-pointer"
                             style={{ minHeight: i === 0 ? '420px' : '280px' }}
                         >
-                            {/* Background gradient */}
                             <div className={`absolute inset-0 bg-gradient-to-br ${circuit.color} transition-all duration-700`} />
-
-                            {/* Geometric decoration */}
                             <div
                                 className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-10 blur-3xl transition-opacity duration-500 group-hover:opacity-20"
                                 style={{ background: circuit.accent }}
                             />
-
-                            {/* Content */}
                             <div className="relative z-10 h-full p-8 flex flex-col justify-between">
                                 <div className="flex items-start justify-between">
                                     <Badge
@@ -463,26 +408,17 @@ export default function HomePage() {
                                     >
                                         {circuit.tag}
                                     </Badge>
-                                    <div className="text-right">
-                                        <div className="text-white/40 text-xs font-mono">{circuit.days} jours</div>
-                                    </div>
+                                    <div className="text-white/40 text-xs font-mono">{circuit.days} jours</div>
                                 </div>
-
                                 <div>
                                     <div className="flex items-center gap-2 mb-3">
                                         <MapPin className="h-3 w-3 text-white/40" />
                                         <span className="text-white/50 text-xs tracking-wide font-mono">{circuit.region}</span>
                                     </div>
-                                    <h3
-                                        className="text-2xl md:text-3xl font-light text-white mb-3 leading-tight"
-                                        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                                    >
+                                    <h3 className="text-2xl md:text-3xl font-light text-white mb-3 leading-tight" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                                         {circuit.title}
                                     </h3>
-                                    <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-sm">
-                                        {circuit.description}
-                                    </p>
-
+                                    <p className="text-white/50 text-sm leading-relaxed mb-6 max-w-sm">{circuit.description}</p>
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <div className="text-white/30 text-[10px] font-mono tracking-widest uppercase mb-1">À partir de</div>
@@ -492,7 +428,7 @@ export default function HomePage() {
                                         </div>
                                         <Button
                                             size="sm"
-                                            className="rounded-none tracking-widest text-[10px] h-9 px-5 transition-all duration-300 group-hover:translate-x-0"
+                                            className="rounded-none tracking-widest text-[10px] h-9 px-5 transition-all duration-300"
                                             style={{ background: circuit.accent, color: '#000' }}
                                         >
                                             Réserver
@@ -500,9 +436,8 @@ export default function HomePage() {
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Hover shimmer */}
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                            <div
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                                 style={{ background: `linear-gradient(135deg, ${circuit.accent}08, transparent 50%)` }}
                             />
                         </motion.div>
@@ -523,8 +458,7 @@ export default function HomePage() {
                         className="text-4xl md:text-5xl font-light mb-16 leading-tight"
                         style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                     >
-                        Voyager autrement,
-                        <br />
+                        Voyager autrement,<br />
                         <em className="text-amber-300">vivre pleinement</em>
                     </motion.h2>
                 </AnimatedSection>
@@ -538,15 +472,9 @@ export default function HomePage() {
                             whileHover={{ backgroundColor: 'rgba(217,119,6,0.06)' }}
                             className="bg-[#080604] p-10 group cursor-pointer transition-colors duration-300 relative overflow-hidden"
                         >
-                            <div
-                                className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-500"
-                                style={{ background: '#D97706' }}
-                            />
+                            <div className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-500" style={{ background: '#D97706' }} />
                             <exp.icon className="h-6 w-6 text-amber-500/60 mb-6 group-hover:text-amber-400 transition-colors duration-300" />
-                            <h3
-                                className="text-xl font-light mb-4 text-white"
-                                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                            >
+                            <h3 className="text-xl font-light mb-4 text-white" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                                 {exp.title}
                             </h3>
                             <p className="text-white/40 text-sm leading-relaxed">{exp.desc}</p>
@@ -566,8 +494,7 @@ export default function HomePage() {
                             className="text-4xl md:text-5xl font-light mb-16"
                             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                         >
-                            Ce qu'ils disent
-                            <br />
+                            Ce qu'ils disent<br />
                             <em className="text-amber-300">de leurs voyages</em>
                         </motion.h2>
                     </AnimatedSection>
@@ -611,10 +538,7 @@ export default function HomePage() {
             {/* ── FOOTER ───────────────────────────────────────────────────────── */}
             <footer className="border-t border-white/[0.06] py-12 px-6 md:px-12 lg:px-20">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div
-                        className="text-2xl font-light tracking-widest"
-                        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                    >
+                    <div className="text-2xl font-light tracking-widest" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                         SAHA<span className="text-amber-400">R</span>A
                     </div>
                     <p className="text-white/20 text-xs font-mono tracking-widest">
@@ -633,7 +557,7 @@ export default function HomePage() {
     )
 }
 
-// ─── Parallax Quote section ───────────────────────────────────────────────────
+// ─── Parallax Quote ───────────────────────────────────────────────────────────
 
 function ParallaxQuote() {
     const ref = useRef<HTMLDivElement>(null)
@@ -644,39 +568,24 @@ function ParallaxQuote() {
 
     return (
         <section ref={ref} className="relative py-40 overflow-hidden">
-            {/* Parallax bg */}
-            <motion.div
-                className="absolute inset-0 z-0"
-                style={{ y }}
-            >
+            <motion.div className="absolute inset-0 z-0" style={{ y }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1C1209] via-[#2A1A08] to-[#0D0804]" />
-                {/* Decorative circles */}
-                {[200, 400, 600].map((size, i) => (
+                {[200, 400, 600].map((size) => (
                     <div
                         key={size}
                         className="absolute top-1/2 left-1/2 rounded-full border border-amber-500/[0.06]"
-                        style={{
-                            width: size,
-                            height: size,
-                            transform: 'translate(-50%, -50%)',
-                        }}
+                        style={{ width: size, height: size, transform: 'translate(-50%, -50%)' }}
                     />
                 ))}
             </motion.div>
 
-            <motion.div
-                className="relative z-10 max-w-4xl mx-auto px-6 text-center"
-                style={{ opacity }}
-            >
+            <motion.div className="relative z-10 max-w-4xl mx-auto px-6 text-center" style={{ opacity }}>
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    transition={{ duration: 1, ease: EASE }}
                 >
-                    <div
-                        className="text-9xl text-amber-500/10 leading-none mb-4 select-none"
-                        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                    >
+                    <div className="text-9xl text-amber-500/10 leading-none mb-4 select-none" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                         "
                     </div>
                     <blockquote
@@ -716,7 +625,7 @@ function CTABanner() {
                 className="relative z-10 max-w-4xl mx-auto px-6 text-center"
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.9, ease: EASE }}
             >
                 <div className="flex items-center justify-center gap-3 mb-6">
                     <div className="h-px w-10 bg-amber-400/50" />
@@ -726,12 +635,8 @@ function CTABanner() {
                     <div className="h-px w-10 bg-amber-400/50" />
                 </div>
 
-                <h2
-                    className="text-4xl md:text-6xl font-light text-white mb-6 leading-tight"
-                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                >
-                    Prêt pour votre
-                    <br />
+                <h2 className="text-4xl md:text-6xl font-light text-white mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                    Prêt pour votre<br />
                     <em className="text-amber-300">odyssée saharienne ?</em>
                 </h2>
 
@@ -740,18 +645,11 @@ function CTABanner() {
                 </p>
 
                 <div className="flex flex-wrap gap-4 justify-center">
-                    <Button
-                        size="lg"
-                        className="bg-amber-500 hover:bg-amber-400 text-black font-medium rounded-none tracking-wide px-10 h-13 text-sm transition-all duration-300"
-                    >
+                    <Button size="lg" className="bg-amber-500 hover:bg-amber-400 text-black font-medium rounded-none tracking-wide px-10 h-13 text-sm transition-all duration-300">
                         Planifier mon voyage
                         <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
-                    <Button
-                        size="lg"
-                        variant="outline"
-                        className="border-white/20 text-white hover:bg-white/10 rounded-none tracking-widest text-xs px-8 transition-all duration-300"
-                    >
+                    <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-none tracking-widest text-xs px-8 transition-all duration-300">
                         Voir les circuits
                     </Button>
                 </div>
