@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import {
@@ -8,9 +7,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
     DropdownMenuSeparator,
-    DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -22,6 +19,7 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { CheckCircle, XCircle, ChevronDown, Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 type Statut = 'en_attente' | 'confirme' | 'annule'
 
@@ -33,17 +31,14 @@ interface StatusButtonProps {
 const STATUS_CONFIG = {
     en_attente: {
         label: '⏳ En attente',
-        variant: 'secondary' as const,
         className: 'bg-yellow-100 text-yellow-800 hover:bg-yellow-100 border-yellow-200',
     },
     confirme: {
         label: '✅ Confirmé',
-        variant: 'default' as const,
         className: 'bg-green-100 text-green-800 hover:bg-green-100 border-green-200',
     },
     annule: {
         label: '❌ Annulé',
-        variant: 'destructive' as const,
         className: 'bg-red-100 text-red-800 hover:bg-red-100 border-red-200',
     },
 }
@@ -65,10 +60,8 @@ export default function StatusButton({ id, currentStatut = 'en_attente' }: Statu
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ statut: newStatut }),
             })
-
             if (!res.ok) throw new Error('Erreur serveur')
-
-            router.refresh() // ✅ re-fetch server component data
+            router.refresh()
         } catch (err) {
             console.error(err)
         } finally {
@@ -91,27 +84,27 @@ export default function StatusButton({ id, currentStatut = 'en_attente' }: Statu
     return (
         <>
             <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        disabled={loading}
-                        className={`h-8 gap-1.5 text-xs font-medium border ${current.className}`}
-                    >
-                        {loading
-                            ? <Loader2 className="h-3 w-3 animate-spin" />
-                            : <span>{current.label}</span>
-                        }
-                        <ChevronDown className="h-3 w-3 opacity-60" />
-                    </Button>
+                {/* ✅ No asChild + no <Button> inside to avoid nested button / hydration issues */}
+                <DropdownMenuTrigger
+                    disabled={loading}
+                    className={cn(
+                        'inline-flex items-center gap-1.5 h-8 px-3 text-xs font-medium border rounded-md outline-none',
+                        current.className
+                    )}
+                >
+                    {loading
+                        ? <Loader2 className="h-3 w-3 animate-spin" />
+                        : <span>{current.label}</span>
+                    }
+                    <ChevronDown className="h-3 w-3 opacity-60" />
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end" className="w-44">
-                    <DropdownMenuLabel className="text-[10px] font-mono tracking-widest text-muted-foreground uppercase">
+                    {/* ✅ Plain div instead of DropdownMenuLabel to avoid MenuGroupRootContext error */}
+                    <div className="px-2 py-1.5 text-[10px] font-mono tracking-widest text-muted-foreground uppercase">
                         Changer le statut
-                    </DropdownMenuLabel>
+                    </div>
                     <DropdownMenuSeparator />
-
                     <DropdownMenuItem
                         onClick={() => requestStatusChange('confirme')}
                         disabled={currentStatut === 'confirme'}
@@ -120,7 +113,6 @@ export default function StatusButton({ id, currentStatut = 'en_attente' }: Statu
                         <CheckCircle className="h-3.5 w-3.5" />
                         Confirmer
                     </DropdownMenuItem>
-
                     <DropdownMenuItem
                         onClick={() => requestStatusChange('annule')}
                         disabled={currentStatut === 'annule'}
@@ -129,7 +121,6 @@ export default function StatusButton({ id, currentStatut = 'en_attente' }: Statu
                         <XCircle className="h-3.5 w-3.5" />
                         Annuler
                     </DropdownMenuItem>
-
                     <DropdownMenuItem
                         onClick={() => requestStatusChange('en_attente')}
                         disabled={currentStatut === 'en_attente'}
@@ -141,9 +132,8 @@ export default function StatusButton({ id, currentStatut = 'en_attente' }: Statu
                 </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* ── Confirmation dialog ─────────────────────────────────── */}
             <AlertDialog
-                open={confirmDialog.open}
+                open={confirmDialog.open}  // ✅ fixed markdown-corrupted prop
                 onOpenChange={(open) =>
                     setConfirmDialog((prev) => ({ ...prev, open }))
                 }
