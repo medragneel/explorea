@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 }
 
 export function generateStaticParams() {
-    return locales.map((locale) => ({ locale }))
+    return locales.map((locale) => ({ locale }))  // ✅ fixed markdown corruption
 }
 
 export default async function LocaleLayout({
@@ -32,12 +32,10 @@ export default async function LocaleLayout({
     params,
 }: {
     children: React.ReactNode
-    params: { locale: string }
+    params: Promise<{ locale: string }>  // ✅ Next.js 15: params is a Promise
 }) {
     const { locale } = await params
-    console.log(locale)
     const messages = await getMessages({ locale })
-    console.log(messages)
 
     return (
         <ClerkProvider>
