@@ -236,7 +236,7 @@ export default function CircuitsClient({
 
                         <div className="ml-auto flex items-center gap-2">
                             {/* Sort */}
-                            <Select value={sort} onValueChange={setSort}>
+                            <Select value={sort} onValueChange={(value) => value && setSort(value)}>
                                 <SelectTrigger className="h-9 w-44 text-xs border-[#1B2D5B]/15 bg-[#F9F7F4] rounded-sm">
                                     <SlidersHorizontal className="h-3 w-3 mr-1.5 text-[#1B2D5B]/40" />
                                     <SelectValue />
