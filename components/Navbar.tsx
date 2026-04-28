@@ -207,7 +207,7 @@ export default function Navbar() {
                                     >
                                         {t('account')}
                                     </Link>
-                                    <UserButton afterSignOutUrl="/" />
+                                    <UserButton />
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-2">
@@ -349,7 +349,7 @@ export default function Navbar() {
                             <div className="px-6 py-6 border-t border-[#1B2D5B]/10 space-y-3">
                                 {isSignedIn ? (
                                     <div className="flex items-center gap-3">
-                                        <UserButton afterSignOutUrl="/" />
+                                        <UserButton />
                                         <span className="text-xs text-[#1B2D5B]/40 font-mono">
                                             {t('account')}
                                         </span>

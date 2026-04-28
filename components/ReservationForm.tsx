@@ -179,7 +179,7 @@ export default function ReservationForm({
                             <Label>{t('wilaya')} *</Label>
                             <Select
                                 value={form.wilaya}
-                                onValueChange={v => setForm({ ...form, wilaya: v })}
+                                onValueChange={v => setForm({ ...form, wilaya: v ?? '' })}
                                 required
                             >
                                 <SelectTrigger>

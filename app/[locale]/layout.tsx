@@ -38,7 +38,7 @@ export default async function LocaleLayout({
     const messages = await getMessages({ locale })
 
     return (
-        <ClerkProvider>
+        <ClerkProvider afterSignOutUrl="/">
             <html
                 lang={locale}
                 dir={locale === "ar" ? "rtl" : "ltr"}
