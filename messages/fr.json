@@ -56,5 +56,9 @@
         "my_reservations": "Mes Réservations",
         "my_profile": "Mon Profil",
         "no_reservations": "Vous n'avez pas encore de réservation."
+    },
+    "contact": {
+        "title": "Contactez-nous",
+        "subtitle": "Notre équipe est disponible pour répondre à toutes vos questions sur nos circuits et destinations."
     }
 }
