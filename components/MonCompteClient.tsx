@@ -140,7 +140,7 @@ export default function MonCompteClient({
                                 </div>
                             )}
                             <div className="absolute -bottom-1 -right-1">
-                                <UserButton afterSignOutUrl="/" />
+                                <UserButton  />
                             </div>
                         </div>
 
@@ -468,7 +468,7 @@ export default function MonCompteClient({
                                             Modifier via le menu compte
                                         </p>
                                     </div>
-                                    <UserButton afterSignOutUrl="/" />
+                                    <UserButton />
                                 </div>
                             </div>
 
