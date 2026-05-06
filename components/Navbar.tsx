@@ -64,7 +64,7 @@ export default function Navbar() {
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="overflow-hidden bg-[#1B2D5B]"
+                            className="hidden md:block overflow-hidden bg-[#1B2D5B]"
                         >
                             <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center justify-between">
                                 <div className="flex items-center gap-1.5 text-white">
@@ -228,8 +228,10 @@ export default function Navbar() {
                         </div>
 
                         {/* MOBILE RIGHT */}
-                        <div className="flex md:hidden items-center gap-2 ml-auto">
+                        <div className="flex md:hidden items-center gap-2">
                             <LanguageSwitcher />
+                        </div>
+                        <div className="flex md:hidden items-center gap-2 ml-auto">
                             <button
                                 onClick={() => setMobileOpen(true)}
                                 className="p-2 text-[#1B2D5B]/60 hover:text-[#1B2D5B] transition-colors"
