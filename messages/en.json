@@ -21,10 +21,21 @@
     },
     "circuits": {
         "title": "Our Tours",
+        "subtitle": "Discover authentic Algeria through our carefully curated travel experiences.",
         "days": "days",
         "price": "Price",
+        "from": "Starting from",
         "book": "Book Now",
-        "available_seats": "Available seats"
+        "available_seats": "Available Seats",
+        "filter_all": "All",
+        "filter_sahara": "Sahara",
+        "filter_nord": "North",
+        "filter_culturel": "Cultural",
+        "sort_price_asc": "Lowest Price",
+        "sort_price_desc": "Highest Price",
+        "sort_duration": "Duration",
+        "no_results": "No tours found",
+        "search_placeholder": "Search tours..."
     },
     "reservation": {
         "title": "Book this tour",
@@ -45,5 +56,9 @@
         "my_reservations": "My Reservations",
         "my_profile": "My Profile",
         "no_reservations": "You have no reservations yet."
+    },
+    "contact": {
+        "title": "Contact Us",
+        "subtitle": "Our team is available to answer all your questions about our tours and destinations."
     }
 }

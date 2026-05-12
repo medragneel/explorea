@@ -21,10 +21,21 @@
     },
     "circuits": {
         "title": "جولاتنا",
+        "subtitle": "اكتشف الجزائر الأصيلة من خلال تجارب سفر مختارة بعناية.",
         "days": "أيام",
         "price": "السعر",
+        "from": "ابتداءً من",
         "book": "احجز الآن",
-        "available_seats": "الأماكن المتاحة"
+        "available_seats": "المقاعد المتاحة",
+        "filter_all": "الكل",
+        "filter_sahara": "الصحراء",
+        "filter_nord": "الشمال",
+        "filter_culturel": "ثقافي",
+        "sort_price_asc": "السعر من الأقل إلى الأعلى",
+        "sort_price_desc": "السعر من الأعلى إلى الأقل",
+        "sort_duration": "المدة",
+        "no_results": "لم يتم العثور على أي جولة",
+        "search_placeholder": "ابحث عن جولة..."
     },
     "reservation": {
         "title": "احجز هذه الجولة",
@@ -45,5 +56,9 @@
         "my_reservations": "حجوزاتي",
         "my_profile": "ملفي الشخصي",
         "no_reservations": "ليس لديك أي حجز بعد."
+    },
+    "contact": {
+        "title": "اتصل بنا",
+        "subtitle": "فريقنا متاح للإجابة على جميع استفساراتكم حول جولاتنا ووجهاتنا السياحية."
     }
 }
