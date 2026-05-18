@@ -27,8 +27,8 @@ import type { Circuit } from '@/db/schema'
 
 // ─── Region tag color mapping ──────────────────────────────────────────────
 
-function getRegionStyle(region: string) {
-    const r = region.toLowerCase()
+function getRegionStyle(region: string | null | undefined) {
+    const r = (region ?? '').toLowerCase()
     if (r.includes('tamanrasset') || r.includes('ouargla') || r.includes('djanet') || r.includes('hoggar') || r.includes('tadrart') || r.includes('timimoun') || r.includes('béchar') || r.includes('adrar'))
         return { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200', dot: 'bg-amber-400' }
     if (r.includes('alger') || r.includes('béjaïa') || r.includes('oran') || r.includes('tlemcen') || r.includes('constantine') || r.includes('annaba'))
@@ -92,7 +92,7 @@ export default function CircuitsClient({
             const q = search.toLowerCase()
             result = result.filter(c =>
                 c.nom.toLowerCase().includes(q) ||
-                c.region.toLowerCase().includes(q) ||
+                (c.region ?? '').toLowerCase().includes(q) ||
                 c.description.toLowerCase().includes(q)
             )
         }
@@ -101,17 +101,17 @@ export default function CircuitsClient({
         if (filter === 'sahara') {
             result = result.filter(c =>
                 ['tamanrasset', 'ouargla', 'djanet', 'hoggar', 'adrar', 'béchar', 'timimoun', 'tadrart']
-                    .some(k => c.region.toLowerCase().includes(k))
+                    .some(k => (c.region ?? '').toLowerCase().includes(k))
             )
         } else if (filter === 'nord') {
             result = result.filter(c =>
                 ['alger', 'béjaïa', 'oran', 'tlemcen', 'constantine', 'annaba', 'skikda']
-                    .some(k => c.region.toLowerCase().includes(k))
+                    .some(k => (c.region ?? '').toLowerCase().includes(k))
             )
         } else if (filter === 'culturel') {
             result = result.filter(c =>
                 ['ghardaïa', 'batna', 'sétif', 'm\'zab', 'tlemcen', 'constantine']
-                    .some(k => c.region.toLowerCase().includes(k))
+                    .some(k => (c.region ?? '').toLowerCase().includes(k))
             )
         }
 
@@ -225,8 +225,8 @@ export default function CircuitsClient({
                                     key={f.key}
                                     onClick={() => setFilter(f.key)}
                                     className={`px-3.5 py-1.5 text-[11px] font-mono tracking-wide uppercase rounded-sm transition-all duration-200 ${filter === f.key
-                                        ? 'bg-[#1B2D5B] text-white'
-                                        : 'bg-transparent text-[#1B2D5B]/50 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/05'
+                                            ? 'bg-[#1B2D5B] text-white'
+                                            : 'bg-transparent text-[#1B2D5B]/50 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/05'
                                         }`}
                                 >
                                     {f.label}
@@ -236,7 +236,7 @@ export default function CircuitsClient({
 
                         <div className="ml-auto flex items-center gap-2">
                             {/* Sort */}
-                            <Select value={sort} onValueChange={(value) => value && setSort(value)}>
+                            <Select value={sort} onValueChange={setSort}>
                                 <SelectTrigger className="h-9 w-44 text-xs border-[#1B2D5B]/15 bg-[#F9F7F4] rounded-sm">
                                     <SlidersHorizontal className="h-3 w-3 mr-1.5 text-[#1B2D5B]/40" />
                                     <SelectValue />
