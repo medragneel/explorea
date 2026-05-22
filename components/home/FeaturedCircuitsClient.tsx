@@ -2,7 +2,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { motion, useInView } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { MapPin, ArrowRight, Clock } from 'lucide-react'
@@ -31,6 +31,8 @@ const CARD_STYLES = [
 export default function FeaturedCircuitsClient({ circuits }: { circuits: Circuit[] }) {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true, margin: '-80px' })
+    const t = useTranslations('circuits')
+
     const locale = useLocale()
 
     if (!circuits.length) return null
@@ -45,7 +47,7 @@ export default function FeaturedCircuitsClient({ circuits }: { circuits: Circuit
                         <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
                             <div className="h-px w-10 bg-amber-500" />
                             <span className="text-amber-500 text-xs tracking-[0.3em] uppercase font-light font-mono">
-                                Nos Circuits
+                                {t('title')}
                             </span>
                         </motion.div>
                         <motion.h2
@@ -154,7 +156,7 @@ export default function FeaturedCircuitsClient({ circuits }: { circuits: Circuit
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <div className="text-white/30 text-[10px] font-mono tracking-widest uppercase mb-1">
-                                                    À partir de
+                                                    {t('from')}
                                                 </div>
                                                 {/* ✅ formatPrice with currency */}
                                                 <div
@@ -169,7 +171,7 @@ export default function FeaturedCircuitsClient({ circuits }: { circuits: Circuit
                                                 className="inline-flex items-center h-9 px-5 rounded-none text-[10px] tracking-widest transition-all duration-300 text-black gap-1.5 hover:opacity-90"
                                                 style={{ background: style.accent }}
                                             >
-                                                Réserver
+                                                {t('book')}
                                                 <ArrowRight className="h-3 w-3" />
                                             </Link>
                                         </div>
