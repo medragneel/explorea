@@ -11,40 +11,38 @@ export async function POST(request: Request) {
 
         console.log('📥 Reservation body:', JSON.stringify(body, null, 2))
 
-        // ── Validate required fields ──────────────────────────────
-        if (!body.nom || !body.telephone || !body.wilaya || !body.departId) {
-            return NextResponse.json(
-                { success: false, error: 'Champs requis manquants: nom, telephone, wilaya, departId' },
-                { status: 400 }
-            )
+        // ── Validate required fields ──────────────────────────────────
+        const required = ['nom', 'telephone', 'country', 'city', 'departId']
+        for (const field of required) {
+            if (!body[field]) {
+                return NextResponse.json(
+                    { success: false, error: `Champ requis manquant: ${field}` },
+                    { status: 400 }
+                )
+            }
         }
 
-        if (!userId) {
-            return NextResponse.json(
-                { success: false, error: 'Non authentifié' },
-                { status: 401 }
-            )
-        }
-
-        // ── 1. Create client ──────────────────────────────────────
+        // ── 1. Create client ──────────────────────────────────────────
         const [client] = await db
             .insert(clients)
             .values({
                 nom: body.nom,
                 telephone: body.telephone,
                 email: body.email || null,
-                wilaya: body.wilaya,
+                country: body.country,     // ✅ ISO country code e.g. 'FR', 'DZ'
+                city: body.city,         // ✅ free text city
             })
             .returning()
 
         console.log('✅ Client created:', client.id)
 
-        // ── 2. Create reservation ─────────────────────────────────
+        // ── 2. Create reservation ─────────────────────────────────────
         const [reservation] = await db
             .insert(reservations)
             .values({
                 departId: body.departId,
-                clerkUserId: userId,
+                clientId: client.id,
+                clerkUserId: userId ?? 'guest',  // ✅ allow guest bookings
                 nombrePersonnes: Number(body.nombrePersonnes) || 1,
                 statut: 'en_attente',
                 notes: body.notes || null,
@@ -59,12 +57,11 @@ export async function POST(request: Request) {
         )
 
     } catch (error) {
-        // ── Log the REAL error ────────────────────────────────────
         console.error('❌ Reservation error:', error)
         return NextResponse.json(
             {
                 success: false,
-                error: error instanceof Error ? error.message : 'Erreur serveur inconnue'
+                error: error instanceof Error ? error.message : 'Erreur serveur'
             },
             { status: 500 }
         )

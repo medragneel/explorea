@@ -35,14 +35,18 @@ export async function createReservation(data: {
     return { client, reservation }
 }
 
+
+
 export async function getAllReservations() {
     return await db
         .select({
             reservation: reservations,
+            client: clients,
             depart: departs,
             circuit: circuits,
         })
         .from(reservations)
+        .leftJoin(clients, eq(reservations.clientId, clients.id))
         .leftJoin(departs, eq(reservations.departId, departs.id))
         .leftJoin(circuits, eq(departs.circuitId, circuits.id))
         .orderBy(reservations.createdAt)
