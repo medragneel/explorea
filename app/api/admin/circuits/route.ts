@@ -48,6 +48,7 @@ export async function POST(request: Request) {
                 region: body.region,
                 image: body.image || null,
                 actif: body.actif ?? true,
+                itinerary: body.itinerary ?? [],
             })
             .returning()
 
@@ -87,6 +88,7 @@ export async function PATCH(request: Request) {
                 ...(updates.region && { region: updates.region }),
                 ...(updates.image !== undefined && { image: updates.image }),
                 ...(updates.actif !== undefined && { actif: updates.actif }),
+                ...(updates.itinerary !== undefined && { itinerary: updates.itinerary }),
             })
             .where(eq(circuits.id, id))
             .returning()

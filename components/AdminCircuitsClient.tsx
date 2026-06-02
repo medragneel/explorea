@@ -52,6 +52,7 @@ import {
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import type { Circuit, Country } from '@/db/schema'
+import ItineraryBuilder, { type ItineraryDay } from '@/components/ItineraryBuilder'
 
 // ─── Constants ────────────────────────────────────────────────────────────
 
@@ -77,6 +78,7 @@ const EMPTY_FORM = {
     featured: false,
     minPersonnes: '1',
     maxPersonnes: '12',
+    itinerary: [] as ItineraryDay[],
 }
 
 type FormState = typeof EMPTY_FORM
@@ -90,23 +92,23 @@ export default function AdminCircuitsClient({
     initialCircuits: Circuit[]
     countries: Country[]
 }) {
-    const locale   = useLocale()
-    const router   = useRouter()
+    const locale = useLocale()
+    const router = useRouter()
 
-    const [circuits, setCircuits]       = useState<Circuit[]>(initialCircuits)
-    const [search, setSearch]           = useState('')
+    const [circuits, setCircuits] = useState<Circuit[]>(initialCircuits)
+    const [search, setSearch] = useState('')
     const [filterCountry, setFilterCountry] = useState('all')
-    const [filterStatus, setFilterStatus]   = useState('all')
-    const [view, setView]               = useState<'table' | 'grid'>('table')
+    const [filterStatus, setFilterStatus] = useState('all')
+    const [view, setView] = useState<'table' | 'grid'>('table')
 
     // Dialog
-    const [dialogOpen, setDialogOpen]   = useState(false)
+    const [dialogOpen, setDialogOpen] = useState(false)
     const [editingCircuit, setEditingCircuit] = useState<Circuit | null>(null)
-    const [deleteId, setDeleteId]       = useState<string | null>(null)
-    const [activeTab, setActiveTab]     = useState<'fr' | 'en' | 'ar'>('fr')
+    const [deleteId, setDeleteId] = useState<string | null>(null)
+    const [activeTab, setActiveTab] = useState<'fr' | 'en' | 'ar'>('fr')
 
     // Form
-    const [form, setForm]     = useState<FormState>(EMPTY_FORM)
+    const [form, setForm] = useState<FormState>(EMPTY_FORM)
     const [saving, setSaving] = useState(false)
     const [deleting, setDeleting] = useState(false)
 
@@ -129,7 +131,7 @@ export default function AdminCircuitsClient({
             result = result.filter(c => (c as any).countryId === filterCountry)
         }
 
-        if (filterStatus === 'active')   result = result.filter(c => c.actif)
+        if (filterStatus === 'active') result = result.filter(c => c.actif)
         if (filterStatus === 'inactive') result = result.filter(c => !c.actif)
         if (filterStatus === 'featured') result = result.filter(c => (c as any).featured)
 
@@ -147,27 +149,28 @@ export default function AdminCircuitsClient({
     // ── Open edit ──────────────────────────────────────────────────────
     function openEdit(circuit: Circuit) {
         setEditingCircuit(circuit)
-        const nomI18n  = (circuit as any).nomI18n  as Record<string, string> | null
+        const nomI18n = (circuit as any).nomI18n as Record<string, string> | null
         const descI18n = (circuit as any).descriptionI18n as Record<string, string> | null
         setForm({
-            nom:            nomI18n?.fr  ?? circuit.nom,
-            description:    descI18n?.fr ?? circuit.description,
-            nomEn:          nomI18n?.en  ?? '',
-            descriptionEn:  descI18n?.en ?? '',
-            nomAr:          nomI18n?.ar  ?? '',
-            descriptionAr:  descI18n?.ar ?? '',
-            prix:           String(circuit.prix),
-            duree:          String(circuit.duree),
-            region:         circuit.region ?? '',
-            countryId:      (circuit as any).countryId ?? '',
-            currency:       (circuit as any).currency ?? 'DZD',
-            category:       (circuit as any).category ?? 'adventure',
-            difficulty:     (circuit as any).difficulty ?? 'moderate',
-            image:          circuit.image ?? '',
-            actif:          circuit.actif ?? true,
-            featured:       (circuit as any).featured ?? false,
-            minPersonnes:   String((circuit as any).minPersonnes ?? 1),
-            maxPersonnes:   String((circuit as any).maxPersonnes ?? 12),
+            nom: nomI18n?.fr ?? circuit.nom,
+            description: descI18n?.fr ?? circuit.description,
+            nomEn: nomI18n?.en ?? '',
+            descriptionEn: descI18n?.en ?? '',
+            nomAr: nomI18n?.ar ?? '',
+            descriptionAr: descI18n?.ar ?? '',
+            prix: String(circuit.prix),
+            duree: String(circuit.duree),
+            region: circuit.region ?? '',
+            countryId: (circuit as any).countryId ?? '',
+            currency: (circuit as any).currency ?? 'DZD',
+            category: (circuit as any).category ?? 'adventure',
+            difficulty: (circuit as any).difficulty ?? 'moderate',
+            image: circuit.image ?? '',
+            actif: circuit.actif ?? true,
+            featured: (circuit as any).featured ?? false,
+            minPersonnes: String((circuit as any).minPersonnes ?? 1),
+            maxPersonnes: String((circuit as any).maxPersonnes ?? 12),
+            itinerary: ((circuit as any).itinerary as ItineraryDay[]) ?? [],
         })
         setActiveTab('fr')
         setDialogOpen(true)
@@ -179,7 +182,7 @@ export default function AdminCircuitsClient({
         setSaving(true)
 
         const payload = {
-            nom:         form.nom,
+            nom: form.nom,
             description: form.description,
             nomI18n: {
                 fr: form.nom,
@@ -191,19 +194,20 @@ export default function AdminCircuitsClient({
                 en: form.descriptionEn || form.description,
                 ar: form.descriptionAr || form.description,
             },
-            prix:        Number(form.prix),
-            duree:       Number(form.duree),
-            region:      form.region,
-            countryId:   form.countryId || null,
-            currency:    form.currency,
-            category:    form.category,
-            difficulty:  form.difficulty,
-            image:       form.image || null,
-            actif:       form.actif,
-            featured:    form.featured,
+            prix: Number(form.prix),
+            duree: Number(form.duree),
+            region: form.region,
+            countryId: form.countryId || null,
+            currency: form.currency,
+            category: form.category,
+            difficulty: form.difficulty,
+            image: form.image || null,
+            actif: form.actif,
+            featured: form.featured,
             minPersonnes: Number(form.minPersonnes),
             maxPersonnes: Number(form.maxPersonnes),
             ...(editingCircuit && { id: editingCircuit.id }),
+            itinerary: form.itinerary,
         }
 
         try {
@@ -299,8 +303,8 @@ export default function AdminCircuitsClient({
                     {/* Stats */}
                     <div className="flex items-center gap-8 mt-8 pt-6 border-t border-white/10">
                         {[
-                            { value: circuits.length,                              label: 'Total' },
-                            { value: circuits.filter(c => c.actif).length,         label: 'Actifs' },
+                            { value: circuits.length, label: 'Total' },
+                            { value: circuits.filter(c => c.actif).length, label: 'Actifs' },
                             { value: circuits.filter(c => (c as any).featured).length, label: 'Vedettes' },
                             { value: new Set(circuits.map(c => (c as any).countryId).filter(Boolean)).size, label: 'Pays' },
                         ].map((s, i) => (
@@ -357,8 +361,8 @@ export default function AdminCircuitsClient({
                             <SelectValue placeholder="Statut" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all"      className="text-xs">Tous</SelectItem>
-                            <SelectItem value="active"   className="text-xs">✅ Actifs</SelectItem>
+                            <SelectItem value="all" className="text-xs">Tous</SelectItem>
+                            <SelectItem value="active" className="text-xs">✅ Actifs</SelectItem>
                             <SelectItem value="inactive" className="text-xs">⏸ Inactifs</SelectItem>
                             <SelectItem value="featured" className="text-xs">⭐ Vedettes</SelectItem>
                         </SelectContent>
@@ -375,7 +379,7 @@ export default function AdminCircuitsClient({
                             <X className="h-3 w-3" /> Effacer
                         </Button>
                     )}
-
+                    ,
                     {/* View toggle */}
                     <div className="ml-auto flex items-center gap-1 border border-[#1B2D5B]/10 bg-white p-1">
                         <button onClick={() => setView('table')}
@@ -424,9 +428,9 @@ export default function AdminCircuitsClient({
                                             </TableRow>
                                         ) : (
                                             filtered.map((circuit, i) => {
-                                                const name    = getField((circuit as any).nomI18n ?? circuit.nom, locale)
+                                                const name = getField((circuit as any).nomI18n ?? circuit.nom, locale)
                                                 const country = countryName((circuit as any).countryId)
-                                                const price   = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
+                                                const price = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
 
                                                 return (
                                                     <motion.tr
@@ -514,9 +518,9 @@ export default function AdminCircuitsClient({
                         <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {filtered.map((circuit, i) => {
-                                const name    = getField((circuit as any).nomI18n ?? circuit.nom, locale)
+                                const name = getField((circuit as any).nomI18n ?? circuit.nom, locale)
                                 const country = countryName((circuit as any).countryId)
-                                const price   = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
+                                const price = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
 
                                 return (
                                     <motion.div key={circuit.id}
@@ -602,11 +606,10 @@ export default function AdminCircuitsClient({
                                 {(['fr', 'en', 'ar'] as const).map(lang => (
                                     <button key={lang} type="button"
                                         onClick={() => setActiveTab(lang)}
-                                        className={`px-5 py-2.5 text-xs font-mono tracking-widest uppercase border-b-2 -mb-px transition-colors ${
-                                            activeTab === lang
-                                                ? 'border-[#B8962E] text-[#B8962E]'
-                                                : 'border-transparent text-[#1B2D5B]/30 hover:text-[#1B2D5B]/60'
-                                        }`}>
+                                        className={`px-5 py-2.5 text-xs font-mono tracking-widest uppercase border-b-2 -mb-px transition-colors ${activeTab === lang
+                                            ? 'border-[#B8962E] text-[#B8962E]'
+                                            : 'border-transparent text-[#1B2D5B]/30 hover:text-[#1B2D5B]/60'
+                                            }`}>
                                         {lang === 'fr' ? '🇫🇷 Français' : lang === 'en' ? '🇬🇧 English' : '🇩🇿 العربية'}
                                     </button>
                                 ))}
@@ -663,7 +666,7 @@ export default function AdminCircuitsClient({
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                {['DZD','MAD','TND','EGP','EUR','USD','GBP','JOD'].map(c => (
+                                                {['DZD', 'MAD', 'TND', 'EGP', 'EUR', 'USD', 'GBP', 'JOD'].map(c => (
                                                     <SelectItem key={c} value={c} className="text-xs">{c}</SelectItem>
                                                 ))}
                                             </SelectContent>
@@ -806,6 +809,13 @@ export default function AdminCircuitsClient({
                                     <Switch checked={form.featured} onCheckedChange={v => setForm(f => ({ ...f, featured: v }))} />
                                 </div>
                             </div>
+                        </div>
+                        {/* Itinerary builder */}
+                        <div className="space-y-1.5 pt-2 border-t border-[#1B2D5B]/06">
+                            <ItineraryBuilder
+                                value={form.itinerary}
+                                onChange={itinerary => setForm(f => ({ ...f, itinerary }))}
+                            />
                         </div>
 
                         <DialogFooter className="px-8 py-5 border-t border-[#1B2D5B]/08 bg-[#F9F7F4] gap-3">
