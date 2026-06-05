@@ -1,7 +1,7 @@
 // db/queries/circuits.ts
 import { db } from '@/db'
 import { circuits, departs, countries, destinations } from '@/db/schema'
-import { eq, and } from 'drizzle-orm'
+import { eq, and, desc } from 'drizzle-orm'
 
 export async function getCircuits(locale = 'fr') {
     return await db
@@ -15,6 +15,7 @@ export async function getFeaturedCircuits() {
         .select()
         .from(circuits)
         .where(and(eq(circuits.actif, true), eq(circuits.featured, true)))
+        .orderBy(desc(circuits.createdAt))
         .limit(4)
 }
 
