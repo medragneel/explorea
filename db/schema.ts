@@ -91,6 +91,7 @@ export const circuits = pgTable('circuits', {
     minPersonnes: integer('min_personnes').default(1),
     maxPersonnes: integer('max_personnes').default(12),
     departureCity: text('departure_city'),           // 'Algiers', 'Marrakech'
+    region: text('region'),
 
     actif: boolean('actif').default(true),
     featured: boolean('featured').default(false),
