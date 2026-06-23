@@ -60,8 +60,8 @@ export const circuits = pgTable('circuits', {
     countryId: uuid('country_id').references(() => countries.id),
 
     // Multilingual
-    nom: jsonb('nom').notNull(),            // { fr: 'Circuit Sahara', en: 'Sahara Tour', ar: '...' }
-    description: jsonb('description').notNull(),    // { fr: '...', en: '...', ar: '...' }
+    nom: text('nom').notNull(),
+    description: text('description').notNull(),
     nomI18n: jsonb('nom_i18n'),          // { fr, ar, en } — null on old rows
     descriptionI18n: jsonb('description_i18n'),  // null on old rows
     itinerary: jsonb('itinerary').default('[]'),  // ItineraryDay[]
