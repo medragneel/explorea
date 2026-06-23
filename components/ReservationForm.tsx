@@ -245,7 +245,7 @@ export default function ReservationForm({
                             <Select
                                 required
                                 value={form.country}
-                                onValueChange={v => setForm(f => ({ ...f, country: v }))}
+                                onValueChange={v => setForm(f => ({ ...f, country: v ?? '' }))}
                             >
                                 <SelectTrigger className="h-10 rounded-none border-[#1B2D5B]/15 text-sm">
                                     <Globe className="h-3.5 w-3.5 text-[#1B2D5B]/25 mr-2 flex-shrink-0" />

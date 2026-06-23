@@ -42,21 +42,21 @@ import type { Circuit, Country } from '@/db/schema'
 // ─── Constants ────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
-    { value: 'adventure',   label: '🏔 Aventure' },
-    { value: 'cultural',    label: '🏛 Culturel' },
-    { value: 'wildlife',    label: '🦁 Faune' },
-    { value: 'luxury',      label: '✨ Luxe' },
-    { value: 'family',      label: '👨‍👩‍👧 Famille' },
-    { value: 'honeymoon',   label: '💍 Lune de miel' },
+    { value: 'adventure', label: '🏔 Aventure' },
+    { value: 'cultural', label: '🏛 Culturel' },
+    { value: 'wildlife', label: '🦁 Faune' },
+    { value: 'luxury', label: '✨ Luxe' },
+    { value: 'family', label: '👨‍👩‍👧 Famille' },
+    { value: 'honeymoon', label: '💍 Lune de miel' },
     { value: 'photography', label: '📷 Photo' },
-    { value: 'trekking',    label: '🥾 Trekking' },
+    { value: 'trekking', label: '🥾 Trekking' },
 ]
 
 const DIFFICULTIES = [
-    { value: 'easy',        label: '● Facile' },
-    { value: 'moderate',    label: '●● Modéré' },
+    { value: 'easy', label: '● Facile' },
+    { value: 'moderate', label: '●● Modéré' },
     { value: 'challenging', label: '●●● Aventure' },
-    { value: 'expedition',  label: '●●●● Expédition' },
+    { value: 'expedition', label: '●●●● Expédition' },
 ]
 
 const CURRENCIES = [
@@ -93,25 +93,25 @@ export default function AdminCircuitsClient({
 }) {
     const locale = useLocale()
     const [allCircuits, setAllCircuits] = useState<Circuit[]>(initialCircuits)
-    const [search, setSearch]           = useState('')
+    const [search, setSearch] = useState('')
     const [filterCountry, setFilterCountry] = useState('all')
-    const [filterStatus, setFilterStatus]   = useState('all')
-    const [view, setView]               = useState<'table' | 'grid'>('table')
-    const [activeTab, setActiveTab]     = useState<'fr' | 'ar' | 'en'>('fr')
+    const [filterStatus, setFilterStatus] = useState('all')
+    const [view, setView] = useState<'table' | 'grid'>('table')
+    const [activeTab, setActiveTab] = useState<'fr' | 'ar' | 'en'>('fr')
 
     // Circuit form dialog
-    const [dialogOpen, setDialogOpen]       = useState(false)
+    const [dialogOpen, setDialogOpen] = useState(false)
     const [editingCircuit, setEditingCircuit] = useState<Circuit | null>(null)
-    const [form, setForm]   = useState<FormState>(EMPTY_FORM)
-    const [saving, setSaving]   = useState(false)
+    const [form, setForm] = useState<FormState>(EMPTY_FORM)
+    const [saving, setSaving] = useState(false)
     const [deleteId, setDeleteId] = useState<string | null>(null)
     const [deleting, setDeleting] = useState(false)
 
     // Itinerary builder — separate dialog
     const [itineraryDialogOpen, setItineraryDialogOpen] = useState(false)
-    const [itineraryCircuit, setItineraryCircuit]       = useState<Circuit | null>(null)
-    const [itineraryDays, setItineraryDays]             = useState<ItineraryDay[]>([])
-    const [savingItinerary, setSavingItinerary]         = useState(false)
+    const [itineraryCircuit, setItineraryCircuit] = useState<Circuit | null>(null)
+    const [itineraryDays, setItineraryDays] = useState<ItineraryDay[]>([])
+    const [savingItinerary, setSavingItinerary] = useState(false)
 
     // ── Filtered circuits ─────────────────────────────────────────────
     const filtered = useMemo(() => {
@@ -124,7 +124,7 @@ export default function AdminCircuitsClient({
             })
         }
         if (filterCountry !== 'all') result = result.filter(c => (c as any).countryId === filterCountry)
-        if (filterStatus === 'active')   result = result.filter(c => c.actif)
+        if (filterStatus === 'active') result = result.filter(c => c.actif)
         if (filterStatus === 'inactive') result = result.filter(c => !c.actif)
         if (filterStatus === 'featured') result = result.filter(c => (c as any).featured)
         return result
@@ -140,30 +140,30 @@ export default function AdminCircuitsClient({
 
     function openEdit(circuit: Circuit) {
         setEditingCircuit(circuit)
-        const nomI18n  = (circuit as any).nomI18n  as Record<string, string> | null
+        const nomI18n = (circuit as any).nomI18n as Record<string, string> | null
         const descI18n = (circuit as any).descriptionI18n as Record<string, string> | null
         setForm({
-            nom:           circuit.nom,
-            description:   circuit.description,
-            nomFr:         nomI18n?.fr  ?? circuit.nom,
-            nomAr:         nomI18n?.ar  ?? '',
-            nomEn:         nomI18n?.en  ?? circuit.nom,
+            nom: circuit.nom,
+            description: circuit.description,
+            nomFr: nomI18n?.fr ?? circuit.nom,
+            nomAr: nomI18n?.ar ?? '',
+            nomEn: nomI18n?.en ?? circuit.nom,
             descriptionFr: descI18n?.fr ?? circuit.description,
             descriptionAr: descI18n?.ar ?? '',
             descriptionEn: descI18n?.en ?? circuit.description,
-            prix:          String(circuit.prix),
-            duree:         String(circuit.duree),
-            region:        circuit.region ?? '',
-            currency:      (circuit as any).currency   ?? 'DZD',
-            category:      (circuit as any).category   ?? 'adventure',
-            difficulty:    (circuit as any).difficulty ?? 'moderate',
-            image:         circuit.image ?? '',
-            actif:         circuit.actif ?? true,
-            featured:      (circuit as any).featured ?? false,
-            countryId:     (circuit as any).countryId ?? '',
-            minPersonnes:  String((circuit as any).minPersonnes ?? 1),
-            maxPersonnes:  String((circuit as any).maxPersonnes ?? 12),
-            itinerary:     ((circuit as any).itinerary as ItineraryDay[]) ?? [],
+            prix: String(circuit.prix),
+            duree: String(circuit.duree),
+            region: circuit.region ?? '',
+            currency: (circuit as any).currency ?? 'DZD',
+            category: (circuit as any).category ?? 'adventure',
+            difficulty: (circuit as any).difficulty ?? 'moderate',
+            image: circuit.image ?? '',
+            actif: circuit.actif ?? true,
+            featured: (circuit as any).featured ?? false,
+            countryId: (circuit as any).countryId ?? '',
+            minPersonnes: String((circuit as any).minPersonnes ?? 1),
+            maxPersonnes: String((circuit as any).maxPersonnes ?? 12),
+            itinerary: ((circuit as any).itinerary as ItineraryDay[]) ?? [],
         })
         setActiveTab('fr')
         setDialogOpen(true)
@@ -177,23 +177,23 @@ export default function AdminCircuitsClient({
 
     function buildPayload(f: FormState) {
         return {
-            nom:             f.nomFr || f.nom,
-            description:     f.descriptionFr || f.description,
-            nomI18n:         { fr: f.nomFr, ar: f.nomAr, en: f.nomEn },
+            nom: f.nomFr || f.nom,
+            description: f.descriptionFr || f.description,
+            nomI18n: { fr: f.nomFr, ar: f.nomAr, en: f.nomEn },
             descriptionI18n: { fr: f.descriptionFr, ar: f.descriptionAr, en: f.descriptionEn },
-            prix:            Number(f.prix),
-            duree:           Number(f.duree),
-            region:          f.region,
-            currency:        f.currency,
-            category:        f.category,
-            difficulty:      f.difficulty,
-            image:           f.image || null,
-            actif:           f.actif,
-            featured:        f.featured,
-            countryId:       f.countryId || null,
-            minPersonnes:    Number(f.minPersonnes),
-            maxPersonnes:    Number(f.maxPersonnes),
-            itinerary:       f.itinerary,
+            prix: Number(f.prix),
+            duree: Number(f.duree),
+            region: f.region,
+            currency: f.currency,
+            category: f.category,
+            difficulty: f.difficulty,
+            image: f.image || null,
+            actif: f.actif,
+            featured: f.featured,
+            countryId: f.countryId || null,
+            minPersonnes: Number(f.minPersonnes),
+            maxPersonnes: Number(f.maxPersonnes),
+            itinerary: f.itinerary,
         }
     }
 
@@ -323,10 +323,10 @@ export default function AdminCircuitsClient({
                     {/* Stats */}
                     <div className="flex flex-wrap items-center gap-6 mt-8 pt-6 border-t border-white/10">
                         {[
-                            { value: allCircuits.length,                                    label: 'Total' },
-                            { value: allCircuits.filter(c => c.actif).length,              label: 'Actifs' },
-                            { value: allCircuits.filter(c => (c as any).featured).length,  label: 'À la une' },
-                            { value: countries.length,                                     label: 'Pays' },
+                            { value: allCircuits.length, label: 'Total' },
+                            { value: allCircuits.filter(c => c.actif).length, label: 'Actifs' },
+                            { value: allCircuits.filter(c => (c as any).featured).length, label: 'À la une' },
+                            { value: countries.length, label: 'Pays' },
                         ].map((s, i) => (
                             <div key={i} className="flex items-center gap-6">
                                 {i > 0 && <div className="h-8 w-px bg-white/10" />}
@@ -353,7 +353,7 @@ export default function AdminCircuitsClient({
                             className="pl-9 h-9 w-40 md:w-48 text-sm border-[#1B2D5B]/15 bg-white rounded-none" />
                     </div>
 
-                    <Select value={filterCountry} onValueChange={setFilterCountry}>
+                    <Select value={filterCountry} onValueChange={(v) => setFilterCountry(v ?? 'all')}>
                         <SelectTrigger className="h-9 w-36 md:w-44 text-xs border-[#1B2D5B]/15 bg-white rounded-none">
                             <Globe className="h-3.5 w-3.5 mr-1.5 text-[#1B2D5B]/40 flex-shrink-0" />
                             <SelectValue placeholder="Pays" />
@@ -368,14 +368,14 @@ export default function AdminCircuitsClient({
                         </SelectContent>
                     </Select>
 
-                    <Select value={filterStatus} onValueChange={setFilterStatus}>
+                    <Select value={filterStatus} onValueChange={(v) => setFilterStatus(v ?? 'all')}>
                         <SelectTrigger className="h-9 w-32 md:w-36 text-xs border-[#1B2D5B]/15 bg-white rounded-none">
                             <Filter className="h-3.5 w-3.5 mr-1.5 text-[#1B2D5B]/40 flex-shrink-0" />
                             <SelectValue placeholder="Statut" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all"      className="text-xs">Tous</SelectItem>
-                            <SelectItem value="active"   className="text-xs">✅ Actifs</SelectItem>
+                            <SelectItem value="all" className="text-xs">Tous</SelectItem>
+                            <SelectItem value="active" className="text-xs">✅ Actifs</SelectItem>
                             <SelectItem value="inactive" className="text-xs">⏸ Inactifs</SelectItem>
                             <SelectItem value="featured" className="text-xs">⭐ À la une</SelectItem>
                         </SelectContent>
@@ -430,8 +430,8 @@ export default function AdminCircuitsClient({
                                                 </TableCell>
                                             </TableRow>
                                         ) : filtered.map((circuit, i) => {
-                                            const name          = getField((circuit as any).nomI18n ?? circuit.nom, locale)
-                                            const price         = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
+                                            const name = getField((circuit as any).nomI18n ?? circuit.nom, locale)
+                                            const price = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
                                             const itineraryDays = ((circuit as any).itinerary as ItineraryDay[]) ?? []
                                             return (
                                                 <motion.tr key={circuit.id}
@@ -480,11 +480,10 @@ export default function AdminCircuitsClient({
                                                     <TableCell>
                                                         <button
                                                             onClick={() => openItineraryBuilder(circuit)}
-                                                            className={`inline-flex items-center gap-1.5 text-[9px] font-mono tracking-wide uppercase px-2.5 py-1.5 border transition-colors ${
-                                                                itineraryDays.length > 0
+                                                            className={`inline-flex items-center gap-1.5 text-[9px] font-mono tracking-wide uppercase px-2.5 py-1.5 border transition-colors ${itineraryDays.length > 0
                                                                     ? 'border-emerald-200 text-emerald-600 bg-emerald-50 hover:bg-emerald-100'
                                                                     : 'border-[#1B2D5B]/10 text-[#1B2D5B]/30 hover:border-[#B8962E]/30 hover:text-[#B8962E]'
-                                                            }`}
+                                                                }`}
                                                         >
                                                             <Map className="h-2.5 w-2.5" />
                                                             {itineraryDays.length > 0
@@ -529,9 +528,9 @@ export default function AdminCircuitsClient({
                         <motion.div key="grid" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {filtered.map((circuit, i) => {
-                                const name  = getField((circuit as any).nomI18n ?? circuit.nom, locale)
+                                const name = getField((circuit as any).nomI18n ?? circuit.nom, locale)
                                 const price = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
-                                const days  = ((circuit as any).itinerary as ItineraryDay[]) ?? []
+                                const days = ((circuit as any).itinerary as ItineraryDay[]) ?? []
                                 return (
                                     <motion.div key={circuit.id}
                                         initial={{ opacity: 0, y: 16 }}
@@ -570,11 +569,10 @@ export default function AdminCircuitsClient({
                                                 {/* Itinerary button */}
                                                 <button
                                                     onClick={() => openItineraryBuilder(circuit)}
-                                                    className={`w-full flex items-center justify-between px-3 py-2 text-[10px] font-mono tracking-wide border mb-3 transition-colors ${
-                                                        days.length > 0
+                                                    className={`w-full flex items-center justify-between px-3 py-2 text-[10px] font-mono tracking-wide border mb-3 transition-colors ${days.length > 0
                                                             ? 'border-emerald-200 text-emerald-600 bg-emerald-50 hover:bg-emerald-100'
                                                             : 'border-dashed border-[#1B2D5B]/15 text-[#1B2D5B]/30 hover:border-[#B8962E]/30 hover:text-[#B8962E]'
-                                                    }`}
+                                                        }`}
                                                 >
                                                     <span className="flex items-center gap-1.5">
                                                         <Map className="h-3 w-3" />
@@ -626,7 +624,7 @@ export default function AdminCircuitsClient({
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 <div className="space-y-1.5">
                                     <Label className="text-[10px] font-mono tracking-widest text-[#1B2D5B]/50 uppercase">Pays</Label>
-                                    <Select value={form.countryId} onValueChange={v => setForm(f => ({ ...f, countryId: v }))}>
+                                    <Select value={form.countryId} onValueChange={v => setForm(f => ({ ...f, countryId: v ?? '' }))}>
                                         <SelectTrigger className="rounded-none border-[#1B2D5B]/15 h-9 text-xs">
                                             <SelectValue placeholder="Choisir..." />
                                         </SelectTrigger>
@@ -642,7 +640,7 @@ export default function AdminCircuitsClient({
                                 </div>
                                 <div className="space-y-1.5">
                                     <Label className="text-[10px] font-mono tracking-widest text-[#1B2D5B]/50 uppercase">Catégorie</Label>
-                                    <Select value={form.category} onValueChange={v => setForm(f => ({ ...f, category: v }))}>
+                                    <Select value={form.category} onValueChange={v => setForm(f => ({ ...f, category: v ?? '' }))}>
                                         <SelectTrigger className="rounded-none border-[#1B2D5B]/15 h-9 text-xs">
                                             <SelectValue />
                                         </SelectTrigger>
@@ -655,7 +653,7 @@ export default function AdminCircuitsClient({
                                 </div>
                                 <div className="space-y-1.5">
                                     <Label className="text-[10px] font-mono tracking-widests text-[#1B2D5B]/50 uppercase">Difficulté</Label>
-                                    <Select value={form.difficulty} onValueChange={v => setForm(f => ({ ...f, difficulty: v }))}>
+                                    <Select value={form.difficulty} onValueChange={v => setForm(f => ({ ...f, difficulty: v ?? '' }))}>
                                         <SelectTrigger className="rounded-none border-[#1B2D5B]/15 h-9 text-xs">
                                             <SelectValue />
                                         </SelectTrigger>
@@ -676,11 +674,10 @@ export default function AdminCircuitsClient({
                                         {(['fr', 'ar', 'en'] as const).map(lang => (
                                             <button key={lang} type="button"
                                                 onClick={() => setActiveTab(lang)}
-                                                className={`px-2 py-1 text-[9px] font-mono uppercase tracking-widests border transition-colors ${
-                                                    activeTab === lang
+                                                className={`px-2 py-1 text-[9px] font-mono uppercase tracking-widests border transition-colors ${activeTab === lang
                                                         ? 'bg-[#1B2D5B] text-white border-[#1B2D5B]'
                                                         : 'text-[#1B2D5B]/40 border-[#1B2D5B]/15 hover:border-[#1B2D5B]/30'
-                                                }`}>
+                                                    }`}>
                                                 {lang === 'fr' ? '🇫🇷' : lang === 'ar' ? '🇩🇿' : '🇬🇧'} {lang}
                                             </button>
                                         ))}
@@ -709,7 +706,7 @@ export default function AdminCircuitsClient({
                                 </div>
                                 <div className="space-y-1.5">
                                     <Label className="text-[10px] font-mono tracking-widests text-[#1B2D5B]/50 uppercase">Devise</Label>
-                                    <Select value={form.currency} onValueChange={v => setForm(f => ({ ...f, currency: v }))}>
+                                    <Select value={form.currency} onValueChange={v => setForm(f => ({ ...f, currency: v ?? '' }))}>
                                         <SelectTrigger className="rounded-none border-[#1B2D5B]/15 h-9 text-xs">
                                             <SelectValue />
                                         </SelectTrigger>

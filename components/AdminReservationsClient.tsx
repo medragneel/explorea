@@ -191,7 +191,7 @@ export default function AdminReservationsClient({ data }: { data: Row[] }) {
                         />
                     </div>
 
-                    <Select value={filterStatus} onValueChange={setFilterStatus}>
+                    <Select value={filterStatus} onValueChange={(v)=> setFilterStatus(v ?? 'all')}>
                         <SelectTrigger className="h-9 w-40 text-xs border-[#1B2D5B]/15 bg-white rounded-none">
                             <SlidersHorizontal className="h-3.5 w-3.5 mr-2 text-[#1B2D5B]/40" />
                             <SelectValue placeholder="Statut" />

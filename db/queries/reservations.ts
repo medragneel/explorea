@@ -6,7 +6,6 @@ export async function createReservation(data: {
     nom: string
     telephone: string
     email?: string
-    wilaya: string
     departId: string
     nombrePersonnes: number
     notes?: string
@@ -17,7 +16,6 @@ export async function createReservation(data: {
             nom: data.nom,
             telephone: data.telephone,
             email: data.email,
-            wilaya: data.wilaya,
         })
         .returning()
 

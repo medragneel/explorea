@@ -43,40 +43,40 @@ function getRegionStyle(region: string | null | undefined) {
 }
 
 function getDurationBadge(duree: number) {
-    if (duree <= 1)  return { label: 'Journée',       color: 'text-slate-600 bg-slate-50 border-slate-200' }
-    if (duree <= 5)  return { label: 'Court séjour',  color: 'text-violet-600 bg-violet-50 border-violet-200' }
-    if (duree <= 10) return { label: 'Séjour',        color: 'text-blue-600 bg-blue-50 border-blue-200' }
-    return               { label: 'Grand circuit', color: 'text-orange-600 bg-orange-50 border-orange-200' }
+    if (duree <= 1) return { label: 'Journée', color: 'text-slate-600 bg-slate-50 border-slate-200' }
+    if (duree <= 5) return { label: 'Court séjour', color: 'text-violet-600 bg-violet-50 border-violet-200' }
+    if (duree <= 10) return { label: 'Séjour', color: 'text-blue-600 bg-blue-50 border-blue-200' }
+    return { label: 'Grand circuit', color: 'text-orange-600 bg-orange-50 border-orange-200' }
 }
 
 // ─── Category config ───────────────────────────────────────────────────────
 
 const CATEGORIES = [
-    { key: 'all',         label: 'Tous',            emoji: '🌍' },
-    { key: 'adventure',   label: 'Aventure',        emoji: '🏔' },
-    { key: 'cultural',    label: 'Culturel',        emoji: '🏛' },
-    { key: 'wildlife',    label: 'Faune',           emoji: '🦁' },
-    { key: 'luxury',      label: 'Luxe',            emoji: '✨' },
-    { key: 'family',      label: 'Famille',         emoji: '👨‍👩‍👧' },
-    { key: 'honeymoon',   label: 'Lune de miel',    emoji: '💍' },
-    { key: 'photography', label: 'Photographie',    emoji: '📷' },
-    { key: 'trekking',    label: 'Trekking',        emoji: '🥾' },
+    { key: 'all', label: 'Tous', emoji: '🌍' },
+    { key: 'adventure', label: 'Aventure', emoji: '🏔' },
+    { key: 'cultural', label: 'Culturel', emoji: '🏛' },
+    { key: 'wildlife', label: 'Faune', emoji: '🦁' },
+    { key: 'luxury', label: 'Luxe', emoji: '✨' },
+    { key: 'family', label: 'Famille', emoji: '👨‍👩‍👧' },
+    { key: 'honeymoon', label: 'Lune de miel', emoji: '💍' },
+    { key: 'photography', label: 'Photographie', emoji: '📷' },
+    { key: 'trekking', label: 'Trekking', emoji: '🥾' },
 ]
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
 type Translations = {
-    title:              string
-    subtitle:           string
-    days:               string
-    from:               string
-    book:               string
-    no_results:         string
+    title: string
+    subtitle: string
+    days: string
+    from: string
+    book: string
+    no_results: string
     search_placeholder: string
-    sort_price_asc:     string
-    sort_price_desc:    string
-    sort_duration:      string
-    filter_all:         string
+    sort_price_asc: string
+    sort_price_desc: string
+    sort_duration: string
+    filter_all: string
 }
 
 // ─── Main component ────────────────────────────────────────────────────────
@@ -86,16 +86,16 @@ export default function CircuitsClient({
     countries = [],
     translations: t,
 }: {
-    circuits:     Circuit[]
-    countries?:   Country[]
+    circuits: Circuit[]
+    countries?: Country[]
     translations: Translations
 }) {
     const locale = useLocale()
-    const [search,         setSearch]         = useState('')
+    const [search, setSearch] = useState('')
     const [filterCategory, setFilterCategory] = useState('all')
-    const [filterCountry,  setFilterCountry]  = useState('all')
+    const [filterCountry, setFilterCountry] = useState('all')
     const [filterDuration, setFilterDuration] = useState('all')
-    const [sort,           setSort]           = useState('default')
+    const [sort, setSort] = useState('default')
 
     // ── Derive available categories from actual data ───────────────────
     const availableCategories = useMemo(() => {
@@ -105,8 +105,8 @@ export default function CircuitsClient({
 
     // ── Stats ─────────────────────────────────────────────────────────
     const durations = circuits.map(c => c.duree)
-    const minDur    = durations.length ? Math.min(...durations) : 1
-    const maxDur    = durations.length ? Math.max(...durations) : 15
+    const minDur = durations.length ? Math.min(...durations) : 1
+    const maxDur = durations.length ? Math.max(...durations) : 15
 
     // ── Filtered & sorted circuits ────────────────────────────────────
     const filtered = useMemo(() => {
@@ -137,15 +137,15 @@ export default function CircuitsClient({
         }
 
         // Duration filter
-        if (filterDuration === 'day')    result = result.filter(c => c.duree === 1)
-        if (filterDuration === 'short')  result = result.filter(c => c.duree > 1 && c.duree <= 5)
+        if (filterDuration === 'day') result = result.filter(c => c.duree === 1)
+        if (filterDuration === 'short') result = result.filter(c => c.duree > 1 && c.duree <= 5)
         if (filterDuration === 'medium') result = result.filter(c => c.duree > 5 && c.duree <= 10)
-        if (filterDuration === 'long')   result = result.filter(c => c.duree > 10)
+        if (filterDuration === 'long') result = result.filter(c => c.duree > 10)
 
         // Sort
-        if (sort === 'price_asc')  result.sort((a, b) => a.prix - b.prix)
+        if (sort === 'price_asc') result.sort((a, b) => a.prix - b.prix)
         if (sort === 'price_desc') result.sort((a, b) => b.prix - a.prix)
-        if (sort === 'duration')   result.sort((a, b) => a.duree - b.duree)
+        if (sort === 'duration') result.sort((a, b) => a.duree - b.duree)
 
         return result
     }, [circuits, search, filterCategory, filterCountry, filterDuration, sort, locale])
@@ -222,11 +222,10 @@ export default function CircuitsClient({
                             <button
                                 key={cat.key}
                                 onClick={() => setFilterCategory(cat.key)}
-                                className={`flex-shrink-0 flex items-center gap-1.5 px-4 py-2 text-[11px] font-mono tracking-wide uppercase transition-all duration-200 ${
-                                    filterCategory === cat.key
-                                        ? 'bg-[#1B2D5B] text-white'
-                                        : 'text-[#1B2D5B]/50 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/05'
-                                }`}
+                                className={`flex-shrink-0 flex items-center gap-1.5 px-4 py-2 text-[11px] font-mono tracking-wide uppercase transition-all duration-200 ${filterCategory === cat.key
+                                    ? 'bg-[#1B2D5B] text-white'
+                                    : 'text-[#1B2D5B]/50 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/05'
+                                    }`}
                             >
                                 <span>{cat.emoji}</span>
                                 {cat.label}
@@ -251,7 +250,7 @@ export default function CircuitsClient({
 
                         {/* Country filter */}
                         {countries.length > 0 && (
-                            <Select value={filterCountry} onValueChange={setFilterCountry}>
+                            <Select value={filterCountry} onValueChange={(v) => setFilterCountry(v ?? 'all')}>
                                 <SelectTrigger className="h-9 w-40 text-xs border-[#1B2D5B]/15 bg-[#F9F7F4] rounded-none">
                                     <Globe className="h-3.5 w-3.5 mr-1.5 text-[#1B2D5B]/40 flex-shrink-0" />
                                     <SelectValue placeholder="Pays" />
@@ -268,31 +267,31 @@ export default function CircuitsClient({
                         )}
 
                         {/* Duration filter */}
-                        <Select value={filterDuration} onValueChange={setFilterDuration}>
+                        <Select value={filterDuration} onValueChange={(v) => setFilterDuration(v ?? 'all')}>
                             <SelectTrigger className="h-9 w-36 text-xs border-[#1B2D5B]/15 bg-[#F9F7F4] rounded-none">
                                 <Clock className="h-3.5 w-3.5 mr-1.5 text-[#1B2D5B]/40 flex-shrink-0" />
                                 <SelectValue placeholder="Durée" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all"    className="text-xs">Toutes durées</SelectItem>
-                                <SelectItem value="day"    className="text-xs">📅 Journée (1j)</SelectItem>
-                                <SelectItem value="short"  className="text-xs">⚡ Court (2–5j)</SelectItem>
+                                <SelectItem value="all" className="text-xs">Toutes durées</SelectItem>
+                                <SelectItem value="day" className="text-xs">📅 Journée (1j)</SelectItem>
+                                <SelectItem value="short" className="text-xs">⚡ Court (2–5j)</SelectItem>
                                 <SelectItem value="medium" className="text-xs">🗓 Séjour (6–10j)</SelectItem>
-                                <SelectItem value="long"   className="text-xs">🌍 Long (11j+)</SelectItem>
+                                <SelectItem value="long" className="text-xs">🌍 Long (11j+)</SelectItem>
                             </SelectContent>
                         </Select>
 
                         {/* Sort */}
-                        <Select value={sort} onValueChange={setSort}>
+                        <Select value={sort} onValueChange={(v) => setSort(v ?? 'all')}>
                             <SelectTrigger className="h-9 w-44 text-xs border-[#1B2D5B]/15 bg-[#F9F7F4] rounded-none">
                                 <SlidersHorizontal className="h-3 w-3 mr-1.5 text-[#1B2D5B]/40" />
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="default"    className="text-xs">Ordre par défaut</SelectItem>
-                                <SelectItem value="price_asc"  className="text-xs">{t.sort_price_asc}</SelectItem>
+                                <SelectItem value="default" className="text-xs">Ordre par défaut</SelectItem>
+                                <SelectItem value="price_asc" className="text-xs">{t.sort_price_asc}</SelectItem>
                                 <SelectItem value="price_desc" className="text-xs">{t.sort_price_desc}</SelectItem>
-                                <SelectItem value="duration"   className="text-xs">{t.sort_duration}</SelectItem>
+                                <SelectItem value="duration" className="text-xs">{t.sort_duration}</SelectItem>
                             </SelectContent>
                         </Select>
 
@@ -348,15 +347,15 @@ function CircuitCard({
     circuit, index, t, locale,
 }: {
     circuit: Circuit
-    index:   number
-    t:       Translations
-    locale:  string
+    index: number
+    t: Translations
+    locale: string
 }) {
-    const regionStyle   = getRegionStyle(circuit.region)
+    const regionStyle = getRegionStyle(circuit.region)
     const durationBadge = getDurationBadge(circuit.duree)
-    const name          = getField((circuit as any).nomI18n ?? circuit.nom, locale)
-    const description   = getField((circuit as any).descriptionI18n ?? circuit.description, locale)
-    const price         = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
+    const name = getField((circuit as any).nomI18n ?? circuit.nom, locale)
+    const description = getField((circuit as any).descriptionI18n ?? circuit.description, locale)
+    const price = formatPrice(circuit.prix, (circuit as any).currency ?? 'DZD', locale)
 
     return (
         <motion.div

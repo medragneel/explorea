@@ -324,7 +324,7 @@ export default function AdminDepartsClient({
                     </div>
 
                     {/* Circuit filter */}
-                    <Select value={filterCircuit} onValueChange={setFilterCircuit}>
+                    <Select value={filterCircuit} onValueChange={(v)=>setFilterCircuit(v ?? 'all')}>
                         <SelectTrigger className="h-9 w-52 text-xs border-[#1B2D5B]/15 bg-white rounded-none">
                             <MapPin className="h-3.5 w-3.5 mr-2 text-[#1B2D5B]/40" />
                             <SelectValue placeholder="Tous les circuits" />
@@ -340,7 +340,7 @@ export default function AdminDepartsClient({
                     </Select>
 
                     {/* Status filter */}
-                    <Select value={filterStatus} onValueChange={setFilterStatus}>
+                    <Select value={filterStatus} onValueChange={(v)=> setFilterStatus(v ?? 'all')}>
                         <SelectTrigger className="h-9 w-40 text-xs border-[#1B2D5B]/15 bg-white rounded-none">
                             <SlidersHorizontal className="h-3.5 w-3.5 mr-2 text-[#1B2D5B]/40" />
                             <SelectValue placeholder="Statut" />
@@ -563,7 +563,7 @@ export default function AdminDepartsClient({
                                         const duree = c?.duree ?? 7
                                         setForm(f => ({
                                             ...f,
-                                            circuitId: v,
+                                            circuitId: v ?? '',
                                             // Auto-calculate dateFin if date is set
                                             dateFin: f.date
                                                 ? format(new Date(new Date(f.date).getTime() + duree * 86400000), 'yyyy-MM-dd')
