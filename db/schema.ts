@@ -11,9 +11,9 @@ export const difficultyEnum = pgEnum('difficulty', [
     'easy', 'moderate', 'challenging', 'expedition'
 ])
 
-export const reservationStatutEnum = pgEnum('reservation_statut', [
-    'pending', 'confirmed', 'cancelled', 'completed'
-])
+// export const reservationStatutEnum = pgEnum('reservation_statut', [
+//     'pending', 'confirmed', 'cancelled', 'completed'
+// ])
 
 export const categoryEnum = pgEnum('category', [
     'adventure', 'cultural', 'wildlife', 'luxury',
@@ -131,7 +131,7 @@ export const reservations = pgTable('reservations', {
     clientId: uuid('client_id').references(() => clients.id),
     clerkUserId: text('clerk_user_id'),          // optional — guest bookings allowed
     nombrePersonnes: integer('nombre_personnes').notNull(),
-    statut: reservationStatutEnum('statut').default('pending'),
+    statut: text('statut').default('en_attente'),
     // Pricing snapshot at time of booking
     prixTotal: real('prix_total'),
     currency: text('currency').default('DZD'),
