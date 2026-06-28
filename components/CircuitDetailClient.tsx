@@ -270,8 +270,8 @@ export default function CircuitDetailClient({
                                                 {/* Day circle */}
                                                 <div
                                                     className={`absolute left-0 top-4 w-12 h-12 rounded-full flex items-center justify-center text-lg border-2 transition-all duration-300 cursor-pointer z-10 ${activeDay === day.day
-                                                            ? 'bg-[#1B2D5B] border-[#B8962E] scale-110'
-                                                            : 'bg-white border-[#1B2D5B]/15 hover:border-[#B8962E]/50'
+                                                        ? 'bg-[#1B2D5B] border-[#B8962E] scale-110'
+                                                        : 'bg-white border-[#1B2D5B]/15 hover:border-[#B8962E]/50'
                                                         }`}
                                                     onClick={() => handleDayClick(day.day)}
                                                 >
@@ -280,8 +280,8 @@ export default function CircuitDetailClient({
 
                                                 {/* Card */}
                                                 <div className={`bg-white border transition-all duration-300 overflow-hidden ${activeDay === day.day
-                                                        ? 'border-[#B8962E]/30 shadow-[0_4px_20px_rgba(184,150,46,0.1)]'
-                                                        : 'border-[#1B2D5B]/08 hover:border-[#1B2D5B]/15'
+                                                    ? 'border-[#B8962E]/30 shadow-[0_4px_20px_rgba(184,150,46,0.1)]'
+                                                    : 'border-[#1B2D5B]/08 hover:border-[#1B2D5B]/15'
                                                     }`}>
                                                     <button
                                                         className="w-full flex items-center justify-between p-5 text-left"
@@ -551,7 +551,7 @@ export default function CircuitDetailClient({
                             className="mt-10 max-w-2xl mx-auto"
                         >
                             <ReservationForm
-                                departId={firstAvailable?.id ?? ''}
+                                departs={departs}
                                 circuitNom={name}
                             />
                         </motion.div>
