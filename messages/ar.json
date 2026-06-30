@@ -24,7 +24,14 @@
         "tailorMadeJourney": "يقوم خبراؤنا بتصميم رحلتك خصيصًا وفق احتياجاتك.",
         "contactDepart": "تواصل معنا وانطلق خلال 48 ساعة.",
         "planTrip": "خطط لرحلتي",
-        "viewTours": "عرض الجولات"
+        "viewTours": "عرض الجولات",
+        "premiumTravelAgency": "وكالة سفر فاخرة · الجزائر",
+        "heroTitle": "الجزائر",
+        "heroSubtitle": "الخالدة",
+        "heroDescription": "من سحر الصحراء إلى سواحل البحر الأبيض المتوسط، رحلات استثنائية صُممت خصيصًا لعشاق المغامرة.",
+        "tailorMade": "رحلات مخصصة",
+        "discoverTours": "اكتشف جولاتنا",
+        "scroll": "SCROLL"
     },
     "circuits": {
         "title": "جولاتنا",

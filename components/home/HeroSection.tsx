@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Play, Pause, Volume2, VolumeX, ChevronDown, ArrowRight } from 'lucide-react'
 import { Link } from '@/lib/navigation'
+import { useTranslations } from 'next-intl'
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
 
@@ -24,6 +25,8 @@ export default function HeroSection() {
     const [playing, setPlaying] = useState(true)
     const [muted, setMuted] = useState(true)
     const [videoProgress, setVideoProgress] = useState(0)
+    const t = useTranslations('home')
+
 
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
@@ -97,7 +100,7 @@ export default function HeroSection() {
                     <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
                         <div className="h-px w-12 bg-amber-400" />
                         <span className="text-amber-400 text-xs tracking-[0.4em] uppercase font-mono">
-                            Agence de Voyage Premium · Algérie
+                            {t("premiumTravelAgency")}
                         </span>
                     </motion.div>
 
@@ -106,15 +109,16 @@ export default function HeroSection() {
                         className="text-5xl md:text-7xl lg:text-8xl font-light leading-[0.9] tracking-tight mb-6"
                         style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                     >
-                        L'Algérie<br />
-                        <em className="text-amber-300 not-italic">Intemporelle</em>
+                        {t("heroTitle")}
+                        <br />
+                        <em className="text-amber-300 not-italic">{t("heroSubtitle")}</em>
                     </motion.h1>
 
                     <motion.p
                         variants={fadeUp} custom={2}
                         className="text-[#EDE8DF]/60 text-base md:text-lg font-light tracking-wide max-w-lg mb-10 leading-relaxed"
                     >
-                        Du Sahara mystique aux côtes méditerranéennes — des voyages d'exception façonnés pour les âmes aventurières.
+                        {t("heroDescription")}
                     </motion.p>
 
                     <motion.div variants={fadeUp} custom={3} className="flex flex-wrap gap-4 items-center">
@@ -122,14 +126,14 @@ export default function HeroSection() {
                             href="/circuits"
                             className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-medium tracking-wide px-8 h-12 rounded-none transition-all duration-300 text-sm"
                         >
-                            Découvrir nos circuits
+                            {t("discoverTours")}
                             <ArrowRight className="h-4 w-4" />
                         </Link>
                         <Link
                             href="/contact"
                             className="inline-flex items-center h-12 px-8 border border-white/20 text-white hover:bg-white/10 font-light tracking-widest text-xs rounded-none transition-all duration-300"
                         >
-                            Sur mesure
+                            {t("tailorMade")}
                         </Link>
                     </motion.div>
                 </motion.div>
@@ -166,7 +170,7 @@ export default function HeroSection() {
                     <ChevronDown className="h-5 w-5 text-white/40" />
                 </motion.div>
                 <span className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-mono" style={{ writingMode: 'vertical-rl' }}>
-                    Scroll
+                    {t("scroll")}
                 </span>
             </motion.div>
         </section>

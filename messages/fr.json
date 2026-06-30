@@ -24,7 +24,14 @@
         "tailorMadeJourney": "Nos experts créent votre voyage sur mesure.",
         "contactDepart": "Contactez-nous et partez dans 48h.",
         "planTrip": "Planifier mon voyage",
-        "viewTours": "Voir les circuits"
+        "viewTours": "Voir les circuits",
+        "premiumTravelAgency": "AGENCE DE VOYAGE PREMIUM · ALGÉRIE",
+        "heroTitle": "L'Algérie",
+        "heroSubtitle": "Intemporelle",
+        "heroDescription": "Du Sahara mystique aux côtes méditerranéennes — des voyages d'exception façonnés pour les âmes aventurières.",
+        "tailorMade": "Sur mesure",
+        "discoverTours": "Découvrir nos circuits",
+        "scroll": "SCROLL"
     },
     "circuits": {
         "title": "Nos Circuits",
