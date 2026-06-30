@@ -1,7 +1,6 @@
 // components/CircuitCard.tsx
 import { useTranslations, useLocale } from 'next-intl'
 import { getField, formatPrice } from '@/lib/i18n-field'
-import { Badge } from '@/components/ui/badge'
 import { Clock, MapPin, ArrowRight } from 'lucide-react'
 import { Link } from '@/lib/navigation'
 import type { Circuit } from '@/db/schema'

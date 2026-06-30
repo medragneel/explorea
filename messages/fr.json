@@ -17,7 +17,14 @@
     "home": {
         "hero_title": "L'Algérie Intemporelle",
         "hero_sub": "Des voyages d'exception façonnés pour les âmes aventurières",
-        "cta": "Découvrir nos circuits"
+        "cta": "Découvrir nos circuits",
+        "adventureStartsHere": "VOTRE AVENTURE COMMENCE ICI",
+        "readyFor": "Prêt pour votre ",
+        "adventure": "odyssée saharienne ?",
+        "tailorMadeJourney": "Nos experts créent votre voyage sur mesure.",
+        "contactDepart": "Contactez-nous et partez dans 48h.",
+        "planTrip": "Planifier mon voyage",
+        "viewTours": "Voir les circuits"
     },
     "circuits": {
         "title": "Nos Circuits",

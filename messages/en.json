@@ -17,7 +17,14 @@
     "home": {
         "hero_title": "Timeless Algeria",
         "hero_sub": "Exceptional journeys crafted for adventurous souls",
-        "cta": "Explore our tours"
+        "cta": "Explore our tours",
+        "adventureStartsHere": "YOUR ADVENTURE STARTS HERE",
+        "readyFor": "Ready for your ",
+        "adventure": "Saharan adventure?",
+        "tailorMadeJourney": "Our experts create a tailor-made journey just for you.",
+        "contactDepart": "Contact us and depart within 48 hours.",
+        "planTrip": "Plan My Trip",
+        "viewTours": "View Tours"
     },
     "circuits": {
         "title": "Our Tours",
