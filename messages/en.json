@@ -31,7 +31,10 @@
         "heroDescription": "From the mystical Sahara to the Mediterranean coast—exceptional journeys crafted for adventurous souls.",
         "tailorMade": "Tailor-Made",
         "discoverTours": "Discover Our Tours",
-        "scroll": "SCROLL"
+        "scroll": "SCROLL",
+        "quote": "The desert is not simply visited—it is lived, breathed, and it transforms you forever.",
+        "quoteAuthor": "IBN BATTUTA",
+        "quotePeriod": "14TH CENTURY"
     },
     "circuits": {
         "title": "Our Tours",
@@ -74,5 +77,29 @@
     "contact": {
         "title": "Contact Us",
         "subtitle": "Our team is available to answer all your questions about our tours and destinations."
+    },
+    "footer": {
+        "contact": "Contact",
+        "phone": "+213 21 XX XX XX",
+        "email": "contact@explorea.dz",
+        "location": "Algiers, Algeria",
+        "approved": "Approved By",
+        "agency": "Agency",
+        "about": "About Us",
+        "tours": "Our Tours",
+        "destinations": "Destinations",
+        "contactLink": "Contact",
+        "legal": "Legal Notice",
+        "destinationsTitle": "Destinations",
+        "sahara": "Sahara & Grand Erg",
+        "tassili": "Tassili n'Ajjer",
+        "ksour": "Route of the Ksour",
+        "casbah": "Casbah & Coast",
+        "hoggar": "Hoggar & Assekrem",
+        "companyDescription": "A premium travel agency specializing in Algerian destinations since 2006.",
+        "privacy": "Privacy Policy",
+        "terms": "Terms & Conditions",
+        "tagline": "Explore Without Limits",
+        "copyright": "Explorea · All Rights Reserved"
     }
 }

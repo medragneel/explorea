@@ -31,7 +31,10 @@
         "heroDescription": "Du Sahara mystique aux côtes méditerranéennes — des voyages d'exception façonnés pour les âmes aventurières.",
         "tailorMade": "Sur mesure",
         "discoverTours": "Découvrir nos circuits",
-        "scroll": "SCROLL"
+        "scroll": "SCROLL",
+        "quote": "Le désert ne se visite pas — il se vit, il se respire, il vous transforme pour toujours.",
+        "quoteAuthor": "IBN BATTUTA",
+        "quotePeriod": "XIVE SIÈCLE"
     },
     "circuits": {
         "title": "Nos Circuits",
@@ -74,5 +77,29 @@
     "contact": {
         "title": "Contactez-nous",
         "subtitle": "Notre équipe est disponible pour répondre à toutes vos questions sur nos circuits et destinations."
+    },
+    "footer": {
+        "contact": "Contact",
+        "phone": "XX XX XX 21 213+",
+        "email": "contact@explorea.dz",
+        "location": "Alger, Algérie",
+        "approved": "Agréée",
+        "agency": "Agence",
+        "about": "À propos",
+        "tours": "Nos circuits",
+        "destinations": "Destinations",
+        "contactLink": "Contact",
+        "legal": "Mentions légales",
+        "destinationsTitle": "Destinations",
+        "sahara": "Sahara & Grand Erg",
+        "tassili": "Tassili n'Ajjer",
+        "ksour": "Route des Ksour",
+        "casbah": "Casbah & Côte",
+        "hoggar": "Hoggar & Assekrem",
+        "companyDescription": "Agence de voyage premium spécialisée dans les destinations algériennes depuis 2006.",
+        "privacy": "Confidentialité",
+        "terms": "CGV",
+        "tagline": "Explorez sans limites",
+        "copyright": "Explorea · Tous droits réservés "
     }
 }
