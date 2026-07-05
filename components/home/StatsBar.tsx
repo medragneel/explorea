@@ -4,6 +4,8 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MapPin, Users, Clock, Star } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
 const fadeUp = {
@@ -13,15 +15,16 @@ const fadeUp = {
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }
 
 const STATS = [
-    { value: '48+', label: 'Destinations', icon: MapPin },
-    { value: '12K', label: 'Voyageurs', icon: Users },
-    { value: '18', label: 'Années', icon: Clock },
-    { value: '4.9', label: 'Note moyenne', icon: Star },
+    { value: '48+', label: 'destinations', icon: MapPin },
+    { value: '12K', label: 'travelers', icon: Users },
+    { value: '18', label: 'years', icon: Clock },
+    { value: '4.9', label: 'rating', icon: Star },
 ]
 
 export default function StatsBar() {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true, margin: '-80px' })
+    const t = useTranslations("home.stats")
 
     return (
         <motion.div
@@ -38,7 +41,7 @@ export default function StatsBar() {
                         <span className="text-4xl md:text-5xl font-light text-amber-300" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                             {stat.value}
                         </span>
-                        <span className="text-[10px] tracking-[0.25em] uppercase text-white/30 font-mono">{stat.label}</span>
+                        <span className="text-[10px] tracking-[0.25em] uppercase text-white/30 font-mono">{t(stat.label)}</span>
                     </motion.div>
                 ))}
             </div>

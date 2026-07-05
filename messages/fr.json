@@ -34,7 +34,36 @@
         "scroll": "SCROLL",
         "quote": "Le désert ne se visite pas — il se vit, il se respire, il vous transforme pour toujours.",
         "quoteAuthor": "IBN BATTUTA",
-        "quotePeriod": "XIVE SIÈCLE"
+        "quotePeriod": "XIVE SIÈCLE",
+        "experiences": {
+            "eyebrow": "Nos Expériences",
+            "title_line1": "Voyager autrement,",
+            "title_em": "vivre pleinement",
+            "items": {
+                "trekking": {
+                    "title": "Méharées",
+                    "desc": "Traversées à dos de dromadaire sur d'anciens itinéraires caravaniers."
+                },
+                "camping": {
+                    "title": "Bivouacs",
+                    "desc": "Nuits sous les étoiles avec campements de luxe en plein désert."
+                },
+                "photography": {
+                    "title": "Photographie",
+                    "desc": "Circuits dédiés aux photographes dans les plus beaux paysages."
+                },
+                "custom": {
+                    "title": "Sur mesure",
+                    "desc": "Chaque voyage pensé et façonné selon vos désirs."
+                }
+            }
+        },
+        "stats": {
+            "destinations": "Destinations",
+            "travelers": "Voyageurs",
+            "years": "Années",
+            "rating": "Note moyenne"
+        }
     },
     "circuits": {
         "title": "Nos Circuits",

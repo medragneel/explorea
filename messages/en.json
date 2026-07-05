@@ -34,7 +34,36 @@
         "scroll": "SCROLL",
         "quote": "The desert is not simply visited—it is lived, breathed, and it transforms you forever.",
         "quoteAuthor": "IBN BATTUTA",
-        "quotePeriod": "14TH CENTURY"
+        "quotePeriod": "14TH CENTURY",
+        "experiences": {
+            "eyebrow": "Our Experiences",
+            "title_line1": "Travel differently,",
+            "title_em": "live fully",
+            "items": {
+                "trekking": {
+                    "title": "Camel Treks",
+                    "desc": "Crossings by camelback on ancient caravan routes."
+                },
+                "camping": {
+                    "title": "Bivouacs",
+                    "desc": "Nights under the stars in luxury desert camps."
+                },
+                "photography": {
+                    "title": "Photography",
+                    "desc": "Dedicated photography circuits in the most stunning landscapes."
+                },
+                "custom": {
+                    "title": "Tailor-made",
+                    "desc": "Every journey designed and shaped to your desires."
+                }
+            }
+        },
+        "stats": {
+            "destinations": "Destinations",
+            "travelers": "Travelers",
+            "years": "Years",
+            "rating": "Average rating"
+        }
     },
     "circuits": {
         "title": "Our Tours",
