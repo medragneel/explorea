@@ -63,6 +63,11 @@
             "travelers": "Travelers",
             "years": "Years",
             "rating": "Average rating"
+        },
+        "testimonials": {
+            "eyebrow": "Testimonials",
+            "title_line1": "What they say",
+            "title_em": "about their trips"
         }
     },
     "circuits": {

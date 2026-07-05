@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Link } from '@/lib/navigation'
-import { useTranslations, useLocale } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]

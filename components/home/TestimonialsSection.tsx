@@ -6,6 +6,8 @@ import { motion, useInView } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Star } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
 const fadeUp = {
@@ -23,6 +25,7 @@ const TESTIMONIALS = [
 export default function TestimonialsSection() {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true, margin: '-80px' })
+    const t = useTranslations("home.testimonials")
 
     return (
         <section className="py-28 bg-[#0D0A07] px-6 md:px-12 lg:px-20">
@@ -30,10 +33,12 @@ export default function TestimonialsSection() {
                 <motion.div ref={ref} variants={stagger} initial="hidden" animate={inView ? 'visible' : 'hidden'}>
                     <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
                         <div className="h-px w-10 bg-amber-500" />
-                        <span className="text-amber-500 text-xs tracking-[0.3em] uppercase font-light font-mono">Témoignages</span>
+                        <span className="text-amber-500 text-xs tracking-[0.3em] uppercase font-light font-mono">
+                            {t("eyebrow")}
+                        </span>
                     </motion.div>
                     <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-5xl font-light mb-16" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-                        Ce qu'ils disent<br /><em className="text-amber-300">de leurs voyages</em>
+                        {t("title_line1")}<br /><em className="text-amber-300">{t("title_em")}</em>
                     </motion.h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

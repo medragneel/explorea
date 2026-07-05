@@ -63,6 +63,11 @@
             "travelers": "مسافرون",
             "years": "سنوات",
             "rating": "التقييم"
+        },
+        "testimonials": {
+            "eyebrow": "آراء المسافرين",
+            "title_line1": "ماذا يقولون",
+            "title_em": "عن رحلاتهم"
         }
     },
     "circuits": {

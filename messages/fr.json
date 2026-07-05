@@ -63,6 +63,11 @@
             "travelers": "Voyageurs",
             "years": "Années",
             "rating": "Note moyenne"
+        },
+        "testimonials": {
+            "eyebrow": "Témoignages",
+            "title_line1": "Ce qu'ils disent",
+            "title_em": "de leurs voyages"
         }
     },
     "circuits": {
