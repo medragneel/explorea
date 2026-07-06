@@ -5,64 +5,49 @@ import Image from 'next/image'
 import { useTranslations, useLocale } from 'next-intl'
 import { useUser, UserButton } from '@clerk/nextjs'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
-import {
-    Menu, Phone, ChevronRight, ChevronLeft, X, Compass,
-} from 'lucide-react'
+import { Menu, Phone, ChevronRight, ChevronLeft, X, Compass } from 'lucide-react'
 import { Link } from '@/lib/navigation'
 import LanguageSwitcher from './LanguageSwitcher'
 import type { Circuit } from '@/db/schema'
 
-// ── RTL-aware chevron ──────────────────────────────────────────────────────
-
-function NavChevron({ isRTL }: { isRTL: boolean }) {
-    return isRTL
-        ? <ChevronLeft className="h-3 w-3 flex-shrink-0" />
-        : <ChevronRight className="h-3 w-3 flex-shrink-0" />
-}
-
-// ─────────────────────────────────────────────────────────────────────────
-
 export default function Navbar({ destinations = [] }: { destinations?: Circuit[] }) {
-    const t      = useTranslations('nav')
+    const t = useTranslations('nav')
     const locale = useLocale()
-    const isRTL  = locale === 'ar'
+    const isRTL = locale === 'ar'
     const { isSignedIn } = useUser()
-    const [scrolled, setScrolled]     = useState(false)
+    const [scrolled, setScrolled] = useState(false)
     const [mobileOpen, setMobileOpen] = useState(false)
     const { scrollY } = useScroll()
 
     useMotionValueEvent(scrollY, 'change', (latest) => setScrolled(latest > 40))
 
-    // Underline animation — origin depends on RTL
-    const underlineCls = `absolute bottom-1 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ${
-        isRTL ? 'right-4 left-4 origin-right' : 'left-4 right-4 origin-left'
-    }`
-
-    // Mobile drawer — slides from correct side
-    const drawerVariants = {
-        hidden:  { x: isRTL ? '-100%' : '100%' },
-        visible: { x: 0 },
-        exit:    { x: isRTL ? '-100%' : '100%' },
-    }
-
     const NAV_LINKS = [
-        { href: '/',            label: t('home') },
+        { href: '/', label: t('home') },
         { href: '/destinations', label: t('destinations') },
-        { href: '/circuits',    label: t('circuits') },
-        { href: '/contact',     label: t('contact') },
+        { href: '/circuits', label: t('circuits') },
+        { href: '/contact', label: t('contact') },
     ]
+
+    // In RTL reverse the link order so Home appears rightmost visually
+    const orderedLinks = isRTL ? [...NAV_LINKS].reverse() : NAV_LINKS
+
+    const drawerVariants = {
+        hidden: { x: isRTL ? '-100%' : '100%' },
+        visible: { x: 0 },
+        exit: { x: isRTL ? '-100%' : '100%' },
+    }
 
     return (
         <>
             <motion.header
+                dir={isRTL ? 'rtl' : 'ltr'}
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-                    scrolled
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
                         ? 'bg-white shadow-[0_2px_20px_rgba(0,0,0,0.08)]'
                         : 'bg-white border-b border-[#B8962E]/15'
-                }`}
+                    }`}
             >
                 {/* ── TOP MICRO-BAR — desktop only ──────────────────── */}
                 <AnimatePresence>
@@ -74,6 +59,11 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                             transition={{ duration: 0.3 }}
                             className="hidden md:block overflow-hidden bg-[#1B2D5B]"
                         >
+                            {/*
+                                In RTL the browser already mirrors left/right via dir="rtl" on the header,
+                                so we keep the same order in code — the browser handles the visual flip.
+                                Phone will appear on the right, email on the left — correct for Arabic.
+                            */}
                             <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center justify-between">
                                 <div className="flex items-center gap-1.5 text-white">
                                     <Phone className="h-3 w-3" />
@@ -94,28 +84,31 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                 <div className="max-w-7xl mx-auto px-4 md:px-6">
                     <div className="flex items-center h-16 md:h-20 relative">
 
-                        {/* Mobile — Language LEFT (RTL: right) */}
-                        <div className={`flex md:hidden ${isRTL ? 'order-last' : 'order-first'}`}>
+                        {/* ── MOBILE: Language LEFT (LTR) / RIGHT (RTL via dir) ── */}
+                        <div className="flex md:hidden">
                             <LanguageSwitcher />
                         </div>
 
-                        {/* Desktop — Left nav */}
-                        <div className={`hidden md:flex items-center flex-1 ${isRTL ? 'justify-end' : 'justify-start'}`}>
-                            <nav className="flex items-center gap-0">
-                                {NAV_LINKS.map(link => (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        className="group inline-flex h-9 items-center px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative"
-                                    >
-                                        {link.label}
-                                        <span className={underlineCls} />
-                                    </Link>
-                                ))}
-                            </nav>
-                        </div>
+                        {/* ── DESKTOP LEFT side — nav links ─────────────────────
+                            With dir=rtl on the header, flex-row is already mirrored.
+                            We just render links normally; the browser places them RTL.
+                        ──────────────────────────────────────────────────────── */}
+                        <nav className="hidden md:flex items-center flex-1">
+                            {orderedLinks.map(link => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="group inline-flex h-9 items-center px-4 text-xs font-light tracking-[0.15em] uppercase text-[#1B2D5B]/60 hover:text-[#B8962E] transition-colors duration-300 relative"
+                                >
+                                    {link.label}
+                                    {/* Underline grows from the correct side per direction */}
+                                    <span className={`absolute bottom-1 h-px bg-[#B8962E] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 inset-x-4 ${isRTL ? 'origin-right' : 'origin-left'
+                                        }`} />
+                                </Link>
+                            ))}
+                        </nav>
 
-                        {/* CENTER LOGO — always centered */}
+                        {/* ── CENTER LOGO — always centered ──────────────────── */}
                         <div className="absolute left-1/2 -translate-x-1/2">
                             <Link href="/" className="block group">
                                 <motion.div
@@ -124,7 +117,7 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                                 >
                                     <Image
                                         src="/explorea_logo_dark.png"
-                                        alt="Explorea — Explorez sans limites"
+                                        alt="Explorea"
                                         width={70}
                                         height={35}
                                         className="object-contain h-auto"
@@ -134,12 +127,13 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                             </Link>
                         </div>
 
-                        {/* Desktop — Right side */}
-                        <div className={`hidden md:flex items-center gap-3 flex-1 ${isRTL ? 'justify-start' : 'justify-end'}`}>
+                        {/* ── DESKTOP RIGHT side — auth + language ──────────── */}
+                        <div className="hidden md:flex items-center gap-3 flex-1 justify-end">
                             <LanguageSwitcher />
 
                             {isSignedIn ? (
-                                <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                <div className="flex items-center gap-3">
+                                    {/* In RTL, UserButton comes after the text link visually */}
                                     <Link
                                         href="/mon-compte"
                                         className="text-xs font-mono tracking-widest text-[#1B2D5B]/50 hover:text-[#B8962E] uppercase transition-colors duration-300"
@@ -149,7 +143,7 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                                     <UserButton />
                                 </div>
                             ) : (
-                                <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                <div className="flex items-center gap-2">
                                     <Link
                                         href="/connexion"
                                         className="inline-flex items-center h-9 px-4 text-xs tracking-widest font-light rounded-none text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/5 transition-colors duration-200"
@@ -158,7 +152,7 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                                     </Link>
                                     <Link
                                         href="/inscription"
-                                        className="inline-flex items-center h-9 px-5 text-xs tracking-widest font-light rounded-none bg-[#B8962E] hover:bg-[#D4AF5A] text-white transition-all duration-300 shadow-[0_0_20px_rgba(184,150,46,0.2)]"
+                                        className="inline-flex items-center h-9 px-5 text-xs tracking-widest font-light rounded-none bg-[#B8962E] hover:bg-[#D4AF5A] text-white transition-all duration-300"
                                     >
                                         {t('register')}
                                     </Link>
@@ -166,8 +160,8 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                             )}
                         </div>
 
-                        {/* Mobile — Hamburger RIGHT (RTL: left) */}
-                        <div className={`flex md:hidden ${isRTL ? 'order-first' : 'ml-auto'}`}>
+                        {/* ── MOBILE: Hamburger — always at the end of flex ── */}
+                        <div className="flex md:hidden ms-auto">
                             <button
                                 onClick={() => setMobileOpen(true)}
                                 className="p-2 text-[#1B2D5B]/60 hover:text-[#1B2D5B] transition-colors"
@@ -204,19 +198,19 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                         />
 
                         <motion.div
+                            dir={isRTL ? 'rtl' : 'ltr'}
                             variants={drawerVariants}
                             initial="hidden"
                             animate="visible"
                             exit="exit"
                             transition={{ type: 'spring', stiffness: 300, damping: 35 }}
-                            className={`fixed top-0 bottom-0 z-50 w-80 bg-white flex flex-col overflow-y-auto ${
-                                isRTL
-                                    ? 'left-0 border-r border-[#1B2D5B]/10'
-                                    : 'right-0 border-l border-[#1B2D5B]/10'
-                            }`}
+                            className={`fixed top-0 bottom-0 z-50 w-80 bg-white flex flex-col overflow-y-auto ${isRTL
+                                    ? 'left-0 border-e border-[#1B2D5B]/10'
+                                    : 'right-0 border-s border-[#1B2D5B]/10'
+                                }`}
                         >
                             {/* Drawer header */}
-                            <div className={`flex items-center justify-between px-6 py-5 border-b border-[#1B2D5B]/10 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                            <div className="flex items-center justify-between px-6 py-5 border-b border-[#1B2D5B]/10">
                                 <Image
                                     src="/explorea_logo_dark.png"
                                     alt="Explorea"
@@ -232,7 +226,7 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                                 </button>
                             </div>
 
-                            {/* Nav links */}
+                            {/* Nav links — in RTL dir, text-start aligns to right automatically */}
                             <nav className="flex-1 px-4 py-6">
                                 <div className="space-y-1">
                                     {NAV_LINKS.map((link, i) => (
@@ -245,21 +239,24 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                                             <Link
                                                 href={link.href}
                                                 onClick={() => setMobileOpen(false)}
-                                                className={`flex items-center justify-between px-4 py-3.5 text-sm font-light tracking-[0.1em] uppercase text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/[0.04] transition-all duration-200 group rounded-sm ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                                                className="flex items-center justify-between px-4 py-3.5 text-sm font-light tracking-[0.1em] uppercase text-[#1B2D5B]/60 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/[0.04] transition-all duration-200 group rounded-sm"
                                             >
                                                 {link.label}
-                                                <NavChevron isRTL={isRTL} />
+                                                {isRTL
+                                                    ? <ChevronLeft className="h-3 w-3 text-[#1B2D5B]/20 group-hover:text-[#B8962E] group-hover:-translate-x-0.5 transition-all duration-200 flex-shrink-0" />
+                                                    : <ChevronRight className="h-3 w-3 text-[#1B2D5B]/20 group-hover:text-[#B8962E] group-hover:translate-x-0.5 transition-all duration-200 flex-shrink-0" />
+                                                }
                                             </Link>
                                         </motion.div>
                                     ))}
                                 </div>
 
-                                {/* Featured circuits from DB */}
+                                {/* Featured circuits */}
                                 {destinations.length > 0 && (
                                     <>
                                         <div className="my-5 h-px bg-[#1B2D5B]/08" />
                                         <div className="px-4">
-                                            <p className={`text-[9px] font-mono tracking-[0.4em] uppercase text-[#B8962E] mb-3 ${isRTL ? 'text-right' : ''}`}>
+                                            <p className="text-[9px] font-mono tracking-[0.4em] uppercase text-[#B8962E] mb-3">
                                                 {t('top_destinations')}
                                             </p>
                                             <div className="space-y-1">
@@ -273,29 +270,19 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                                                         <Link
                                                             href={`/circuits/${dest.id}`}
                                                             onClick={() => setMobileOpen(false)}
-                                                            className={`flex items-center gap-3 px-2 py-2.5 text-[#1B2D5B]/40 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/[0.03] transition-colors duration-150 group rounded-sm ${isRTL ? 'flex-row-reverse' : ''}`}
+                                                            className="flex items-center gap-3 px-2 py-2.5 text-[#1B2D5B]/40 hover:text-[#1B2D5B] hover:bg-[#1B2D5B]/[0.03] transition-colors duration-150 group rounded-sm"
                                                         >
                                                             <Compass className="h-3.5 w-3.5 text-[#B8962E]/50 group-hover:text-[#B8962E] flex-shrink-0" />
                                                             <div className="flex-1 min-w-0">
-                                                                <p className="text-xs font-light truncate">
-                                                                    {dest.nom}
-                                                                </p>
+                                                                <p className="text-xs font-light truncate">{dest.nom}</p>
                                                                 <p className="text-[9px] font-mono text-[#1B2D5B]/25 mt-0.5">
-                                                                    {dest.duree} jours
+                                                                    {dest.duree} {t('days_label')}
                                                                 </p>
                                                             </div>
                                                         </Link>
                                                     </motion.div>
                                                 ))}
                                             </div>
-                                            <Link
-                                                href="/circuits"
-                                                onClick={() => setMobileOpen(false)}
-                                                className={`flex items-center gap-1.5 mt-3 px-2 text-[10px] font-mono tracking-widest text-[#B8962E] uppercase ${isRTL ? 'flex-row-reverse' : ''}`}
-                                            >
-                                                <Compass className="h-3 w-3" />
-                                                {t('all_destinations')}
-                                            </Link>
                                         </div>
                                     </>
                                 )}
@@ -304,7 +291,7 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                             {/* Drawer footer */}
                             <div className="px-6 py-6 border-t border-[#1B2D5B]/10 space-y-3">
                                 {isSignedIn ? (
-                                    <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                    <div className="flex items-center gap-3">
                                         <UserButton />
                                         <span className="text-xs text-[#1B2D5B]/40 font-mono">{t('account')}</span>
                                     </div>
@@ -326,7 +313,8 @@ export default function Navbar({ destinations = [] }: { destinations?: Circuit[]
                                         </Link>
                                     </>
                                 )}
-                                <div className={`pt-2 flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+
+                                <div className="pt-2 flex items-center justify-between">
                                     <p className="text-[10px] font-mono text-[#1B2D5B]/30 tracking-widest">{t('phone')}</p>
                                     <LanguageSwitcher />
                                 </div>
