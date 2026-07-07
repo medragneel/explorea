@@ -86,7 +86,9 @@
         "sort_price_desc": "Prix décroissant",
         "sort_duration": "Durée",
         "no_results": "Aucun circuit trouvé",
-        "search_placeholder": "Rechercher..."
+        "search_placeholder": "Rechercher...",
+        "featured_line1": "Les trésors",
+        "featured_em": "du monde"
     },
     "reservation": {
         "title": "Réserver ce circuit",
@@ -134,6 +136,8 @@
         "privacy": "Confidentialité",
         "terms": "CGV",
         "tagline": "Explorez sans limites",
-        "copyright": "Explorea · Tous droits réservés "
+        "copyright": "Explorea · Tous droits réservés ",
+        "CGV": "CGV",
+        "Cookies": "Cookies"
     }
 }

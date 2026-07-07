@@ -86,7 +86,9 @@
         "sort_price_desc": "السعر من الأعلى إلى الأقل",
         "sort_duration": "المدة",
         "no_results": "لم يتم العثور على أي جولة",
-        "search_placeholder": "ابحث عن جولة..."
+        "search_placeholder": "ابحث عن جولة...",
+        "featured_line1": "كنوز",
+        "featured_em": "العالم"
     },
     "reservation": {
         "title": "احجز هذه الجولة",
@@ -134,6 +136,8 @@
         "privacy": "سياسة الخصوصية",
         "terms": "الشروط والأحكام",
         "tagline": "اكتشف بلا حدود",
-        "copyright": "إكسبلوريا · جميع الحقوق محفوظة"
+        "copyright": "إكسبلوريا · جميع الحقوق محفوظة",
+        "CGV": "الشروط العامة للبيع",
+        "Cookies": "الكوكيز"
     }
 }

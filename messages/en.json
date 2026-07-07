@@ -86,7 +86,9 @@
         "sort_price_desc": "Highest Price",
         "sort_duration": "Duration",
         "no_results": "No tours found",
-        "search_placeholder": "Search tours..."
+        "search_placeholder": "Search tours...",
+        "featured_line1": "The treasures ",
+        "featured_em": "of the world"
     },
     "reservation": {
         "title": "Book this tour",
@@ -134,6 +136,8 @@
         "privacy": "Privacy Policy",
         "terms": "Terms & Conditions",
         "tagline": "Explore Without Limits",
-        "copyright": "Explorea · All Rights Reserved"
+        "copyright": "Explorea · All Rights Reserved",
+        "CGV": "CGV",
+        "Cookies": "Cookies"
     }
 }

@@ -211,7 +211,7 @@ export default function ReservationForm({
                         </Label>
                         <Select
                             value={form.departId}
-                            onValueChange={v => setForm(f => ({ ...f, departId: v }))}
+                            onValueChange={v => setForm(f => ({ ...f, departId: v ?? "" }))}
                         >
                             <SelectTrigger className="h-10 rounded-none border-[#1B2D5B]/15 text-sm">
                                 <Calendar className="h-3.5 w-3.5 text-[#1B2D5B]/25 mr-2 flex-shrink-0" />
@@ -290,7 +290,7 @@ export default function ReservationForm({
                             <Label className="text-[10px] font-mono tracking-widest text-[#1B2D5B]/50 uppercase">
                                 Pays *
                             </Label>
-                            <Select required value={form.country} onValueChange={v => setForm(f => ({ ...f, country: v }))}>
+                            <Select required value={form.country} onValueChange={v => setForm(f => ({ ...f, country: v ?? '' }))}>
                                 <SelectTrigger className="h-10 rounded-none border-[#1B2D5B]/15 text-sm">
                                     <Globe className="h-3.5 w-3.5 text-[#1B2D5B]/25 mr-2 flex-shrink-0" />
                                     <SelectValue placeholder="Sélectionnez..." />

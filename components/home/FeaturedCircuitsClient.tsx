@@ -56,8 +56,8 @@ export default function FeaturedCircuitsClient({ circuits }: { circuits: Circuit
                             className="text-4xl md:text-5xl font-light leading-tight"
                             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                         >
-                            Les trésors<br />
-                            <em className="text-amber-300">du monde</em>
+                            {t("featured_line1")}<br />
+                            <em className="text-amber-300">{t("featured_em")}</em>
                         </motion.h2>
                     </div>
                     <motion.div variants={fadeUp} custom={2}>
