@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 export async function POST(request: Request) {
     try {
         const body = await request.json()
-        const { nom, email, telephone, sujet, message, wilaya } = body
+        const { nom, email, telephone, sujet, message, country } = body
 
         // Validate
         if (!nom || !message || !sujet) {
@@ -53,10 +53,10 @@ export async function POST(request: Request) {
                                     <a href="tel:${telephone}" style="color: #B8962E;">${telephone}</a>
                                 </td>
                             </tr>` : ''}
-                            ${wilaya ? `
+                            ${country ? `
                             <tr>
                                 <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #999; font-size: 12px;">WILAYA</td>
-                                <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #1B2D5B; font-size: 14px;">${wilaya}</td>
+                                <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #1B2D5B; font-size: 14px;">${country}</td>
                             </tr>` : ''}
                             <tr>
                                 <td style="padding: 10px 0; border-bottom: 1px solid #f0f0f0; color: #999; font-size: 12px;">SUJET</td>

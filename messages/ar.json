@@ -111,8 +111,55 @@
         "no_reservations": "ليس لديك أي حجز بعد."
     },
     "contact": {
-        "title": "اتصل بنا",
-        "subtitle": "فريقنا متاح للإجابة على جميع استفساراتكم حول جولاتنا ووجهاتنا السياحية."
+        "title": "تواصل معنا",
+        "subtitle": "فريقنا متاح للإجابة على جميع أسئلتك حول جولاتنا ووجهاتنا.",
+        "info": {
+            "phone_label": "الهاتف",
+            "phone_sub": "الإثنين–السبت · 8am–6pm",
+            "email_label": "البريد الإلكتروني",
+            "email_sub": "الرد خلال 24 ساعة",
+            "address_label": "العنوان",
+            "address_sub": "بموعد مسبق",
+            "hours_label": "ساعات العمل",
+            "hours_sub": "السبت 9am–1pm",
+            "address_value": "الجزائر العاصمة، الجزائر",
+            "hours_value": "الإثنين–الجمعة 8am–6pm",
+            "follow_us": "تابعنا"
+        },
+        "form": {
+            "title": "أرسل لنا رسالة",
+            "required_hint": "جميع الحقول المميزة بـ * إلزامية",
+            "name": "الاسم الكامل",
+            "name_placeholder": "اسمك",
+            "email": "البريد الإلكتروني",
+            "email_placeholder": "بريدك@example.com",
+            "phone": "الهاتف",
+            "phone_placeholder": "0661 234 567",
+            "country": "الدولة",
+            "country_placeholder": "دولتك",
+            "subject": "الموضوع",
+            "subject_placeholder": "اختر موضوعاً...",
+            "message": "الرسالة",
+            "message_placeholder": "اشرح طلبك بالتفصيل...",
+            "response_time": "رد مضمون خلال 24–48 ساعة",
+            "submit": "إرسال الرسالة",
+            "success_title": "تم إرسال الرسالة!",
+            "success_desc": "سنرد عليك خلال 24 ساعة.",
+            "success_desc_long": "شكراً {name}. سيتواصل معك فريقنا خلال 24 إلى 48 ساعة.",
+            "send_another": "إرسال رسالة أخرى",
+            "error_subject": "يرجى اختيار موضوع",
+            "error_title": "خطأ",
+            "error_retry": "يرجى المحاولة مرة أخرى.",
+            "subjects": {
+                "inquiry": "استفسار عام",
+                "booking": "حجز جولة",
+                "custom": "جولة مخصصة",
+                "group": "عرض سفر جماعي",
+                "partnership": "شراكة",
+                "complaint": "شكوى",
+                "other": "أخرى"
+            }
+        }
     },
     "footer": {
         "contact": "اتصل بنا",

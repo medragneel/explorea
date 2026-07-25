@@ -112,7 +112,54 @@
     },
     "contact": {
         "title": "Contact Us",
-        "subtitle": "Our team is available to answer all your questions about our tours and destinations."
+        "subtitle": "Our team is available to answer all your questions about our circuits and destinations.",
+        "info": {
+            "phone_label": "Phone",
+            "phone_sub": "Mon–Sat · 8am–6pm",
+            "email_label": "Email",
+            "email_sub": "Reply within 24h",
+            "address_label": "Address",
+            "address_sub": "By appointment",
+            "hours_label": "Hours",
+            "hours_sub": "Sat 9am–1pm",
+            "address_value": "Algiers, Algeria",
+            "hours_value": "Mon–Fri 8am–6pm",
+            "follow_us": "Follow us"
+        },
+        "form": {
+            "title": "Send us a message",
+            "required_hint": "All fields marked * are required",
+            "name": "Full name",
+            "name_placeholder": "Your name",
+            "email": "Email",
+            "email_placeholder": "your@email.com",
+            "phone": "Phone",
+            "phone_placeholder": "+1 234 567 890",
+            "country": "Country",
+            "country_placeholder": "Your country",
+            "subject": "Subject",
+            "subject_placeholder": "Choose a subject...",
+            "message": "Message",
+            "message_placeholder": "Describe your request in detail...",
+            "response_time": "Guaranteed reply within 24–48h",
+            "submit": "Send message",
+            "success_title": "Message sent!",
+            "success_desc": "We'll reply within 24h.",
+            "success_desc_long": "Thank you {name}. Our team will contact you within 24 to 48 hours.",
+            "send_another": "Send another message",
+            "error_subject": "Please select a subject",
+            "error_title": "Error",
+            "error_retry": "Please try again.",
+            "subjects": {
+                "inquiry": "General inquiry",
+                "booking": "Circuit booking",
+                "custom": "Custom circuit",
+                "group": "Group travel quote",
+                "partnership": "Partnership",
+                "complaint": "Complaint",
+                "other": "Other"
+            }
+        }
     },
     "footer": {
         "contact": "Contact",

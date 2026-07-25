@@ -1,10 +1,41 @@
 // app/[locale]/contact/page.tsx
-import ContactForm from '@/components/ContactForm'
 import { getTranslations } from 'next-intl/server'
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import ContactForm from '@/components/ContactForm'
+import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 
 export default async function ContactPage() {
     const t = await getTranslations('contact')
+
+    const INFO_ITEMS = [
+        {
+            icon: Phone,
+            label: t('info.phone_label'),
+            value: '+213 21 XX XX XX',
+            sub: t('info.phone_sub'),
+            href: 'tel:+21321XXXXXX',
+        },
+        {
+            icon: Mail,
+            label: t('info.email_label'),
+            value: 'contact@explorea.dz',
+            sub: t('info.email_sub'),
+            href: 'mailto:contact@explorea.dz',
+        },
+        {
+            icon: MapPin,
+            label: t('info.address_label'),
+            value: t('info.address_value'),
+            sub: t('info.address_sub'),
+            href: null,
+        },
+        {
+            icon: Clock,
+            label: t('info.hours_label'),
+            value: t('info.hours_value'),
+            sub: t('info.hours_sub'),
+            href: null,
+        },
+    ]
 
     return (
         <div className="min-h-screen bg-[#F9F7F4]">
@@ -37,36 +68,7 @@ export default async function ContactPage() {
 
                     {/* Left — Info cards */}
                     <div className="space-y-4">
-                        {[
-                            {
-                                icon: Phone,
-                                label: 'Téléphone',
-                                value: '+213 21 XX XX XX',
-                                sub: 'Lun–Sam · 8h–18h',
-                                href: 'tel:+21321XXXXXX',
-                            },
-                            {
-                                icon: Mail,
-                                label: 'Email',
-                                value: 'contact@explorea.dz',
-                                sub: 'Réponse sous 24h',
-                                href: 'mailto:contact@explorea.dz',
-                            },
-                            {
-                                icon: MapPin,
-                                label: 'Adresse',
-                                value: 'Alger, Algérie',
-                                sub: 'Sur rendez-vous',
-                                href: null,
-                            },
-                            {
-                                icon: Clock,
-                                label: 'Horaires',
-                                value: 'Lun–Ven 8h–18h',
-                                sub: 'Sam 9h–13h',
-                                href: null,
-                            },
-                        ].map((item) => (
+                        {INFO_ITEMS.map(item => (
                             <div
                                 key={item.label}
                                 className="bg-white border border-[#1B2D5B]/08 p-5 flex items-start gap-4 group hover:border-[#B8962E]/30 transition-colors"
@@ -79,10 +81,8 @@ export default async function ContactPage() {
                                         {item.label}
                                     </p>
                                     {item.href ? (
-                                        <a
-                                            href={item.href}
-                                            className="text-sm font-light text-[#1B2D5B] hover:text-[#B8962E] transition-colors block"
-                                        >
+                                        <a href={item.href}
+                                            className="text-sm font-light text-[#1B2D5B] hover:text-[#B8962E] transition-colors block">
                                             {item.value}
                                         </a>
                                     ) : (
@@ -93,23 +93,16 @@ export default async function ContactPage() {
                             </div>
                         ))}
 
-                        {/* Social links */}
+                        {/* Social */}
                         <div className="bg-[#1B2D5B] p-5">
                             <p className="text-[9px] font-mono tracking-[0.3em] text-[#B8962E]/60 uppercase mb-4">
-                                Suivez-nous
+                                {t('info.follow_us')}
                             </p>
                             <div className="flex flex-col gap-2">
-                                {[
-                                    { name: 'Facebook', url: '#' },
-                                    { name: 'Instagram', url: '#' },
-                                    { name: 'YouTube', url: '#' },
-                                ].map(s => (
-                                    <a
-                                        key={s.name}
-                                        href={s.url}
-                                        className="text-xs font-mono tracking-widest text-white/40 hover:text-[#B8962E] transition-colors uppercase"
-                                    >
-                                        {s.name}
+                                {['Facebook', 'Instagram', 'YouTube'].map(s => (
+                                    <a key={s} href="#"
+                                        className="text-xs font-mono tracking-widest text-white/40 hover:text-[#B8962E] transition-colors uppercase">
+                                        {s}
                                     </a>
                                 ))}
                             </div>

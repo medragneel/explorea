@@ -112,7 +112,54 @@
     },
     "contact": {
         "title": "Contactez-nous",
-        "subtitle": "Notre équipe est disponible pour répondre à toutes vos questions sur nos circuits et destinations."
+        "subtitle": "Notre équipe est disponible pour répondre à toutes vos questions sur nos circuits et destinations.",
+        "info": {
+            "phone_label": "Téléphone",
+            "phone_sub": "Lun–Sam · 8h–18h",
+            "email_label": "Email",
+            "email_sub": "Réponse sous 24h",
+            "address_label": "Adresse",
+            "address_sub": "Sur rendez-vous",
+            "hours_label": "Horaires",
+            "hours_sub": "Sam 9h–13h",
+            "address_value": "Alger, Algérie",
+            "hours_value": "Lun–Ven 8h–18h",
+            "follow_us": "Suivez-nous"
+        },
+        "form": {
+            "title": "Envoyez-nous un message",
+            "required_hint": "Tous les champs marqués * sont obligatoires",
+            "name": "Nom complet",
+            "name_placeholder": "Votre nom",
+            "email": "Email",
+            "email_placeholder": "votre@email.com",
+            "phone": "Téléphone",
+            "phone_placeholder": "0661 234 567",
+            "country": "Pays",
+            "country_placeholder": "Votre pays",
+            "subject": "Sujet",
+            "subject_placeholder": "Choisissez un sujet...",
+            "message": "Message",
+            "message_placeholder": "Décrivez votre demande en détail...",
+            "response_time": "Réponse garantie sous 24–48h",
+            "submit": "Envoyer le message",
+            "success_title": "Message envoyé !",
+            "success_desc": "Nous vous répondrons dans les 24h.",
+            "success_desc_long": "Merci {name}. Notre équipe vous contactera dans les 24 à 48 heures.",
+            "send_another": "Envoyer un autre message",
+            "error_subject": "Veuillez sélectionner un sujet",
+            "error_title": "Erreur",
+            "error_retry": "Veuillez réessayer.",
+            "subjects": {
+                "inquiry": "Demande de renseignements",
+                "booking": "Réservation de circuit",
+                "custom": "Circuit sur mesure",
+                "group": "Devis voyage de groupe",
+                "partnership": "Partenariat",
+                "complaint": "Réclamation",
+                "other": "Autre"
+            }
+        }
     },
     "footer": {
         "contact": "Contact",
