@@ -16,12 +16,24 @@ import {
     Mountain, ArrowRight,
 } from 'lucide-react'
 import { getField, formatPrice } from '@/lib/i18n-field'
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog'
 import type { Circuit } from '@/db/schema'
 import ReservationForm from './ReservationForm'
 
 const ItineraryMap = dynamic(() => import('./ItineraryMap'), { ssr: false })
 
 // ── Types ─────────────────────────────────────────────────────────────────
+
+type ItineraryStop = {
+    time?: string | null    // "09h00", "17h00", or null
+    text: string            // paragraph text
+    highlight?: string      // bold landmark name within the text
+}
 
 type ItineraryDay = {
     day: number
@@ -34,6 +46,7 @@ type ItineraryDay = {
     activities: string[]
     meals: string[]
     icon: string
+    stops?: ItineraryStop[] // ✅ optional detailed timestamped stops
 }
 
 type Highlight = {
@@ -317,43 +330,110 @@ export default function CircuitDetailClient({
                                                                 transition={{ duration: 0.3 }}
                                                             >
                                                                 <div className="px-5 pb-5 border-t border-[#1B2D5B]/06">
-                                                                    <p className="text-sm text-[#1B2D5B]/60 font-light leading-relaxed mt-4 mb-5">
-                                                                        {day.description}
-                                                                    </p>
-                                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                                                        <div>
-                                                                            <div className="flex items-center gap-1.5 text-[9px] font-mono tracking-widest text-[#1B2D5B]/30 uppercase mb-2">
-                                                                                <Camera className="h-3 w-3" /> Activités
+
+                                                                    {/* Description — only when no stops */}
+                                                                    {(!day.stops || day.stops.length === 0) && (
+                                                                        <p className="text-sm text-[#1B2D5B]/60 font-light leading-relaxed mt-4 mb-5">
+                                                                            {day.description}
+                                                                        </p>
+                                                                    )}
+
+                                                                    {/* ── STOPS TIMELINE ──────────────────── */}
+                                                                    {day.stops && day.stops.length > 0 && (
+                                                                        <div className="mt-5 mb-4">
+                                                                            <div className="flex items-center gap-1.5 text-[9px] font-mono tracking-widest text-[#1B2D5B]/30 uppercase mb-4">
+                                                                                <Clock className="h-3 w-3" /> Programme détaillé
                                                                             </div>
-                                                                            <ul className="space-y-1">
-                                                                                {day.activities.filter(Boolean).map(a => (
-                                                                                    <li key={a} className="flex items-center gap-1.5 text-xs text-[#1B2D5B]/60">
-                                                                                        <div className="w-1 h-1 rounded-full bg-[#B8962E] flex-shrink-0" />
-                                                                                        {a}
-                                                                                    </li>
-                                                                                ))}
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div>
-                                                                            <div className="flex items-center gap-1.5 text-[9px] font-mono tracking-widest text-[#1B2D5B]/30 uppercase mb-2">
-                                                                                <Utensils className="h-3 w-3" /> Repas
+                                                                            {/* ✅ Force LTR on the stops timeline regardless of page locale */}
+                                                                            <div className="space-y-0" dir="ltr">
+                                                                                {day.stops.map((stop: any, si: number) => {
+                                                                                    const isLast = si === day.stops!.length - 1
+                                                                                    const hasTime = !!stop.time
+                                                                                    return (
+                                                                                        <div key={si} className="flex gap-3 group">
+                                                                                            {/* Time — fixed width, always left */}
+                                                                                            <div className="w-10 flex-shrink-0 text-[9px] font-mono text-[#B8962E] pt-1.5 text-right">
+                                                                                                {stop.time ?? ''}
+                                                                                            </div>
+                                                                                            {/* Dot + connector */}
+                                                                                            <div className="flex flex-col items-center flex-shrink-0">
+                                                                                                <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 transition-colors ${hasTime
+                                                                                                    ? 'bg-[#B8962E]'
+                                                                                                    : 'bg-[#1B2D5B]/15 group-hover:bg-[#1B2D5B]/30'
+                                                                                                    }`} />
+                                                                                                {!isLast && (
+                                                                                                    <div className="w-px flex-1 min-h-[16px] bg-[#1B2D5B]/08 mt-1" />
+                                                                                                )}
+                                                                                            </div>
+                                                                                            {/* Stop text */}
+                                                                                            <p className="text-xs text-[#1B2D5B]/60 pb-3.5 leading-relaxed font-light flex-1 text-left">
+                                                                                                {stop.highlight
+                                                                                                    ? stop.text.split(stop.highlight).map((part: string, pi: number, arr: string[]) => (
+                                                                                                        <span key={pi}>
+                                                                                                            {part}
+                                                                                                            {pi < arr.length - 1 && (
+                                                                                                                // ✅ inline span instead of <strong> to avoid browser default bold sizing
+                                                                                                                <span className="font-semibold text-[#1B2D5B]">
+                                                                                                                    {stop.highlight}
+                                                                                                                </span>
+                                                                                                            )}
+                                                                                                        </span>
+                                                                                                    ))
+                                                                                                    : stop.text
+                                                                                                }
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    )
+                                                                                })}
                                                                             </div>
-                                                                            <ul className="space-y-1">
-                                                                                {day.meals.map(m => (
-                                                                                    <li key={m} className="flex items-center gap-1.5 text-xs text-[#1B2D5B]/60">
-                                                                                        <div className="w-1 h-1 rounded-full bg-emerald-400 flex-shrink-0" />
-                                                                                        {m}
-                                                                                    </li>
-                                                                                ))}
-                                                                            </ul>
                                                                         </div>
-                                                                        <div>
-                                                                            <div className="flex items-center gap-1.5 text-[9px] font-mono tracking-widest text-[#1B2D5B]/30 uppercase mb-2">
-                                                                                <Bed className="h-3 w-3" /> Nuit
+                                                                    )}
+
+                                                                    {/* ── SUMMARY: Activities / Meals / Night ─ */}
+                                                                    <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 ${day.stops?.length ? 'pt-3 border-t border-[#1B2D5B]/06' : ''}`}>
+                                                                        {/* Activities */}
+                                                                        {day.activities.filter(Boolean).length > 0 && (
+                                                                            <div>
+                                                                                <div className="flex items-center gap-1.5 text-[9px] font-mono tracking-widest text-[#1B2D5B]/30 uppercase mb-2">
+                                                                                    <Camera className="h-3 w-3" /> Activités
+                                                                                </div>
+                                                                                <ul className="space-y-1">
+                                                                                    {day.activities.filter(Boolean).map((a: string) => (
+                                                                                        <li key={a} className="flex items-center gap-1.5 text-xs text-[#1B2D5B]/60">
+                                                                                            <div className="w-1 h-1 rounded-full bg-[#B8962E] flex-shrink-0" />
+                                                                                            {a}
+                                                                                        </li>
+                                                                                    ))}
+                                                                                </ul>
                                                                             </div>
-                                                                            <p className="text-xs text-[#1B2D5B]/60">{day.overnight}</p>
-                                                                        </div>
+                                                                        )}
+                                                                        {/* Meals */}
+                                                                        {day.meals.length > 0 && (
+                                                                            <div>
+                                                                                <div className="flex items-center gap-1.5 text-[9px] font-mono tracking-widest text-[#1B2D5B]/30 uppercase mb-2">
+                                                                                    <Utensils className="h-3 w-3" /> Repas
+                                                                                </div>
+                                                                                <ul className="space-y-1">
+                                                                                    {day.meals.map((m: string) => (
+                                                                                        <li key={m} className="flex items-center gap-1.5 text-xs text-[#1B2D5B]/60">
+                                                                                            <div className="w-1 h-1 rounded-full bg-emerald-400 flex-shrink-0" />
+                                                                                            {m}
+                                                                                        </li>
+                                                                                    ))}
+                                                                                </ul>
+                                                                            </div>
+                                                                        )}
+                                                                        {/* Overnight */}
+                                                                        {day.overnight && (
+                                                                            <div>
+                                                                                <div className="flex items-center gap-1.5 text-[9px] font-mono tracking-widest text-[#1B2D5B]/30 uppercase mb-2">
+                                                                                    <Bed className="h-3 w-3" /> Nuit
+                                                                                </div>
+                                                                                <p className="text-xs text-[#1B2D5B]/60">{day.overnight}</p>
+                                                                            </div>
+                                                                        )}
                                                                     </div>
+
                                                                 </div>
                                                             </motion.div>
                                                         )}
@@ -540,23 +620,47 @@ export default function CircuitDetailClient({
                     </div>
                 </div>
 
-                {/* Reservation form */}
-                <AnimatePresence>
-                    {showReservation && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4 }}
-                            className="mt-10 max-w-2xl mx-auto"
-                        >
+                {/* ── RESERVATION DIALOG ────────────────────────────── */}
+                <Dialog open={showReservation} onOpenChange={setShowReservation}>
+                    <DialogContent style={{
+                        position: 'fixed',
+                        width: '90vw',
+                        height: '90vh',
+                        maxWidth: '100vw',
+                        maxHeight: '100vh',
+                        margin: 0,
+                        transform: 'none',
+                        borderRadius: 0,
+                    }}
+                        className="max-w-xl rounded-none p-0 overflow-hidden max-h-[95vh] flex flex-col">
+                        <DialogHeader className="px-6 pt-6 pb-0 flex-shrink-0">
+                            <DialogTitle
+                                className="text-xl font-light text-[#1B2D5B]"
+                                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                            >
+                                {name}
+                            </DialogTitle>
+                            <p className="text-[10px] font-mono text-[#B8962E]/70 mt-1 flex items-center gap-2">
+                                <Clock className="h-3 w-3" />
+                                {circuit.duree} jours
+                                {circuit.region && (
+                                    <>
+                                        <span className="text-[#1B2D5B]/20">·</span>
+                                        <MapPin className="h-3 w-3" />
+                                        {circuit.region}
+                                    </>
+                                )}
+                            </p>
+                        </DialogHeader>
+                        {/* Scrollable form content */}
+                        <div className="flex-1 overflow-y-auto">
                             <ReservationForm
                                 departs={departs}
                                 circuitNom={name}
                             />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        </div>
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     )
