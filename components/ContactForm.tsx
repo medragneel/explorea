@@ -208,7 +208,7 @@ export default function ContactForm() {
                     </Label>
                     <Select
                         value={form.sujet}
-                        onValueChange={v => setForm(f => ({ ...f, sujet: v }))}
+                        onValueChange={v => setForm(f => ({ ...f, sujet: v ?? "" }))}
                     >
                         <SelectTrigger className={`h-10 rounded-none border-[#1B2D5B]/15 text-sm ${isRTL ? 'text-right' : ''}`}>
                             <SelectValue placeholder={t('subject_placeholder')} />
