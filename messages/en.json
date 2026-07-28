@@ -105,10 +105,61 @@
         "cancelled": "Cancelled"
     },
     "account": {
-        "welcome": "Hello",
-        "my_reservations": "My Reservations",
-        "my_profile": "My Profile",
-        "no_reservations": "You have no reservations yet."
+        "member_badge": "Explorea Member",
+        "member_since": "Member since",
+        "tabs": {
+            "overview": "Overview",
+            "reservations": "My bookings",
+            "profile": "My profile"
+        },
+        "stats": {
+            "total": "Total trips",
+            "confirmed": "Confirmed",
+            "pending": "Pending",
+            "cancelled": "Cancelled"
+        },
+        "total_spent": "Total spent",
+        "on_trips": "On {count} confirmed trip(s)",
+        "next_trip": "Next trip",
+        "persons": "pax",
+        "days": "days",
+        "view": "View",
+        "no_reservations": "You have no bookings yet",
+        "discover_circuits": "Discover our circuits",
+        "recent_reservations": "Recent bookings",
+        "see_all": "See all",
+        "status": {
+            "en_attente": "Pending",
+            "confirme": "Confirmed",
+            "annule": "Cancelled",
+            "pending": "Pending",
+            "confirmed": "Confirmed",
+            "cancelled": "Cancelled",
+            "completed": "Completed"
+        },
+        "card": {
+            "departure": "Departure",
+            "return": "Return",
+            "persons": "Persons",
+            "duration": "Duration",
+            "estimated_total": "Estimated total",
+            "pending_confirmation": "Pending confirmation by our team",
+            "cash_payment": "Cash payment on confirmation"
+        },
+        "profile": {
+            "personal_info": "Personal information",
+            "read_only_hint": "Read-only — editing coming soon",
+            "coming_soon": "Editable soon",
+            "first_name": "First name",
+            "last_name": "Last name",
+            "email": "Email",
+            "member_since": "Member since",
+            "security": "Account security",
+            "managed_by_clerk": "Managed by Clerk",
+            "password_security": "Password & security",
+            "modify_via_menu": "Edit via the account menu",
+            "edit_coming_soon": "Profile editing (phone, preferences) will be available soon. Contact us if you need to update your information."
+        }
     },
     "contact": {
         "title": "Contact Us",

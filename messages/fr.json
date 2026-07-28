@@ -105,10 +105,61 @@
         "cancelled": "Annulé"
     },
     "account": {
-        "welcome": "Bonjour",
-        "my_reservations": "Mes Réservations",
-        "my_profile": "Mon Profil",
-        "no_reservations": "Vous n'avez pas encore de réservation."
+        "member_badge": "Membre Explorea",
+        "member_since": "Membre depuis",
+        "tabs": {
+            "overview": "Aperçu",
+            "reservations": "Mes réservations",
+            "profile": "Mon profil"
+        },
+        "stats": {
+            "total": "Total voyages",
+            "confirmed": "Confirmés",
+            "pending": "En attente",
+            "cancelled": "Annulés"
+        },
+        "total_spent": "Total dépensé",
+        "on_trips": "Sur {count} voyage(s) confirmé(s)",
+        "next_trip": "Prochain voyage",
+        "persons": "pers.",
+        "days": "jours",
+        "view": "Voir",
+        "no_reservations": "Vous n'avez pas encore de réservation",
+        "discover_circuits": "Découvrir nos circuits",
+        "recent_reservations": "Réservations récentes",
+        "see_all": "Voir tout",
+        "status": {
+            "en_attente": "En attente",
+            "confirme": "Confirmé",
+            "annule": "Annulé",
+            "pending": "En attente",
+            "confirmed": "Confirmé",
+            "cancelled": "Annulé",
+            "completed": "Terminé"
+        },
+        "card": {
+            "departure": "Départ",
+            "return": "Retour",
+            "persons": "Personnes",
+            "duration": "Durée",
+            "estimated_total": "Total estimé",
+            "pending_confirmation": "En attente de confirmation",
+            "cash_payment": "Paiement en espèces"
+        },
+        "profile": {
+            "personal_info": "Informations personnelles",
+            "read_only_hint": "Lecture seule — modification disponible prochainement",
+            "coming_soon": "Bientôt modifiable",
+            "first_name": "Prénom",
+            "last_name": "Nom",
+            "email": "Email",
+            "member_since": "Membre depuis",
+            "security": "Sécurité du compte",
+            "managed_by_clerk": "Géré par Clerk",
+            "password_security": "Mot de passe & sécurité",
+            "modify_via_menu": "Modifier via le menu compte",
+            "edit_coming_soon": "La modification du profil sera disponible prochainement. Contactez-nous si vous avez besoin de mettre à jour vos informations."
+        }
     },
     "contact": {
         "title": "Contactez-nous",

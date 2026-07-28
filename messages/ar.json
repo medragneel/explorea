@@ -104,12 +104,6 @@
         "confirmed": "مؤكد",
         "cancelled": "ملغى"
     },
-    "account": {
-        "welcome": "مرحباً",
-        "my_reservations": "حجوزاتي",
-        "my_profile": "ملفي الشخصي",
-        "no_reservations": "ليس لديك أي حجز بعد."
-    },
     "contact": {
         "title": "تواصل معنا",
         "subtitle": "فريقنا متاح للإجابة على جميع أسئلتك حول جولاتنا ووجهاتنا.",
@@ -186,5 +180,62 @@
         "copyright": "إكسبلوريا · جميع الحقوق محفوظة",
         "CGV": "الشروط العامة للبيع",
         "Cookies": "الكوكيز"
+    },
+    "account": {
+        "member_badge": "عضو إكسبلوريا",
+        "member_since": "عضو منذ",
+        "tabs": {
+            "overview": "نظرة عامة",
+            "reservations": "حجوزاتي",
+            "profile": "ملفي الشخصي"
+        },
+        "stats": {
+            "total": "إجمالي الرحلات",
+            "confirmed": "المؤكدة",
+            "pending": "قيد الانتظار",
+            "cancelled": "الملغاة"
+        },
+        "total_spent": "إجمالي الإنفاق",
+        "on_trips": "على {count} رحلة مؤكدة",
+        "next_trip": "الرحلة القادمة",
+        "persons": "أشخاص",
+        "days": "أيام",
+        "view": "عرض",
+        "no_reservations": "ليس لديك أي حجوزات حتى الآن",
+        "discover_circuits": "اكتشف جولاتنا",
+        "recent_reservations": "الحجوزات الأخيرة",
+        "see_all": "عرض الكل",
+        "status": {
+            "en_attente": "قيد الانتظار",
+            "confirme": "مؤكد",
+            "annule": "ملغى",
+            "pending": "قيد الانتظار",
+            "confirmed": "مؤكد",
+            "cancelled": "ملغى",
+            "completed": "مكتمل"
+        },
+        "card": {
+            "departure": "المغادرة",
+            "return": "العودة",
+            "persons": "أشخاص",
+            "duration": "المدة",
+            "estimated_total": "الإجمالي التقديري",
+            "pending_confirmation": "في انتظار التأكيد من فريقنا",
+            "cash_payment": "الدفع نقداً عند التأكيد"
+        },
+        "profile": {
+            "personal_info": "المعلومات الشخصية",
+            "read_only_hint": "للقراءة فقط — التعديل سيكون متاحاً قريباً",
+            "coming_soon": "قابل للتعديل قريباً",
+            "first_name": "الاسم الأول",
+            "last_name": "الاسم الأخير",
+            "email": "البريد الإلكتروني",
+            "member_since": "عضو منذ",
+            "security": "أمان الحساب",
+            "managed_by_clerk": "تُدار بواسطة Clerk",
+            "password_security": "كلمة المرور والأمان",
+            "modify_via_menu": "التعديل عبر قائمة الحساب",
+            "edit_coming_soon": "سيكون تعديل الملف الشخصي (الهاتف، التفضيلات) متاحاً قريباً. تواصل معنا إذا كنت بحاجة لتحديث معلوماتك."
+        }
     }
 }
