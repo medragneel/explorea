@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations, useLocale } from 'next-intl'
 import { UserButton } from '@clerk/nextjs'
 import { format } from 'date-fns'
-import { fr, ar, enUS } from 'date-fns/locale'
+import { fr, ar, enUS, type Locale } from 'date-fns/locale'
 import { Badge } from '@/components/ui/badge'
 import { Link } from '@/lib/navigation'
 import { getField, formatPrice } from '@/lib/i18n-field'
@@ -125,7 +125,7 @@ export default function MonCompteClient({
                                 </div>
                             )}
                             <div className="absolute -bottom-1 -end-1">
-                                <UserButton afterSignOutUrl="/" />
+                                <UserButton />
                             </div>
                         </div>
 
@@ -402,7 +402,7 @@ export default function MonCompteClient({
                                         <p className="text-sm font-light text-[#1B2D5B]">{t('profile.password_security')}</p>
                                         <p className="text-[10px] font-mono text-[#1B2D5B]/30 mt-0.5">{t('profile.modify_via_menu')}</p>
                                     </div>
-                                    <UserButton afterSignOutUrl="/" />
+                                    <UserButton />
                                 </div>
                             </div>
 
