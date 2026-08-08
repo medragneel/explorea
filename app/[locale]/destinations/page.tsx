@@ -3,6 +3,46 @@ import { db } from '@/db'
 import { countries, circuits } from '@/db/schema'
 import { eq, sql } from 'drizzle-orm'
 import DestinationsClient from '@/components/DestinationsClient'
+import type { Metadata } from 'next'
+
+const BASE = 'https://explorea-dz.vercel.app'
+
+
+export async function generateMetadata_DestinationsPage({
+    params,
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params
+
+    const titles: Record<string, string> = {
+        fr: 'Destinations — Explorez le Monde avec Explorea',
+        en: 'Destinations — Explore the World with Explorea',
+        ar: 'الوجهات — اكتشف العالم مع إكسبلوريا',
+    }
+    const descs: Record<string, string> = {
+        fr: 'Voyagez en Algérie, au Maroc, en Tunisie et dans le monde entier avec Explorea. Des circuits authentiques guidés par des experts locaux.',
+        en: 'Travel to Algeria, Morocco, Tunisia and worldwide with Explorea. Authentic circuits guided by local experts.',
+        ar: 'سافر إلى الجزائر والمغرب وتونس وحول العالم مع إكسبلوريا. جولات أصيلة بإرشاد خبراء محليين.',
+    }
+
+    return {
+        title: titles[locale] ?? titles.fr,
+        description: descs[locale] ?? descs.fr,
+        alternates: {
+            canonical: `${BASE}/${locale}/destinations`,
+            languages: { fr: `${BASE}/fr/destinations`, ar: `${BASE}/ar/destinations`, en: `${BASE}/en/destinations` },
+        },
+        openGraph: {
+            title: titles[locale] ?? titles.fr,
+            description: descs[locale] ?? descs.fr,
+            url: `${BASE}/${locale}/destinations`,
+            images: [{ url: `${BASE}/og-destinations.jpg`, width: 1200, height: 630 }],
+        },
+    }
+}
+
+
 
 export default async function DestinationsPage() {
     // Fetch countries with circuit count

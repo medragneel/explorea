@@ -5,6 +5,7 @@ import { circuits, departs } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import CircuitDetailClient from '@/components/CircuitDetailClient'
 import { getField } from '@/lib/i18n-field'
+import type { Metadata } from 'next'
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -27,12 +28,88 @@ type Highlight = {
     desc: string
 }
 
-// ── Fallback itinerary if DB has none ────────────────────────────────────
-// This is used for old circuits that don't have itinerary data yet
+const BASE = 'https://explorea-dz.vercel.app'
+
+// ── JSON-LD ───────────────────────────────────────────────────────────────
+
+function buildJsonLd(circuit: any, circuitName: string, circuitDesc: string) {
+    return {
+        '@context': 'https://schema.org',
+        '@type':    'TouristTrip',
+        name:        circuitName,
+        description: circuitDesc,
+        image:       circuit.image ?? undefined,
+        provider: {
+            '@type': 'TravelAgency',
+            name:    'Explorea',
+            url:      BASE,
+            email:   'contact@explorea.dz',
+        },
+        touristType: circuit.category ?? 'adventure',
+        offers: {
+            '@type':        'Offer',
+            price:           circuit.prix,
+            priceCurrency:   circuit.currency ?? 'DZD',
+            availability:   'https://schema.org/InStock',
+            url:            `${BASE}/circuits/${circuit.id}`,
+        },
+    }
+}
+
+// ── Metadata ──────────────────────────────────────────────────────────────
+// ✅ Must be named exactly `generateMetadata` for Next.js to pick it up
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string; locale: string }>
+}): Promise<Metadata> {
+    const { id, locale } = await params
+
+    const circuit = await db.query.circuits.findFirst({
+        where: eq(circuits.id, id),
+    })
+    if (!circuit) return { title: 'Circuit introuvable · Explorea' }
+
+    // ✅ Use circuitName/circuitDesc — avoids conflict with built-in `name`
+    const circuitName = getField((circuit as any).nomI18n ?? circuit.nom, locale)
+    const circuitDesc = getField((circuit as any).descriptionI18n ?? circuit.description, locale)
+    const shortDesc   = circuitDesc.slice(0, 155) + (circuitDesc.length > 155 ? '…' : '')
+
+    return {
+        title:       circuitName,
+        description: shortDesc,
+        alternates: {
+            canonical: `${BASE}/${locale}/circuits/${id}`,
+            languages: {
+                fr: `${BASE}/fr/circuits/${id}`,
+                ar: `${BASE}/ar/circuits/${id}`,
+                en: `${BASE}/en/circuits/${id}`,
+            },
+        },
+        openGraph: {
+            title:       `${circuitName} · Explorea`,
+            description: shortDesc,
+            url:         `${BASE}/${locale}/circuits/${id}`,
+            type:        'article',
+            images: circuit.image
+                ? [{ url: circuit.image, width: 1200, height: 630, alt: circuitName }]
+                : [{ url: `${BASE}/og-image.jpg`, width: 1200, height: 630 }],
+        },
+        twitter: {
+            card:        'summary_large_image',
+            title:       `${circuitName} · Explorea`,
+            description: shortDesc,
+            images:       circuit.image ? [circuit.image] : [`${BASE}/og-image.jpg`],
+        },
+    }
+}
+
+// ── Fallback itinerary ────────────────────────────────────────────────────
 
 function generateFallbackItinerary(circuit: any): ItineraryDay[] {
     const region = (circuit.region ?? '').toLowerCase()
-    const duree = circuit.duree ?? 7
+    const duree  = circuit.duree ?? 7
 
     const sahara: ItineraryDay[] = [
         { day: 1, title: 'Arrivée & Accueil', location: 'Ouargla', lat: 31.9539, lng: 5.3329, overnight: 'Hôtel Transatlantique', description: "Accueil à l'aéroport par votre guide. Visite du vieux ksar, dîner traditionnel.", activities: ['Visite ksar', 'Marché local', 'Dîner'], meals: ['Dîner'], icon: '✈️' },
@@ -78,7 +155,7 @@ function generateFallbackHighlights(circuit: any): Highlight[] {
     ]
 }
 
-// ─────────────────────────────────────────────────────────────────────────
+// ── Page ──────────────────────────────────────────────────────────────────
 
 export default async function CircuitDetailPage({
     params,
@@ -98,23 +175,32 @@ export default async function CircuitDetailPage({
         .from(departs)
         .where(eq(departs.circuitId, id))
 
-    // ✅ Use itinerary from DB if it exists and has days, otherwise fallback
     const dbItinerary = (circuit as any).itinerary
     const itinerary: ItineraryDay[] =
         dbItinerary && Array.isArray(dbItinerary) && dbItinerary.length > 0
             ? dbItinerary as ItineraryDay[]
             : generateFallbackItinerary(circuit)
 
-    // ✅ Use highlights from DB if they exist, otherwise fallback
     const highlights: Highlight[] = generateFallbackHighlights(circuit)
 
+    // ✅ Compute name and desc here in page scope — not from `name` (DOM builtin)
+    const circuitName = getField((circuit as any).nomI18n ?? circuit.nom, locale)
+    const circuitDesc = getField((circuit as any).descriptionI18n ?? circuit.description, locale)
+    const jsonLd      = buildJsonLd(circuit, circuitName, circuitDesc)
+
     return (
-        <CircuitDetailClient
-            circuit={circuit}
-            departs={deps}
-            itinerary={itinerary}
-            highlights={highlights}
-            locale={locale}
-        />
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <CircuitDetailClient
+                circuit={circuit}
+                departs={deps}
+                itinerary={itinerary}
+                highlights={highlights}
+                locale={locale}
+            />
+        </>
     )
 }

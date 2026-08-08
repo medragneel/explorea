@@ -9,6 +9,8 @@ import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { Toaster } from '@/components/ui/sonner'
 
+import { getTranslations } from 'next-intl/server'
+
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
@@ -19,10 +21,78 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 })
 
-export const metadata: Metadata = {
-    title: "Explorea DZ",
-    description: "Agence de voyage en Algérie",
+
+const BASE = 'https://explorea-dz.vercel.app'
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params
+    const t = await getTranslations({ locale, namespace: 'meta' })
+
+    return {
+        metadataBase: new URL(BASE),
+        title: {
+            default: t('site_title'),
+            template: `%s · Explorea`,
+        },
+        description: t('site_description'),
+        keywords: ['voyage Algérie', 'circuit désert', 'Sahara', 'Tassili', 'tourisme Algérie', 'Algeria tours'],
+        authors: [{ name: 'Explorea', url: BASE }],
+        creator: 'Explorea',
+
+        // ── Multilingual alternates ──────────────────────────────────────
+        alternates: {
+            canonical: `${BASE}/${locale}`,
+            languages: {
+                'fr': `${BASE}/fr`,
+                'ar': `${BASE}/ar`,
+                'en': `${BASE}/en`,
+                'x-default': `${BASE}/fr`,
+            },
+        },
+
+        // ── Open Graph ──────────────────────────────────────────────────
+        openGraph: {
+            type: 'website',
+            siteName: 'Explorea',
+            locale: locale === 'ar' ? 'ar_DZ' : locale === 'en' ? 'en_US' : 'fr_FR',
+            title: t('site_title'),
+            description: t('site_description'),
+            images: [
+                {
+                    url: `${BASE}/og-image.jpg`,
+                    width: 1200,
+                    height: 630,
+                    alt: 'Explorea — Voyages d\'Exception',
+                },
+            ],
+        },
+
+        // ── Twitter / X card ────────────────────────────────────────────
+        twitter: {
+            card: 'summary_large_image',
+            title: t('site_title'),
+            description: t('site_description'),
+            images: [`${BASE}/og-image.jpg`],
+        },
+
+        // ── Robots ──────────────────────────────────────────────────────
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+            },
+        },
+    }
 }
+
 
 export function generateStaticParams() {
     return locales.map((locale) => ({ locale }))  // ✅ fixed markdown corruption
@@ -52,10 +122,10 @@ export default async function LocaleLayout({
                             {children}
                             <Toaster />
                         </main>
-                    <Footer />
-                </NextIntlClientProvider>
-            </body>
-        </html>
+                        <Footer />
+                    </NextIntlClientProvider>
+                </body>
+            </html>
         </ClerkProvider >
     )
 }

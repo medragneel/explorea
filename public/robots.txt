@@ -1,0 +1,7 @@
+// public/robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://explorea-dz.vercel.app/sitemap.xml

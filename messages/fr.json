@@ -237,5 +237,9 @@
         "copyright": "Explorea · Tous droits réservés ",
         "CGV": "CGV",
         "Cookies": "Cookies"
+    },
+    "meta": {
+        "site_title": "Explorea — Voyages d'Exception en Algérie et dans le Monde",
+        "site_description": "Des circuits authentiques en Algérie : Sahara, Tassili, sites romains, côte méditerranéenne. Expériences uniques guidées par des experts locaux."
     }
 }

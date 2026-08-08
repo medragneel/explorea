@@ -2,6 +2,44 @@
 import { getTranslations } from 'next-intl/server'
 import ContactForm from '@/components/ContactForm'
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
+import type { Metadata } from 'next'
+
+const BASE = 'https://explorea-dz.vercel.app'
+
+export async function generateMetadata_ContactPage({
+    params,
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params
+
+    const titles: Record<string, string> = {
+        fr: 'Contact — Planifiez votre voyage avec Explorea',
+        en: 'Contact — Plan your trip with Explorea',
+        ar: 'تواصل معنا — خطط لرحلتك مع إكسبلوريا',
+    }
+    const descs: Record<string, string> = {
+        fr: 'Contactez notre équipe pour planifier votre circuit sur mesure. Réponse garantie sous 24–48h.',
+        en: 'Contact our team to plan your tailor-made circuit. Reply guaranteed within 24–48h.',
+        ar: 'تواصل مع فريقنا لتخطيط جولتك المخصصة. رد مضمون خلال 24–48 ساعة.',
+    }
+
+    return {
+        title: titles[locale] ?? titles.fr,
+        description: descs[locale] ?? descs.fr,
+        alternates: {
+            canonical: `${BASE}/${locale}/contact`,
+            languages: { fr: `${BASE}/fr/contact`, ar: `${BASE}/ar/contact`, en: `${BASE}/en/contact` },
+        },
+        openGraph: {
+            title: titles[locale] ?? titles.fr,
+            description: descs[locale] ?? descs.fr,
+            url: `${BASE}/${locale}/contact`,
+        },
+    }
+}
+
+
 
 export default async function ContactPage() {
     const t = await getTranslations('contact')
