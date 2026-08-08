@@ -5,7 +5,7 @@ import { eq, sql } from 'drizzle-orm'
 import DestinationsClient from '@/components/DestinationsClient'
 import type { Metadata } from 'next'
 
-const BASE = 'https://explorea-dz.vercel.app'
+const BASE =  process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
 
 export async function generateMetadata_DestinationsPage({

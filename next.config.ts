@@ -61,18 +61,6 @@ const nextConfig: NextConfig = {
         ]
     },
 
-    // ── Redirects ────────────────────────────────────────────────────────
-    async redirects() {
-        return [
-            // Redirect bare domain to /fr (default locale)
-            {
-                source: '/',
-                destination: '/fr',
-                permanent: false,
-                locale: false,
-            },
-        ]
-    },
 }
 
 export default withNextIntl(nextConfig)

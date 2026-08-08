@@ -4,7 +4,7 @@ import { db } from '@/db'
 import { circuits, countries } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
-const BASE    = 'https://explorea-dz.vercel.app'
+const BASE    = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 const LOCALES = ['fr', 'ar', 'en'] as const
 
 // Helper — generate one URL entry per locale

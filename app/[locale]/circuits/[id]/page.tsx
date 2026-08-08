@@ -28,7 +28,8 @@ type Highlight = {
     desc: string
 }
 
-const BASE = 'https://explorea-dz.vercel.app'
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+
 
 // ── JSON-LD ───────────────────────────────────────────────────────────────
 
@@ -94,13 +95,13 @@ export async function generateMetadata({
             type:        'article',
             images: circuit.image
                 ? [{ url: circuit.image, width: 1200, height: 630, alt: circuitName }]
-                : [{ url: `${BASE}/og-image.jpg`, width: 1200, height: 630 }],
+                : [{ url: `${BASE}/og-image.png`, width: 1200, height: 630 }],
         },
         twitter: {
             card:        'summary_large_image',
             title:       `${circuitName} · Explorea`,
             description: shortDesc,
-            images:       circuit.image ? [circuit.image] : [`${BASE}/og-image.jpg`],
+            images:       circuit.image ? [circuit.image] : [`${BASE}/og-image.png`],
         },
     }
 }

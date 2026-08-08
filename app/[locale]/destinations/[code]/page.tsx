@@ -8,7 +8,7 @@ import CountryClient from '@/components/CountryClient'
 
 import type { Metadata } from 'next'
 
-const BASE = 'https://explorea-dz.vercel.app'
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
 export async function generateMetadata_CountryPage({
     params,
@@ -49,7 +49,7 @@ export async function generateMetadata_CountryPage({
             url: `${BASE}/${locale}/destinations/${code.toLowerCase()}`,
             images: country.image
                 ? [{ url: country.image as string, width: 1200, height: 630, alt: name }]
-                : [{ url: `${BASE}/og-image.jpg`, width: 1200, height: 630 }],
+                : [{ url: `${BASE}/og-image.png`, width: 1200, height: 630 }],
         },
     }
 }

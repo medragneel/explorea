@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 })
 
 
-const BASE = 'https://explorea-dz.vercel.app'
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
 export async function generateMetadata({
     params,
@@ -63,7 +63,7 @@ export async function generateMetadata({
             description: t('site_description'),
             images: [
                 {
-                    url: `${BASE}/og-image.jpg`,
+                    url: `${BASE}/og-image.png`,
                     width: 1200,
                     height: 630,
                     alt: 'Explorea — Voyages d\'Exception',
@@ -76,7 +76,7 @@ export async function generateMetadata({
             card: 'summary_large_image',
             title: t('site_title'),
             description: t('site_description'),
-            images: [`${BASE}/og-image.jpg`],
+            images: [`${BASE}/og-image.png`],
         },
 
         // ── Robots ──────────────────────────────────────────────────────

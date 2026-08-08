@@ -4,7 +4,7 @@ import ContactForm from '@/components/ContactForm'
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 import type { Metadata } from 'next'
 
-const BASE = 'https://explorea-dz.vercel.app'
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
 export async function generateMetadata_ContactPage({
     params,

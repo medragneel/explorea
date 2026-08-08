@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm'
 import CircuitsClient from '@/components/CircuitsClient'
 import type { Metadata } from 'next'
 
-const BASE = 'https://explorea-dz.vercel.app'
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
 // ── Circuits list ─────────────────────────────────────────────────────────
 export async function generateMetadata_CircuitsPage({
@@ -29,17 +29,17 @@ export async function generateMetadata_CircuitsPage({
     }
 
     return {
-        title:       titles[locale] ?? titles.fr,
-        description: descs[locale]  ?? descs.fr,
+        title: titles[locale] ?? titles.fr,
+        description: descs[locale] ?? descs.fr,
         alternates: {
             canonical: `${BASE}/${locale}/circuits`,
             languages: { fr: `${BASE}/fr/circuits`, ar: `${BASE}/ar/circuits`, en: `${BASE}/en/circuits` },
         },
         openGraph: {
-            title:       titles[locale] ?? titles.fr,
-            description: descs[locale]  ?? descs.fr,
-            url:         `${BASE}/${locale}/circuits`,
-            images:      [{ url: `${BASE}/og-circuits.jpg`, width: 1200, height: 630 }],
+            title: titles[locale] ?? titles.fr,
+            description: descs[locale] ?? descs.fr,
+            url: `${BASE}/${locale}/circuits`,
+            images: [{ url: `${BASE}/og-circuits.jpg`, width: 1200, height: 630 }],
         },
     }
 }
@@ -59,17 +59,17 @@ export default async function CircuitsPage() {
             circuits={allCircuits}
             countries={allCountries}
             translations={{
-                title:              t('title'),
-                subtitle:           t('subtitle'),
-                days:               t('days'),
-                from:               t('from'),
-                book:               t('book'),
-                no_results:         t('no_results'),
+                title: t('title'),
+                subtitle: t('subtitle'),
+                days: t('days'),
+                from: t('from'),
+                book: t('book'),
+                no_results: t('no_results'),
                 search_placeholder: t('search_placeholder'),
-                sort_price_asc:     t('sort_price_asc'),
-                sort_price_desc:    t('sort_price_desc'),
-                sort_duration:      t('sort_duration'),
-                filter_all:         t('filter_all'),
+                sort_price_asc: t('sort_price_asc'),
+                sort_price_desc: t('sort_price_desc'),
+                sort_duration: t('sort_duration'),
+                filter_all: t('filter_all'),
             }}
         />
     )
