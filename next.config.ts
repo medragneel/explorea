@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
         // Preload hero images faster
         deviceSizes: [640, 750, 828, 1080, 1200, 1920],
         imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-        minimumCacheTTL: 3600, // cache optimized images for 1 hour
+        minimumCacheTTL: 86400, // cache optimized images for 24 hours
     },
 
     // ── Bundle optimization ──────────────────────────────────────────────

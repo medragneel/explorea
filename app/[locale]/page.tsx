@@ -1,15 +1,18 @@
 // app/[locale]/page.tsx
-import HeroSection from '@/components/home/HeroSection'
-import StatsBar from '@/components/home/StatsBar'
-import FeaturedCircuits from '@/components/home/FeaturedCircuits'
-import ParallaxQuote from '@/components/home/ParallaxQuote'
-import ExperiencesSection from '@/components/home/ExperiencesSection'
-import TestimonialsSection from '@/components/home/TestimonialsSection'
-import CTABanner from '@/components/home/CTABanner'
+import dynamic from 'next/dynamic'
+import HeroSection from '@/components/home/HeroSection'       // ← keep static (above fold)
+import StatsBar from '@/components/home/StatsBar'           // ← keep static (above fold)
+import FeaturedCircuits from '@/components/home/FeaturedCircuits'   // ← keep static (above fold)
 
-export default function HomePage() {
+// Everything below the fold → lazy load
+const ParallaxQuote = dynamic(() => import('@/components/home/ParallaxQuote'))
+const ExperiencesSection = dynamic(() => import('@/components/home/ExperiencesSection'))
+const TestimonialsSection = dynamic(() => import('@/components/home/TestimonialsSection'))
+const CTABanner = dynamic(() => import('@/components/home/CTABanner'))
+
+export default async function HomePage() {
     return (
-        <div className="bg-[#080604] text-[#EDE8DF] overflow-x-hidden">
+        <main>
             <HeroSection />
             <StatsBar />
             <FeaturedCircuits />
@@ -17,6 +20,6 @@ export default function HomePage() {
             <ExperiencesSection />
             <TestimonialsSection />
             <CTABanner />
-        </div>
+        </main>
     )
 }

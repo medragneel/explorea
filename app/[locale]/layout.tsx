@@ -115,6 +115,14 @@ export default async function LocaleLayout({
                 dir={locale === "ar" ? "rtl" : "ltr"}
                 className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
             >
+                <head>
+                    <link
+                        rel="preload"
+                        as="image"
+                        href="/hero-poster.jpg"
+                        fetchPriority="high"   // ← tells browser this is LCP
+                    />
+                </head>
                 <body className="min-h-full flex flex-col">
                     <NextIntlClientProvider locale={locale} messages={messages}>
                         <Navbar />

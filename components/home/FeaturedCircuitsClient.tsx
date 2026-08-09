@@ -53,7 +53,7 @@ export default function FeaturedCircuitsClient({ circuits }: { circuits: Circuit
                         <motion.h2
                             variants={fadeUp}
                             custom={1}
-                            className="text-4xl md:text-5xl font-light leading-tight"
+                            className="text-4xl md:text-5xl font-light leading-tight text-white"
                             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                         >
                             {t("featured_line1")}<br />

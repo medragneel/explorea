@@ -4,6 +4,7 @@ import { getField, formatPrice } from '@/lib/i18n-field'
 import { Clock, MapPin, ArrowRight } from 'lucide-react'
 import { Link } from '@/lib/navigation'
 import type { Circuit } from '@/db/schema'
+import Image from 'next/image'
 
 // ── Region color mapping ──────────────────────────────────────────────────
 function getRegionStyle(region: string) {
@@ -53,10 +54,13 @@ export default function CircuitCard({ circuit }: { circuit: Circuit }) {
             {/* Image */}
             <div className="relative h-52 overflow-hidden bg-[#1B2D5B]/5">
                 {circuit.image ? (
-                    <img
+                    <Image
                         src={circuit.image}
                         alt={name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        loading="lazy"   // ← below fold, don't preload
                     />
                 ) : (
                     <div className="w-full h-full bg-gradient-to-br from-[#1B2D5B]/10 to-[#B8962E]/10 flex items-center justify-center">

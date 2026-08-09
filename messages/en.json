@@ -15,8 +15,17 @@
         "book_now": "Book Now"
     },
     "home": {
-        "hero_title": "Timeless Algeria",
-        "hero_sub": "Exceptional journeys crafted for adventurous souls",
+        "hero": {
+            "eyebrow": "Premium Travel Agency · International",
+            "title_line1": "Explore the",
+            "title_line2": "Entire World",
+            "subtitle": "From the mystical Sahara to Mediterranean coastlines — exceptional journeys crafted for adventurous souls.",
+            "cta_primary": "Discover our circuits",
+            "cta_secondary": "Tailor-made",
+            "play": "PLAY",
+            "pause": "PAUSE",
+            "scroll": "Scroll"
+        },
         "cta": "Explore our tours",
         "adventureStartsHere": "YOUR ADVENTURE STARTS HERE",
         "readyFor": "Ready for your ",
@@ -26,9 +35,6 @@
         "planTrip": "Plan My Trip",
         "viewTours": "View Tours",
         "premiumTravelAgency": "PREMIUM TRAVEL AGENCY · ALGERIA",
-        "heroTitle": "Timeless ",
-        "heroSubtitle": "Algeria",
-        "heroDescription": "From the mystical Sahara to the Mediterranean coast—exceptional journeys crafted for adventurous souls.",
         "tailorMade": "Tailor-Made",
         "discoverTours": "Discover Our Tours",
         "scroll": "SCROLL",

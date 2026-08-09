@@ -15,8 +15,17 @@
         "book_now": "Réserver maintenant"
     },
     "home": {
-        "hero_title": "L'Algérie Intemporelle",
-        "hero_sub": "Des voyages d'exception façonnés pour les âmes aventurières",
+        "hero": {
+            "eyebrow": "Agence de Voyage Premium · International",
+            "title_line1": "Explorez le",
+            "title_line2": "Monde Entier",
+            "subtitle": "Du Sahara mystique aux côtes méditerranéennes — des voyages d'exception façonnés pour les âmes aventurières.",
+            "cta_primary": "Découvrir nos circuits",
+            "cta_secondary": "Sur mesure",
+            "play": "LECTURE",
+            "pause": "PAUSE",
+            "scroll": "Défiler"
+        },
         "cta": "Découvrir nos circuits",
         "adventureStartsHere": "VOTRE AVENTURE COMMENCE ICI",
         "readyFor": "Prêt pour votre ",
@@ -26,9 +35,6 @@
         "planTrip": "Planifier mon voyage",
         "viewTours": "Voir les circuits",
         "premiumTravelAgency": "AGENCE DE VOYAGE PREMIUM · ALGÉRIE",
-        "heroTitle": "L'Algérie",
-        "heroSubtitle": "Intemporelle",
-        "heroDescription": "Du Sahara mystique aux côtes méditerranéennes — des voyages d'exception façonnés pour les âmes aventurières.",
         "tailorMade": "Sur mesure",
         "discoverTours": "Découvrir nos circuits",
         "scroll": "SCROLL",
