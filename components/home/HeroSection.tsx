@@ -93,7 +93,7 @@ export default function HeroSection() {
                         className={`w-full h-full object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-100' : 'opacity-0'
                             }`}
                         // ✅ Original Pexels URL restored
-                        src="https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4"
+                        src="https://muijcxlwqfvwvunzspzz.supabase.co/storage/v1/object/sign/explorea-files/hero-video-compressed.mp4?token=eyJraWQiOiJkNDZlYWJmYS1hNTRiLTQzMjItOGIyNC02MjNhODhhNjdkY2UiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJleHBsb3JlYS1maWxlcy9oZXJvLXZpZGVvLWNvbXByZXNzZWQubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4Nzk5NTM4OCwiZXhwIjozMzMyMzk5NTM4OH0.LnYaViPcOwUg8pI4_WtJOYOmjuSgURaSYrbvkC6fzTY"
                         autoPlay
                         muted
                         loop

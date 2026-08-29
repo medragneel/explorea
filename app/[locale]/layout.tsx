@@ -50,6 +50,8 @@ export async function generateMetadata({
                 'fr': `${BASE}/fr`,
                 'ar': `${BASE}/ar`,
                 'en': `${BASE}/en`,
+                'es': `${BASE}/es`,
+                'it': `${BASE}/it`,
                 'x-default': `${BASE}/fr`,
             },
         },

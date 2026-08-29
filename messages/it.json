@@ -1,0 +1,251 @@
+{
+  "nav": {
+    "home": "Home",
+    "circuits": "Tour",
+    "destinations": "Destinazioni",
+    "contact": "Contatti",
+    "login": "Accedi",
+    "register": "Registrati",
+    "account": "Il mio account",
+    "tagline": "Esplora senza limiti",
+    "phone": "+213 21 XX XX XX",
+    "email": "info@explorea.dz",
+    "all_destinations": "Vedi tutte le destinazioni",
+    "top_destinations": "Destinazioni in evidenza",
+    "book_now": "Prenota ora"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Agenzia di Viaggi Premium · Internazionale",
+      "title_line1": "Esplora il",
+      "title_line2": "Mondo Intero",
+      "subtitle": "Dal mistico Sahara alle coste mediterranee — viaggi eccezionali pensati per anime avventurose.",
+      "cta_primary": "Scopri i nostri tour",
+      "cta_secondary": "Su misura",
+      "play": "RIPRODUCI",
+      "pause": "PAUSA",
+      "scroll": "SCORRI"
+    },
+    "cta": "Esplora i nostri tour",
+    "adventureStartsHere": "LA TUA AVVENTURA INIZIA QUI",
+    "readyFor": "Pronto per la tua ",
+    "adventure": "avventura sahariana?",
+    "tailorMadeJourney": "I nostri esperti creano un viaggio su misura pensato proprio per te.",
+    "contactDepart": "Contattaci e parti entro 48 ore.",
+    "planTrip": "Pianifica il mio viaggio",
+    "viewTours": "Vedi i tour",
+    "premiumTravelAgency": "AGENZIA DI VIAGGI PREMIUM · ALGERIA",
+    "tailorMade": "Su misura",
+    "discoverTours": "Scopri i nostri tour",
+    "scroll": "SCORRI",
+    "quote": "Il deserto non si visita semplicemente — si vive, si respira e ti trasforma per sempre.",
+    "quoteAuthor": "IBN BATTUTA",
+    "quotePeriod": "XIV SECOLO",
+    "experiences": {
+      "eyebrow": "Le nostre Esperienze",
+      "title_line1": "Viaggia diversamente,",
+      "title_em": "vivi pienamente",
+      "items": {
+        "trekking": {
+          "title": "Trekking in cammello",
+          "desc": "Traversate in cammello lungo antiche rotte carovaniere."
+        },
+        "camping": {
+          "title": "Bivacchi",
+          "desc": "Notti sotto le stelle in campi tendati di lusso nel deserto."
+        },
+        "photography": {
+          "title": "Fotografia",
+          "desc": "Tour fotografici dedicati nei paesaggi più spettacolari."
+        },
+        "custom": {
+          "title": "Su misura",
+          "desc": "Ogni viaggio progettato e personalizzato secondo i tuoi desideri."
+        }
+      }
+    },
+    "stats": {
+      "destinations": "Destinazioni",
+      "travelers": "Viaggiatori",
+      "years": "Anni",
+      "rating": "Valutazione media"
+    },
+    "testimonials": {
+      "eyebrow": "Testimonianze",
+      "title_line1": "Cosa dicono",
+      "title_em": "dei loro viaggi"
+    }
+  },
+  "circuits": {
+    "title": "I nostri Tour",
+    "subtitle": "Scopri l'autentica Algeria attraverso le nostre esperienze di viaggio accuratamente selezionate.",
+    "days": "giorni",
+    "price": "Prezzo",
+    "from": "A partire da",
+    "book": "Prenota ora",
+    "available_seats": "Posti disponibili",
+    "filter_all": "Tutti",
+    "filter_sahara": "Sahara",
+    "filter_nord": "Nord",
+    "filter_culturel": "Culturale",
+    "sort_price_asc": "Prezzo più basso",
+    "sort_price_desc": "Prezzo più alto",
+    "sort_duration": "Durata",
+    "no_results": "Nessun tour trovato",
+    "search_placeholder": "Cerca tour...",
+    "featured_line1": "I tesori ",
+    "featured_em": "del mondo"
+  },
+  "reservation": {
+    "title": "Prenota questo tour",
+    "name": "Nome completo",
+    "phone": "Telefono",
+    "email": "Email",
+    "wilaya": "Wilaya",
+    "people": "Numero di persone",
+    "notes": "Note",
+    "submit": "Invia richiesta",
+    "success": "La tua richiesta è stata inviata! Ti contatteremo entro 24 ore.",
+    "pending": "In attesa",
+    "confirmed": "Confermata",
+    "cancelled": "Annullata"
+  },
+  "account": {
+    "member_badge": "Membro Explorea",
+    "member_since": "Membro dal",
+    "tabs": {
+      "overview": "Panoramica",
+      "reservations": "Le mie prenotazioni",
+      "profile": "Il mio profilo"
+    },
+    "stats": {
+      "total": "Viaggi totali",
+      "confirmed": "Confermati",
+      "pending": "In attesa",
+      "cancelled": "Annullati"
+    },
+    "total_spent": "Totale speso",
+    "on_trips": "In {count} viaggio/i confermato/i",
+    "next_trip": "Prossimo viaggio",
+    "persons": "pers.",
+    "days": "giorni",
+    "view": "Visualizza",
+    "no_reservations": "Non hai ancora effettuato alcuna prenotazione",
+    "discover_circuits": "Scopri i nostri tour",
+    "recent_reservations": "Prenotazioni recenti",
+    "see_all": "Vedi tutto",
+    "status": {
+      "en_attente": "In attesa",
+      "confirme": "Confermato",
+      "annule": "Annullato",
+      "pending": "In attesa",
+      "confirmed": "Confermato",
+      "cancelled": "Annullato",
+      "completed": "Completato"
+    },
+    "card": {
+      "departure": "Partenza",
+      "return": "Ritorno",
+      "persons": "Persone",
+      "duration": "Durata",
+      "estimated_total": "Totale stimato",
+      "pending_confirmation": "In attesa di conferma da parte del nostro team",
+      "cash_payment": "Pagamento in contanti alla conferma"
+    },
+    "profile": {
+      "personal_info": "Informazioni personali",
+      "read_only_hint": "Sola lettura — la modifica sarà disponibile prossimamente",
+      "coming_soon": "Modificabile prossimamente",
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "email": "Email",
+      "member_since": "Membro dal",
+      "security": "Sicurezza dell'account",
+      "managed_by_clerk": "Gestito da Clerk",
+      "password_security": "Password e sicurezza",
+      "modify_via_menu": "Modifica dal menu dell'account",
+      "edit_coming_soon": "La modifica del profilo (telefono, preferenze) sarà disponibile prossimamente. Contattaci se hai bisogno di aggiornare le tue informazioni."
+    }
+  },
+  "contact": {
+    "title": "Contattaci",
+    "subtitle": "Il nostro team è a tua disposizione per rispondere a tutte le tue domande sui nostri tour e sulle destinazioni.",
+    "info": {
+      "phone_label": "Telefono",
+      "phone_sub": "Lun–Sab · 8:00–18:00",
+      "email_label": "Email",
+      "email_sub": "Risposta entro 24 ore",
+      "address_label": "Indirizzo",
+      "address_sub": "Su appuntamento",
+      "hours_label": "Orari",
+      "hours_sub": "Sab 9:00–13:00",
+      "address_value": "Algeri, Algeria",
+      "hours_value": "Lun–Ven 8:00–18:00",
+      "follow_us": "Seguici"
+    },
+    "form": {
+      "title": "Inviaci un messaggio",
+      "required_hint": "Tutti i campi contrassegnati con * sono obbligatori",
+      "name": "Nome completo",
+      "name_placeholder": "Il tuo nome",
+      "email": "Email",
+      "email_placeholder": "tua@email.com",
+      "phone": "Telefono",
+      "phone_placeholder": "+39 333 000 0000",
+      "country": "Paese",
+      "country_placeholder": "Il tuo paese",
+      "subject": "Oggetto",
+      "subject_placeholder": "Scegli un oggetto...",
+      "message": "Messaggio",
+      "message_placeholder": "Descrivi la tua richiesta in dettaglio...",
+      "response_time": "Risposta garantita entro 24–48 ore",
+      "submit": "Invia messaggio",
+      "success_title": "Messaggio inviato!",
+      "success_desc": "Ti risponderemo entro 24 ore.",
+      "success_desc_long": "Grazie, {name}. Il nostro team ti contatterà entro 24–48 ore.",
+      "send_another": "Invia un altro messaggio",
+      "error_subject": "Seleziona un oggetto",
+      "error_title": "Errore",
+      "error_retry": "Riprova.",
+      "subjects": {
+        "inquiry": "Richiesta generale",
+        "booking": "Prenotazione di un tour",
+        "custom": "Tour su misura",
+        "group": "Preventivo per viaggio di gruppo",
+        "partnership": "Collaborazione",
+        "complaint": "Reclamo",
+        "other": "Altro"
+      }
+    }
+  },
+  "footer": {
+    "contact": "Contatti",
+    "phone": "+213 21 XX XX XX",
+    "email": "contact@explorea.dz",
+    "location": "Algeri, Algeria",
+    "approved": "Approvato da",
+    "agency": "Agenzia",
+    "about": "Chi siamo",
+    "tours": "I nostri tour",
+    "destinations": "Destinazioni",
+    "contactLink": "Contatti",
+    "legal": "Note legali",
+    "destinationsTitle": "Destinazioni",
+    "sahara": "Sahara e Grand Erg",
+    "tassili": "Tassili n'Ajjer",
+    "ksour": "Itinerario degli Ksour",
+    "casbah": "Casbah e Costa",
+    "hoggar": "Hoggar e Assekrem",
+    "companyDescription": "Un'agenzia di viaggi premium specializzata nelle destinazioni algerine dal 2006.",
+    "privacy": "Informativa sulla privacy",
+    "terms": "Termini e condizioni",
+    "tagline": "Esplora senza limiti",
+    "copyright": "Explorea · Tutti i diritti riservati",
+    "CGV": "Condizioni generali di vendita",
+    "Cookies": "Cookie"
+  },
+  "meta": {
+    "site_title": "Explorea — Viaggi eccezionali in Algeria e nel mondo",
+    "site_description": "Tour autentici in Algeria: Sahara, Tassili, siti romani e costa mediterranea. Esperienze uniche guidate da esperti locali."
+  }
+}

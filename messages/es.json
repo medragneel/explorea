@@ -1,0 +1,251 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "circuits": "Circuitos",
+    "destinations": "Destinos",
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "account": "Mi cuenta",
+    "tagline": "Explora sin límites",
+    "phone": "+213 21 XX XX XX",
+    "email": "info@explorea.dz",
+    "all_destinations": "Ver todos los destinos",
+    "top_destinations": "Destinos destacados",
+    "book_now": "Reservar ahora"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Agencia de Viajes Premium · Internacional",
+      "title_line1": "Explora el",
+      "title_line2": "Mundo Entero",
+      "subtitle": "Del místico Sahara a las costas mediterráneas — viajes excepcionales diseñados para almas aventureras.",
+      "cta_primary": "Descubrir nuestros circuitos",
+      "cta_secondary": "A medida",
+      "play": "REPRODUCIR",
+      "pause": "PAUSAR",
+      "scroll": "DESPLAZAR"
+    },
+    "cta": "Explora nuestros circuitos",
+    "adventureStartsHere": "TU AVENTURA EMPIEZA AQUÍ",
+    "readyFor": "¿Listo para tu ",
+    "adventure": "aventura sahariana?",
+    "tailorMadeJourney": "Nuestros expertos crean un viaje a medida especialmente para ti.",
+    "contactDepart": "Contáctanos y parte en 48 horas.",
+    "planTrip": "Planificar mi viaje",
+    "viewTours": "Ver circuitos",
+    "premiumTravelAgency": "AGENCIA DE VIAJES PREMIUM · ARGELIA",
+    "tailorMade": "A medida",
+    "discoverTours": "Descubre nuestros circuitos",
+    "scroll": "DESPLAZAR",
+    "quote": "El desierto no se visita simplemente — se vive, se respira y te transforma para siempre.",
+    "quoteAuthor": "IBN BATTUTA",
+    "quotePeriod": "SIGLO XIV",
+    "experiences": {
+      "eyebrow": "Nuestras Experiencias",
+      "title_line1": "Viaja diferente,",
+      "title_em": "vive plenamente",
+      "items": {
+        "trekking": {
+          "title": "Travesías en camello",
+          "desc": "Travesías en camello por antiguas rutas caravaneras."
+        },
+        "camping": {
+          "title": "Bivouacs",
+          "desc": "Noches bajo las estrellas en campamentos de lujo en el desierto."
+        },
+        "photography": {
+          "title": "Fotografía",
+          "desc": "Circuitos dedicados a la fotografía en los paisajes más impresionantes."
+        },
+        "custom": {
+          "title": "A medida",
+          "desc": "Cada viaje diseñado y adaptado a tus deseos."
+        }
+      }
+    },
+    "stats": {
+      "destinations": "Destinos",
+      "travelers": "Viajeros",
+      "years": "Años",
+      "rating": "Valoración media"
+    },
+    "testimonials": {
+      "eyebrow": "Testimonios",
+      "title_line1": "Lo que dicen",
+      "title_em": "sobre sus viajes"
+    }
+  },
+  "circuits": {
+    "title": "Nuestros Circuitos",
+    "subtitle": "Descubre la auténtica Argelia a través de nuestras experiencias de viaje cuidadosamente seleccionadas.",
+    "days": "días",
+    "price": "Precio",
+    "from": "Desde",
+    "book": "Reservar ahora",
+    "available_seats": "Plazas disponibles",
+    "filter_all": "Todos",
+    "filter_sahara": "Sahara",
+    "filter_nord": "Norte",
+    "filter_culturel": "Cultural",
+    "sort_price_asc": "Precio más bajo",
+    "sort_price_desc": "Precio más alto",
+    "sort_duration": "Duración",
+    "no_results": "No se encontraron circuitos",
+    "search_placeholder": "Buscar circuitos...",
+    "featured_line1": "Los tesoros ",
+    "featured_em": "del mundo"
+  },
+  "reservation": {
+    "title": "Reservar este circuito",
+    "name": "Nombre completo",
+    "phone": "Teléfono",
+    "email": "Email",
+    "wilaya": "Wilaya",
+    "people": "Número de personas",
+    "notes": "Notas",
+    "submit": "Enviar solicitud",
+    "success": "¡Tu solicitud ha sido enviada! Nos pondremos en contacto contigo en un plazo de 24 horas.",
+    "pending": "Pendiente",
+    "confirmed": "Confirmada",
+    "cancelled": "Cancelada"
+  },
+  "account": {
+    "member_badge": "Miembro de Explorea",
+    "member_since": "Miembro desde",
+    "tabs": {
+      "overview": "Resumen",
+      "reservations": "Mis reservas",
+      "profile": "Mi perfil"
+    },
+    "stats": {
+      "total": "Viajes totales",
+      "confirmed": "Confirmados",
+      "pending": "Pendientes",
+      "cancelled": "Cancelados"
+    },
+    "total_spent": "Total gastado",
+    "on_trips": "En {count} viaje(s) confirmado(s)",
+    "next_trip": "Próximo viaje",
+    "persons": "pers.",
+    "days": "días",
+    "view": "Ver",
+    "no_reservations": "Aún no tienes reservas",
+    "discover_circuits": "Descubre nuestros circuitos",
+    "recent_reservations": "Reservas recientes",
+    "see_all": "Ver todo",
+    "status": {
+      "en_attente": "Pendiente",
+      "confirme": "Confirmado",
+      "annule": "Cancelado",
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "cancelled": "Cancelado",
+      "completed": "Completado"
+    },
+    "card": {
+      "departure": "Salida",
+      "return": "Regreso",
+      "persons": "Personas",
+      "duration": "Duración",
+      "estimated_total": "Total estimado",
+      "pending_confirmation": "Pendiente de confirmación por nuestro equipo",
+      "cash_payment": "Pago en efectivo al confirmar la reserva"
+    },
+    "profile": {
+      "personal_info": "Información personal",
+      "read_only_hint": "Solo lectura — la edición estará disponible próximamente",
+      "coming_soon": "Editable próximamente",
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "email": "Email",
+      "member_since": "Miembro desde",
+      "security": "Seguridad de la cuenta",
+      "managed_by_clerk": "Gestionado por Clerk",
+      "password_security": "Contraseña y seguridad",
+      "modify_via_menu": "Editar desde el menú de cuenta",
+      "edit_coming_soon": "La edición del perfil (teléfono, preferencias) estará disponible próximamente. Contáctanos si necesitas actualizar tu información."
+    }
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "subtitle": "Nuestro equipo está disponible para responder a todas tus preguntas sobre nuestros circuitos y destinos.",
+    "info": {
+      "phone_label": "Teléfono",
+      "phone_sub": "Lun–Sáb · 8:00–18:00",
+      "email_label": "Email",
+      "email_sub": "Respuesta en 24 h",
+      "address_label": "Dirección",
+      "address_sub": "Con cita previa",
+      "hours_label": "Horario",
+      "hours_sub": "Sáb 9:00–13:00",
+      "address_value": "Argel, Argelia",
+      "hours_value": "Lun–Vie 8:00–18:00",
+      "follow_us": "Síguenos"
+    },
+    "form": {
+      "title": "Envíanos un mensaje",
+      "required_hint": "Todos los campos marcados con * son obligatorios",
+      "name": "Nombre completo",
+      "name_placeholder": "Tu nombre",
+      "email": "Email",
+      "email_placeholder": "tu@email.com",
+      "phone": "Teléfono",
+      "phone_placeholder": "+34 600 000 000",
+      "country": "País",
+      "country_placeholder": "Tu país",
+      "subject": "Asunto",
+      "subject_placeholder": "Elige un asunto...",
+      "message": "Mensaje",
+      "message_placeholder": "Describe tu solicitud en detalle...",
+      "response_time": "Respuesta garantizada en 24–48 h",
+      "submit": "Enviar mensaje",
+      "success_title": "¡Mensaje enviado!",
+      "success_desc": "Te responderemos en 24 h.",
+      "success_desc_long": "Gracias, {name}. Nuestro equipo se pondrá en contacto contigo en un plazo de 24 a 48 horas.",
+      "send_another": "Enviar otro mensaje",
+      "error_subject": "Por favor, selecciona un asunto",
+      "error_title": "Error",
+      "error_retry": "Por favor, inténtalo de nuevo.",
+      "subjects": {
+        "inquiry": "Consulta general",
+        "booking": "Reserva de circuito",
+        "custom": "Circuito a medida",
+        "group": "Presupuesto para viaje de grupo",
+        "partnership": "Colaboración",
+        "complaint": "Reclamación",
+        "other": "Otro"
+      }
+    }
+  },
+  "footer": {
+    "contact": "Contacto",
+    "phone": "+213 21 XX XX XX",
+    "email": "contact@explorea.dz",
+    "location": "Argel, Argelia",
+    "approved": "Aprobado por",
+    "agency": "Agencia",
+    "about": "Sobre nosotros",
+    "tours": "Nuestros circuitos",
+    "destinations": "Destinos",
+    "contactLink": "Contacto",
+    "legal": "Aviso legal",
+    "destinationsTitle": "Destinos",
+    "sahara": "Sahara y Gran Erg",
+    "tassili": "Tassili n'Ajjer",
+    "ksour": "Ruta de los Ksour",
+    "casbah": "Casbah y Costa",
+    "hoggar": "Hoggar y Assekrem",
+    "companyDescription": "Agencia de viajes premium especializada en destinos argelinos desde 2006.",
+    "privacy": "Política de privacidad",
+    "terms": "Términos y condiciones",
+    "tagline": "Explora sin límites",
+    "copyright": "Explorea · Todos los derechos reservados",
+    "CGV": "Condiciones de venta",
+    "Cookies": "Cookies"
+  },
+  "meta": {
+    "site_title": "Explorea — Viajes excepcionales en Argelia y el mundo",
+    "site_description": "Circuitos auténticos en Argelia: Sahara, Tassili, sitios romanos y costa mediterránea. Experiencias únicas guiadas por expertos locales."
+  }
+}

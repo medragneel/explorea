@@ -4,8 +4,8 @@ import { db } from '@/db'
 import { circuits, countries } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
-const BASE    = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
-const LOCALES = ['fr', 'ar', 'en'] as const
+const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+const LOCALES = ['fr', 'ar', 'en', 'es', 'it'] as const
 
 // Helper — generate one URL entry per locale
 function localizedUrls(
@@ -15,7 +15,7 @@ function localizedUrls(
     lastModified = new Date()
 ): MetadataRoute.Sitemap {
     return LOCALES.map(locale => ({
-        url:             `${BASE}/${locale}${path}`,
+        url: `${BASE}/${locale}${path}`,
         lastModified,
         changeFrequency,
         priority,
@@ -38,19 +38,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // ── Static pages ────────────────────────────────────────────────────
     const staticPages: MetadataRoute.Sitemap = [
         // Homepage — highest priority
-        ...localizedUrls('',             'weekly',  1.0),
+        ...localizedUrls('', 'weekly', 1.0),
         // Main section pages
-        ...localizedUrls('/circuits',    'daily',   0.9),
+        ...localizedUrls('/circuits', 'daily', 0.9),
         ...localizedUrls('/destinations', 'weekly', 0.9),
-        ...localizedUrls('/contact',     'monthly', 0.6),
+        ...localizedUrls('/contact', 'monthly', 0.6),
     ]
 
     // Also include the root (no locale prefix) pointing to default (fr)
     staticPages.push({
-        url:             BASE,
-        lastModified:    new Date(),
+        url: BASE,
+        lastModified: new Date(),
         changeFrequency: 'weekly',
-        priority:        1.0,
+        priority: 1.0,
     })
 
     // ── Circuit detail pages ────────────────────────────────────────────

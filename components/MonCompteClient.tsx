@@ -62,6 +62,8 @@ function getStatusStyle(statut: string | null) {
 function getDateLocale(locale: string) {
     if (locale === 'ar') return ar
     if (locale === 'en') return enUS
+    if (locale === 'es') return es
+    if (locale === 'it') return it
     return fr
 }
 
@@ -162,8 +164,8 @@ export default function MonCompteClient({
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`px-5 py-3 text-xs font-mono tracking-widests uppercase transition-all duration-200 border-b-2 -mb-px ${activeTab === tab.id
-                                        ? 'text-[#B8962E] border-[#B8962E]'
-                                        : 'text-white/30 border-transparent hover:text-white/60'
+                                    ? 'text-[#B8962E] border-[#B8962E]'
+                                    : 'text-white/30 border-transparent hover:text-white/60'
                                     }`}
                             >
                                 {tab.label}
